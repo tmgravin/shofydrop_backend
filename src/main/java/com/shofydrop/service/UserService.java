@@ -1,4 +1,4 @@
 package com.shofydrop.service;
 
-public class User {
+public interface UserService {
 }
