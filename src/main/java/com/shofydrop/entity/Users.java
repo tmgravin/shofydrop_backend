@@ -59,6 +59,11 @@ public class Users {
     @Column(name = "sign_up_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
     private LoginType loginType;
 
+<<<<<<< HEAD
 
+=======
+    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
+    private Stores stores;
+>>>>>>> 6c10720 (all changes from start)
 }
 

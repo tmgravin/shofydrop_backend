@@ -23,11 +23,14 @@ public class UserController {
         responseDto.setMessage("successfully users details fetched");
         responseDto.setData(userService.findAll());
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+<<<<<<< HEAD
     }
 
     @GetMapping("/find-user-{id}")
     public ResponseEntity<?> findUserById(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findById(id));
+=======
+>>>>>>> 6c10720 (all changes from start)
     }
 
 }
