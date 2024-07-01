@@ -14,16 +14,33 @@ public class ContactServiceImpl implements ContactService {
     @Autowired
     private ContactRepository contactRepository;
 
+    /**
+     *
+     * @return
+     */
+
     @Override
     public List<Contact> findAll() {
         return contactRepository.findAll();
     }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
 
     @Override
     public Contact findById(Long id) {
         return contactRepository.findById(id).orElseThrow(() -> new
                 RuntimeException("Contact does not exist with id" + id));
     }
+
+    /**
+     *
+     * @param contact
+     * @return
+     */
 
     @Override
     public Contact save(Contact contact) {
@@ -48,6 +65,11 @@ public class ContactServiceImpl implements ContactService {
         }
         return null;
     }
+
+    /**
+     *
+     * @param id
+     */
 
     @Override
     public void delete(Long id) {
