@@ -1,19 +1,20 @@
 package com.shofydrop.service;
 
 import com.shofydrop.dto.UsersDto;
+import com.shofydrop.entity.Users;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface UserService {
-    List<UsersDto> findAll();
+    List<Users> findAll();
 
-    UsersDto findById(Long id);
+    Users findById(Long id);
 
-    UsersDto update(UsersDto usersDto, Long id);
+    Users update(Users users, Long id);
 
-    UsersDto save(UsersDto usersDto);
+    Users save(Users users);
 
     void delete(Long id);
 }

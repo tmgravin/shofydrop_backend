@@ -23,11 +23,17 @@ public class UserController {
         Users user= UserMapper.maptoUsers(usersDto);
         ResponseDto responseDto = new ResponseDto();
         responseDto.setStatus(HttpStatus.OK);
+<<<<<<< HEAD
         responseDto.setMessage("User saved successfully");
         responseDto.setData(usersDto);
         userService.save(usersDto);
         System.out.println(responseDto);
         return ResponseEntity.status(200).body(usersDto);
+=======
+        responseDto.setMessage("successfully users details fetched");
+        responseDto.setData(userService.findAll());
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+>>>>>>> main
     }
 
     @PutMapping("/update/:id")

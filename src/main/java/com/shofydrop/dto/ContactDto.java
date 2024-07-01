@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @ToString
 public class ContactDto {
-    private  Long id;
     private String phoneNumber;
     private String email;
     private String address1;
