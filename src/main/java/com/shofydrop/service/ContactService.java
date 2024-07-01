@@ -1,6 +1,5 @@
 package com.shofydrop.service;
 
-<<<<<<< HEAD
 import com.shofydrop.entity.Contact;
 import org.springframework.stereotype.Service;
 
@@ -14,20 +13,4 @@ public interface ContactService {
     public Contact update(Contact contact, Long id);
     public void delete(Long id);
 
-=======
-import com.shofydrop.dto.ContactDto;
-
-import java.util.List;
-
-public interface ContactService {
-    List<ContactDto> findAllContact();
-
-    ContactDto findContactById(Long id);
-
-    ContactDto updateContact(ContactDto contactDto, Long id);
-
-    ContactDto saveContact(ContactDto contactDto);
-
-    void deleteContact(Long id);
->>>>>>> kshitiz
 }

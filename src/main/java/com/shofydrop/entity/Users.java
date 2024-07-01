@@ -54,8 +54,5 @@ public class Users {
     @Enumerated(EnumType.STRING)
     @Column(name = "login_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
     private LoginType loginType;
-
-    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
-    private Stores stores;
 }
 

@@ -1,6 +1,6 @@
 package com.shofydrop.service.impl;
 
-<<<<<<< HEAD
+import com.shofydrop.dto.ContactDto;
 import com.shofydrop.entity.Contact;
 import com.shofydrop.repository.ContactRepository;
 import com.shofydrop.service.ContactService;
@@ -46,42 +46,12 @@ public class ContactServiceImpl implements ContactService {
             isExistingContact.setUpdatedAt(contact.getUpdatedAt());
             return contactRepository.save(isExistingContact);
         }
-=======
-import com.shofydrop.dto.ContactDto;
-import com.shofydrop.service.ContactService;
-
-import java.util.List;
-
-public class ContactServiceImpl implements ContactService {
-
-    @Override
-    public List<ContactDto> findAllContact() {
-        return List.of();
-    }
-
-    @Override
-    public ContactDto findContactById(Long id) {
->>>>>>> kshitiz
         return null;
     }
 
     @Override
-<<<<<<< HEAD
     public void delete(Long id) {
         contactRepository.deleteById(id);
-=======
-    public ContactDto updateContact(ContactDto contactDto, Long id) {
-        return null;
-    }
 
-    @Override
-    public ContactDto saveContact(ContactDto contactDto) {
-        return null;
-    }
-
-    @Override
-    public void deleteContact(Long id) {
-
->>>>>>> kshitiz
     }
 }
