@@ -34,9 +34,15 @@ public class Contact {
     private String postalCode;
     @Column(name="country", nullable = false)
     private String country;
+<<<<<<< HEAD
+    @Column(name="created_at", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp createdAt;
+    @Column(name="updated_at", columnDefinition=" TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+=======
     @Column(name="created_at", columnDefinition=" TIMESTAMP Default Current_Timestamp", insertable = false)
     private Timestamp createdAt;
     @Column(name="updated_at", columnDefinition=" TIMESTAMP Default Current_Timestamp ON UPDATE Current_Timestamp", insertable = false)
+>>>>>>> suraj
     private Timestamp updatedAt;
 
 }
