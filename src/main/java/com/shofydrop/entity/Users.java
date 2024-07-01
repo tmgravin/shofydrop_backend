@@ -52,6 +52,6 @@ public class Users {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "login_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
-    private LoginType loginType;g
+    private LoginType loginType;
 }
 

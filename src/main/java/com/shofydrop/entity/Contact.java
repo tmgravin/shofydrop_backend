@@ -33,9 +33,9 @@ public class Contact {
     private String postalCode;
     @Column(name="country", columnDefinition="VARCHAR(255) NOT NULL")
     private String country;
-    @Column(name="created_at", columnDefinition=" TIMESTAMP Default timestamp")
+    @Column(name="created_at", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
-    @Column(name="updated_at", columnDefinition=" TIMESTAMP Default timestamp ON UPDATE timestamp")
+    @Column(name="updated_at", columnDefinition=" TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
 
     private Long userId;
