@@ -23,9 +23,8 @@ public class UserController {
         ResponseDto responseDto = new ResponseDto();
         responseDto.setStatus(HttpStatus.OK);
         responseDto.setMessage("successfully users details fetched");
-        List<UsersDto> usersDto = userService.findAll();
-        responseDto.setData(usersDto);
-        return ResponseEntity.ok(responseDto);
+        responseDto.setData(userService.findAll());
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 
 }
