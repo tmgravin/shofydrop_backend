@@ -29,8 +29,7 @@ public class UserMapper {
                 usersDto.getEmail(),
                 usersDto.getPassword(),
                 usersDto.getPhone(),
-                usersDto.getAddress(),
-                usersDto.getIsVerified(),
+                usersDto.getAddress(),zz
                 usersDto.getRole(),
                 usersDto.getKycCompleted(),
                 usersDto.getCreatedAt(),
