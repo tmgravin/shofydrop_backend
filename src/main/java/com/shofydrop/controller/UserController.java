@@ -1,9 +1,10 @@
 package com.shofydrop.controller;
 
+import com.shofydrop.dto.ResponseDto;
 import com.shofydrop.dto.UsersDto;
-import com.shofydrop.entity.Users;
 import com.shofydrop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,12 @@ public class UserController {
 
     @GetMapping("/find-all")
     public ResponseEntity<?> findAllUsers() {
-        return null;
+        ResponseDto responseDto = new ResponseDto();
+        responseDto.setStatus(HttpStatus.OK);
+        responseDto.setMessage("successfully users details fetched");
+        List<UsersDto> usersDto = userService.findAll();
+        responseDto.setData(usersDto);
+        return ResponseEntity.ok(responseDto);
     }
 
 }

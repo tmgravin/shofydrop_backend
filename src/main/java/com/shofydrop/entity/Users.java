@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Entity
 @AllArgsConstructor
@@ -19,33 +18,40 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name" ,nullable = false)
+
+    @Column(name = "name", nullable = false)
     private String name;
+
     @Column(name = "email", unique = true)
     private String email;
-    @Column(name = "password",nullable = false)
+
+    @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "phone",nullable = false)
+
+    @Column(name = "phone", nullable = false)
     private String phone;
-    @Column(name = "address",nullable = false)
+
+    @Column(name = "address", nullable = false)
     private String address;
-    @Column(name = "is_verified",nullable = false)
+
+    @Column(name = "is_verified", nullable = false)
     private String isVerified;
+
     @Enumerated(EnumType.STRING)
-    @Column(name = "role",nullable = false, columnDefinition ="varchar default USER")
+    @Column(name = "role", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'USER'")
     private Role role;
-    @Column(name = "kyc_completed", columnDefinition = "char(1) default 0" )
+
+    @Column(name = "kyc_completed", columnDefinition = "CHAR(1) DEFAULT '0'")
     private char kycCompleted;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", columnDefinition = "timestamp default timestamp",insertable = false)
+
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at", columnDefinition = "timestamp default timestamp on update timestamp", insertable = false)
+
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updatedAt;
+
     @Enumerated(EnumType.STRING)
-    @Column(name = "login_type")
-    private LoginType loginType;
-
-
-    }
+    @Column(name = "login_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
+    private LoginType loginType;gout
+}
 
