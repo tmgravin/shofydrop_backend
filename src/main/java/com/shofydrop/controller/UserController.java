@@ -2,11 +2,8 @@ package com.shofydrop.controller;
 
 import com.shofydrop.dto.ResponseDto;
 import com.shofydrop.dto.UsersDto;
-<<<<<<< HEAD
 import com.shofydrop.entity.Users;
 import com.shofydrop.mapper.UserMapper;
-=======
->>>>>>> main
 import com.shofydrop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +18,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-<<<<<<< HEAD
     @PostMapping("/register")
     public ResponseEntity<?> save(@RequestBody UsersDto usersDto) {
         Users user= UserMapper.maptoUsers(usersDto);
@@ -32,16 +28,6 @@ public class UserController {
         userService.save(usersDto);
         System.out.println(responseDto);
         return ResponseEntity.status(200).body(usersDto);
-=======
-    @GetMapping("/find-all")
-    public ResponseEntity<?> findAllUsers() {
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setStatus(HttpStatus.OK);
-        responseDto.setMessage("successfully users details fetched");
-        List<UsersDto> usersDto = userService.findAll();
-        responseDto.setData(usersDto);
-        return ResponseEntity.ok(responseDto);
->>>>>>> main
     }
 
     @PutMapping("/update/:id")
