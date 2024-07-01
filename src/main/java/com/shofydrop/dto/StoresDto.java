@@ -20,12 +20,6 @@ public class StoresDto {
     private String storeDescription;
     @NotBlank(message = "Store category is mandatory")
     private String storeCategory;
-    @NotBlank(message = "Store address is mandatory")
-    private String storeAddress;
-    @NotBlank(message = "Store phone is mandatory")
-    private String storePhone;
-    @NotBlank(message = "Store email is mandatory")
-    private String storeEmail;
     @NotBlank(message = "Store logo is mandatory")
     private String storeLogo;
     @NotBlank(message = "Store banner is mandatory")
