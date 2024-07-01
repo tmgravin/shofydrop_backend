@@ -16,7 +16,6 @@ import java.sql.Timestamp;
 @Data
 @ToString
 public class UsersDto {
-
     private Long id;
     @NotBlank(message = "name can not be null")
     private String name;
