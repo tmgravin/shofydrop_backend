@@ -39,16 +39,13 @@ public class Product {
     @Column(name = "updated_at")
     private String updatedAt;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
     private Stores stores;
 
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Users users;
-
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<SubCategory> subCategory;
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "suc_category_id",referencedColumnName = "id")
+    private SubCategory subCategory;
 
 
 }

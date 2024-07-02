@@ -34,15 +34,13 @@ public class Stores {
     private Timestamp createdAt;
     @Column(name = "updated_at", columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updatedAt;
+
+
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "contact_id", referencedColumnName = "id")
+    @JoinColumn(name = "users_id", referencedColumnName = "id")
     private Users users;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_contact_id", referencedColumnName = "id")
-    private StoreContact storeContact;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id", referencedColumnName = "id")
-    private List<StoreImage> storeImage;
+
+
 
 
 }

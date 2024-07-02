@@ -46,6 +46,7 @@ public class StoreContact {
     private Timestamp updatedAt;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "store_id",referencedColumnName = "id")
     private Stores store;
 
 }

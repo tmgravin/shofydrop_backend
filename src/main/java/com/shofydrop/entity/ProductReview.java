@@ -34,6 +34,13 @@ public class ProductReview {
 
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
     private Users users;
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id",referencedColumnName = "id")
+    private Product product;
+
+
 
 }
