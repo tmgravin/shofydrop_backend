@@ -38,5 +38,4 @@ public class UsersDto {
     @NotNull(message = "updatedAt can not be null")
     private Timestamp updatedAt;
     private LoginType loginType;
-
 }
