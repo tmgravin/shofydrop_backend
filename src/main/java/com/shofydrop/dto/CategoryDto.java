@@ -9,26 +9,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.sql.Timestamp;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @ToString
-public class ProductDto {
-    @NotBlank
-    private String description;
-
-    @NotNull
-    private double price;
-
-    @NotNull
-    private int stock;
-
-    @NotNull
-    private double discountedPrice;
+public class CategoryDto {
+    @NotBlank(message = "name can not be empty and null")
+    private String name;
 
     @PastOrPresent
-    private String createdAt;
+    private Timestamp createdAt;
 
-    @FutureOrPresent
-    private String updatedAt;
+   @FutureOrPresent
+    private Timestamp updatedAt;
 }

@@ -58,9 +58,16 @@ public class Users {
 
     @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
     private Stores stores;
+
+
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<PaymentGateWay> paymentGateWay;
+
+
     @OneToMany(mappedBy = "users",cascade = CascadeType.ALL)
     private List<PromoCode> promoCodes;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "users",fetch = FetchType.LAZY,orphanRemoval = true)
+    private List<ProductReview> productReview;
 }
 
