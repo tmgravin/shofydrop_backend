@@ -17,7 +17,10 @@ public class UserImages {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_images_id")
     private Long id;
-    private Users user;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
+    private Users uid;
 
     @Column(name = "image_url", columnDefinition = "TEXT")
     private String imageUrl;

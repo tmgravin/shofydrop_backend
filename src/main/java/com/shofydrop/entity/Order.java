@@ -13,9 +13,15 @@ import java.sql.Timestamp;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Oder {
+public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="order_id")
     private Long id;
-    private Users user;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = true)
+    private Users uid;
 //    private PromoCode promoCode;
 //    private Vendor vendor;
 
@@ -24,9 +30,9 @@ public class Oder {
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status", columnDefinition = "DEFAULT 'PENDING'")
     private OrderStatus orderStatus;
-    @Column(name = "order_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "ordered_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp orderDate;
-    @Column(name = "update_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updateAt;
 
 }

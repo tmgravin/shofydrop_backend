@@ -18,7 +18,14 @@ public class OrderItems {
     @Column(name = "order_item_id")
     private Long id;
 
-    private Product product;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
+    private Order oid;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
+    private Product pid;
+
     @Column(name = "quantity", nullable = false)
     private int quantity;
     @Column(name = "price", nullable = false, columnDefinition = "DECIMAL(10,2)")

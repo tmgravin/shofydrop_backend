@@ -18,7 +18,12 @@ public class Kyc {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "kyc_id")
     private Long id;
+
+    //Parent delete then child also delete
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private Users user;
+
     @Column(name = "document_type")
     private String documentType;
     @Column(name = "document_number")

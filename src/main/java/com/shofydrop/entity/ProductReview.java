@@ -17,8 +17,14 @@ public class ProductReview {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    private Users users;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = true)
+    private Product pid;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
+    private Users uid;
+
     private String comment;
     private Timestamp created_at;
     private Timestamp updated_at;

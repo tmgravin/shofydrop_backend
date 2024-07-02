@@ -18,6 +18,8 @@ public class Reward {
     @Column(name = "reward_id")
     private Long id;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
     private Users user;
     @Column(name = "points", nullable = false)
     private int point;

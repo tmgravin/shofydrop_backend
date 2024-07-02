@@ -18,7 +18,10 @@ public class PaymentScreenshot {
     @Column(name = "payment_id")
     private Long id;
 
-//    private Order order;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "payment_id", referencedColumnName = "id", nullable = false)
+    private Order oid;
+
     @Column(name = "image", columnDefinition = "TEXT")
     private String image;
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

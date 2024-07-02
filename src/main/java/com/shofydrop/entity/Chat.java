@@ -17,7 +17,16 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Users users;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sender_id", referencedColumnName = "id", nullable = true)
+    private Users sender;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "receiver_id", referencedColumnName = "id", nullable = true)
+    //, columnDefinition = "ON DELETE CascadeType"
+    private Users receiver;
+
+
     @Column(name = "message", nullable = false, columnDefinition = "TEXT")
     private String message;
     @Column(name = "read", columnDefinition = "CHAR(1) DEFAULT '0'")
