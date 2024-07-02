@@ -20,6 +20,4 @@ public class Payment {
     private Timestamp createdAt;
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
-
-
 }
