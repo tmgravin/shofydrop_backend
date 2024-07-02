@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,8 +14,10 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "stores")
 public class Stores {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name = "store_name", nullable = false)
     private String storeName;
     @Column(name = "store_description", nullable = false)
@@ -34,6 +37,12 @@ public class Stores {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_id", referencedColumnName = "id")
     private Users users;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_contact_id", referencedColumnName = "id")
+    private StoreContact storeContact;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id", referencedColumnName = "id")
+    private List<StoreImage> storeImage;
 
 
 }

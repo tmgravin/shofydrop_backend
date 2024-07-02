@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -57,5 +58,9 @@ public class Users {
 
     @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
     private Stores stores;
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    private List<PaymentGateWay> paymentGateWay;
+    @OneToMany(mappedBy = "users",cascade = CascadeType.ALL)
+    private List<PromoCode> promoCodes;
 }
 
