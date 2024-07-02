@@ -19,9 +19,10 @@ public class ProductImage {
     @Column(name = "image_id")
     private Long id;
 
+    private Product product;
 
-//    private String imageUrl;
-//    private Timestamp createdAt;
-//    private Timestamp updatedAt;
+    private String imageUrl;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
 }
