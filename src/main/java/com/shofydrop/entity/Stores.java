@@ -37,7 +37,7 @@ public class Stores {
 
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "users_id", referencedColumnName = "id")
+    @JoinColumn(name = "vendor_id", referencedColumnName = "id")
     private Users users;
 
 

@@ -30,18 +30,18 @@ public class ContactDto {
     @NotBlank(message = "city can not be null and empty")
     private String city;
 
-    @NotBlank(message = "state can not be empty nd null")
+    @NotBlank(message = "state can not be empty and null")
     private String state;
 
-    @NotBlank
+    @NotBlank(message = "postalCode can not be empty and null")
     private String postalCode;
 
-    @NotBlank
+    @NotBlank(message = "country can not be null and empty")
     private String country;
 
-    @PastOrPresent
+    @PastOrPresent(message = "createAt must be current or past")
     private Timestamp createdAt;
 
-    @FutureOrPresent
+    @FutureOrPresent(message = "updatedAt must be current or updated at")
     private Timestamp updatedAt;
 }

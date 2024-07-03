@@ -53,7 +53,7 @@ public class Users {
     private Timestamp updatedAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "login_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
+    @Column(name = "sign_up_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
     private LoginType loginType;
 
 
