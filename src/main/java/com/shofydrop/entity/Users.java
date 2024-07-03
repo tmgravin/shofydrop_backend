@@ -55,7 +55,10 @@ public class Users {
     @Enumerated(EnumType.STRING)
     @Column(name = "sign_up_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
     private LoginType loginType;
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> kshitiz
 }
 

@@ -52,7 +52,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Users save(Users users) {
+<<<<<<< HEAD
        return usersRepository.save(users);
+=======
+        return userRepository.save(users);
+>>>>>>> kshitiz
     }
 
     @Override
