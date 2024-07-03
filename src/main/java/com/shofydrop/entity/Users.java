@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -52,10 +53,9 @@ public class Users {
     private Timestamp updatedAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "login_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
+    @Column(name = "sign_up_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
     private LoginType loginType;
 
-    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
-    private Stores stores;
+
 }
 

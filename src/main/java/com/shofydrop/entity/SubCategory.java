@@ -11,20 +11,14 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "product_review")
-public class ProductReview {
+@Table(name = "sub_category")
+public class SubCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "rating")
-    private int rating;
-
-    @Column(name = "comment")
-    private String comment;
-
-    @Column(name = "kyc_completed", columnDefinition = "CHAR(1) DEFAULT '0'")
-    private char kycCompleted;
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;
@@ -32,14 +26,9 @@ public class ProductReview {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updatedAt;
 
-
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
-    private Users users;
-
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id",referencedColumnName = "id")
-    private Product product;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id",referencedColumnName = "id")
+    private Category category;
 
 
 

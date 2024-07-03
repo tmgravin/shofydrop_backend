@@ -11,36 +11,21 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "product_review")
-public class ProductReview {
+@Table(name = "store_image")
+public class StoreImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "rating")
-    private int rating;
-
-    @Column(name = "comment")
-    private String comment;
-
-    @Column(name = "kyc_completed", columnDefinition = "CHAR(1) DEFAULT '0'")
-    private char kycCompleted;
+    @Column(name = "image_url", columnDefinition = "text")
+    private String imageUrl;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;
 
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updatedAt;
-
-
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
-    private Users users;
-
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id",referencedColumnName = "id")
-    private Product product;
-
-
-
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id",referencedColumnName = "id")
+    private Stores stores;
 }

@@ -2,7 +2,7 @@ package com.shofydrop.service.impl;
 
 import com.shofydrop.entity.Users;
 import com.shofydrop.exception.ResourceNotFoundException;
-import com.shofydrop.repository.UserRepository;
+import com.shofydrop.repository.UsersRepository;
 import com.shofydrop.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,24 +15,24 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
-    private UserRepository userRepository;
+    private UsersRepository usersRepository;
 
     @Override
     public List<Users> findAll() {
-        return userRepository.findAll();
+        return usersRepository.findAll();
     }
 
     @Override
     public Users findById(Long id) {
-        return userRepository.findById(id).orElseThrow(() ->
+        return usersRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("user does not exist with this id " + id));
     }
 
     @Override
     public Users update(Users user, Long id) {
-        boolean isExist = userRepository.existsById(id);
+        boolean isExist = usersRepository.existsById(id);
         if (isExist) {
-            Users existingUser = userRepository.findById(id).orElseThrow(() ->
+            Users existingUser = usersRepository.findById(id).orElseThrow(() ->
                     new ResourceNotFoundException("user does not exist with this id " + id));
             existingUser.setName(user.getName());
             existingUser.setEmail(user.getEmail());
@@ -45,18 +45,18 @@ public class UserServiceImpl implements UserService {
             existingUser.setCreatedAt(user.getCreatedAt());
             existingUser.setUpdatedAt(user.getUpdatedAt());
             existingUser.setLoginType(user.getLoginType());
-            return userRepository.save(existingUser);
+            return usersRepository.save(existingUser);
         }
         return null;
     }
 
     @Override
     public Users save(Users users) {
-       return userRepository.save(users);
+       return usersRepository.save(users);
     }
 
     @Override
     public void delete(Long id) {
-        userRepository.deleteById(id);
+        usersRepository.deleteById(id);
     }
 }
