@@ -27,10 +27,5 @@ public class Category {
 
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updatedAt;
-<<<<<<< HEAD
-=======
 
-
-
->>>>>>> 9acf53a3cad8b60e47085ea77baac92c81e8afc9
 }

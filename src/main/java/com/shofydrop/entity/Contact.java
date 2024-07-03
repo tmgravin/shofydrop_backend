@@ -38,13 +38,11 @@ public class Contact {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updatedAt;
 
-<<<<<<< HEAD
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-=======
+
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id",referencedColumnName = "id",unique = true)
->>>>>>> 9acf53a3cad8b60e47085ea77baac92c81e8afc9
     private Users user;
 
 
