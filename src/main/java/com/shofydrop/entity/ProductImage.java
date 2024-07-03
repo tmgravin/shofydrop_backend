@@ -7,22 +7,23 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
-@Entity
-@Table(name="product_image")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name="product_image")
 public class ProductImage {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "image_id")
     private Long id;
 
-    private Product product;
-
+    @Column(name = "image_url", nullable = false)
     private String imageUrl;
+
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
+
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
 
 }

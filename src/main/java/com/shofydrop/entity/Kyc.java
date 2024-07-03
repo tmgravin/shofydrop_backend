@@ -8,36 +8,40 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
-@Entity
-@Table(name= "kyc")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name= "kyc")
 public class Kyc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "kyc_id")
     private Long id;
 
-    //Parent delete then child also delete
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private Users user;
+    private Users users;
 
-    @Column(name = "document_type")
+    @Column(name = "document_type", columnDefinition = "VARCHAR(50)")
     private String documentType;
-    @Column(name = "document_number")
+
+    @Column(name = "document_number", columnDefinition = "VARCHAR(100)")
     private String documentNumber;
+
     @Column(name = "document_file")
     private String documentFile;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", columnDefinition = "DEFAULT 'PENDING'")
     private Status status;
-    @Column(name = "submitted_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
+
+    @Column(name = "submitted_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp submittedAt;
-    @Column(name = "verified_at", nullable = false, insertable = false)
+
+    @Column(name = "verified_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp verifiedAt;
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", nullable = false)
+
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
 
 }
