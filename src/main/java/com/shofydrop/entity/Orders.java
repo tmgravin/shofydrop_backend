@@ -35,5 +35,9 @@ public class Orders {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Users users;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "promocode_id", referencedColumnName = "id")
+    private PromoCode promoCode;
 }
 
