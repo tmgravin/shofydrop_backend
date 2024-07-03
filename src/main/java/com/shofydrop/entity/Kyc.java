@@ -32,7 +32,7 @@ public class Kyc {
     private String documentFile;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", columnDefinition = "DEFAULT 'PENDING'")
+    @Column(name = "status", columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'")
     private Status status;
 
     @Column(name = "submitted_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

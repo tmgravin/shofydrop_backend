@@ -2,6 +2,7 @@ package com.shofydrop.entity;
 
 import com.shofydrop.enumerated.OrderStatus;
 import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ public class Orders {
     private double totalPrice;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "order_status", columnDefinition = "DEFAULT 'PENDING'")
+    @Column(name = "order_status", columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'")
     private OrderStatus orderStatus;
 
     @Column(name = "ordered_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -34,6 +35,5 @@ public class Orders {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Users users;
-
 }
 
