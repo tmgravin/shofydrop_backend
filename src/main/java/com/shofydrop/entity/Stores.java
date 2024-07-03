@@ -28,21 +28,13 @@ public class Stores {
     private String storeLogo;
     @Column(name = "store_banner", nullable = false)
     private String storeBanner;
-    @Column(name = "is_open", columnDefinition = "CHAR(1) DEFAULT '0'")
+    @Column(name = "is_open", columnDefinition = "char(1) DEFAULT 'Y'", nullable = false)
     private char isOpen;
-    @Column(name = "created_at", columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
+    @Column(name = "created_at", columnDefinition = " CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
     private Timestamp createdAt;
-    @Column(name = "updated_at", columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
+    @Column(name = "updated_at", columnDefinition = " CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updatedAt;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_id", referencedColumnName = "id")
     private Users users;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_contact_id", referencedColumnName = "id")
-    private StoreContact storeContact;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id", referencedColumnName = "id")
-    private List<StoreImage> storeImage;
-
-
 }

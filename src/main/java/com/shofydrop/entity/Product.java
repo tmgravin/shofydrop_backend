@@ -35,11 +35,11 @@ public class Product {
     @Column(name = "updated_at")
     private String updatedAt;
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "store_id", referencedColumnName = "id")
     private Stores stores;
     @ManyToOne(cascade = CascadeType.ALL)
-    private Users users;
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<SubCategory> subCategory;
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private SubCategory subCategory;
 
 
 }

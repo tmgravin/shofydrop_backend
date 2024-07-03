@@ -28,6 +28,5 @@ public class PromoCode {
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonIgnore
     private Users users;
 }
