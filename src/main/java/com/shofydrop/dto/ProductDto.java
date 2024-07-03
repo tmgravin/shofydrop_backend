@@ -1,6 +1,5 @@
 package com.shofydrop.dto;
 
-<<<<<<< HEAD
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,7 +31,4 @@ public class ProductDto {
 
     @FutureOrPresent
     private String updatedAt;
-=======
-public class ProductDto {
->>>>>>> kshitiz
 }
