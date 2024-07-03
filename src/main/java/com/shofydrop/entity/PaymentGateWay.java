@@ -25,6 +25,4 @@ public class PaymentGateWay {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "vendor_id", referencedColumnName = "id")
     private Users users;
-
-
 }

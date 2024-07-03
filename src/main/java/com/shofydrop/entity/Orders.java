@@ -39,5 +39,6 @@ public class Orders {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "promocode_id", referencedColumnName = "id")
     private PromoCode promoCode;
+
 }
 
