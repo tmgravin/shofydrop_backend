@@ -19,37 +19,13 @@ public class ProductReview {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-<<<<<<< HEAD
-    @Column(name = "rating")
-    private int rating;
-
-    @Column(name = "comment")
-    private String comment;
-
-    @Column(name = "kyc_completed", columnDefinition = "CHAR(1) DEFAULT '0'")
-    private char kycCompleted;
-
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
-    private Timestamp createdAt;
-
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
-    private Timestamp updatedAt;
-
-
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
-    private Users users;
-
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id",referencedColumnName = "id")
     private Product product;
 
-
-=======
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
     private Users users;
->>>>>>> kshitiz
 
     @Column(name = "rating", nullable = false)
     @Min(value = 1, message = "Rating must be at least 1")

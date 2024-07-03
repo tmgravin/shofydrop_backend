@@ -40,7 +40,4 @@ public class Stores {
     @JoinColumn(name = "vendor_id", referencedColumnName = "id")
     private Users users;
 
-
-
-
 }
