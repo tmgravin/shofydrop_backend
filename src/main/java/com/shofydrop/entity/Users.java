@@ -53,14 +53,9 @@ public class Users {
     private Timestamp updatedAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "login_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
+    @Column(name = "sign_up_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
     private LoginType loginType;
 
-    @OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
-    private Stores stores;
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
-    private List<PaymentGateWay> paymentGateWay;
-    @OneToMany(mappedBy = "users",cascade = CascadeType.ALL)
-    private List<PromoCode> promoCodes;
+
 }
 

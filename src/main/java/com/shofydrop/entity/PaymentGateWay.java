@@ -15,12 +15,15 @@ public class PaymentGateWay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "payment_method")
     private String paymentMethod;
+
     @Column(name = "qr_code")
     private String qrCode;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "vendor_id", referencedColumnName = "id")
     private Users users;
 
 

@@ -18,7 +18,9 @@ public class PromoCode {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "code", nullable = false)
     private String code;
+    @Column(name = "discount", nullable = false)
     private double discount;
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;

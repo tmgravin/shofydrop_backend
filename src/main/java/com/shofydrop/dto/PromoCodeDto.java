@@ -9,26 +9,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @ToString
-public class ProductDto {
+public class PromoCodeDto {
+
     @NotBlank
-    private String description;
+    private String code;
 
     @NotNull
-    private double price;
-
-    @NotNull
-    private int stock;
-
-    @NotNull
-    private double discountedPrice;
+    private double discount;
 
     @PastOrPresent
-    private String createdAt;
+    private Timestamp createdAt;
 
     @FutureOrPresent
-    private String updatedAt;
+    private Timestamp updatedAt;
 }

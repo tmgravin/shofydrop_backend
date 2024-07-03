@@ -16,11 +16,9 @@ public class SubCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "name", nullable = false)
     private String name;
-
-    @Column(name = "category_id", nullable = false)
-    private Long categoryId;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;
@@ -31,4 +29,9 @@ public class SubCategory {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 9acf53a3cad8b60e47085ea77baac92c81e8afc9
 }

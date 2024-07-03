@@ -17,14 +17,39 @@ public class ProductReview {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+<<<<<<< HEAD
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users users;
+=======
+    @Column(name = "rating")
+    private int rating;
+
+    @Column(name = "comment")
+>>>>>>> 9acf53a3cad8b60e47085ea77baac92c81e8afc9
     private String comment;
-    private Timestamp created_at;
-    private Timestamp updated_at;
+
+    @Column(name = "kyc_completed", columnDefinition = "CHAR(1) DEFAULT '0'")
+    private char kycCompleted;
+
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Timestamp createdAt;
+
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
+    private Timestamp updatedAt;
+
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    private Users users;
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id",referencedColumnName = "id")
+    private Product product;
+
+
 
 }

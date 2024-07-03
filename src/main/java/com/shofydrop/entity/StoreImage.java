@@ -16,6 +16,7 @@ public class StoreImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "image_url", columnDefinition = "text")
     private String imageUrl;
 
@@ -26,6 +27,10 @@ public class StoreImage {
     private Timestamp updatedAt;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+<<<<<<< HEAD
     @JoinColumn(name = "store_id", referencedColumnName = "id")
+=======
+    @JoinColumn(name = "store_id",referencedColumnName = "id")
+>>>>>>> 9acf53a3cad8b60e47085ea77baac92c81e8afc9
     private Stores stores;
 }
