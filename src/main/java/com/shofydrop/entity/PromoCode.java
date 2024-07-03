@@ -18,10 +18,12 @@ public class PromoCode {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "code", nullable = false)
+    @Column(name = "code",columnDefinition = "VARCHAR(50)",unique = true, nullable = false)
     private String code;
-    @Column(name = "discount", nullable = false)
+
+    @Column(name = "discount",columnDefinition = "DECIMAL(10,2)", nullable = false)
     private double discount;
+
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;
 
@@ -29,6 +31,6 @@ public class PromoCode {
     private Timestamp updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "vendor_id", referencedColumnName = "id")
     private Users users;
 }

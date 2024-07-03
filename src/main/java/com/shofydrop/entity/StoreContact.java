@@ -18,25 +18,25 @@ public class StoreContact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "contact_email",nullable = false)
+    @Column(name = "contact_email",columnDefinition = "VARCHAR(255)", nullable = false)
     private String contactEmail;
 
-    @Column(name = "contact_phone",nullable = false)
+    @Column(name = "contact_phone",columnDefinition = "VARCHAR(20)", nullable = false)
     private String contactPhone;
 
-    @Column(name = "address",nullable = false,columnDefinition = "text")
+    @Column(name = "address",nullable = false,columnDefinition = "TEXT")
     private String address;
 
-    @Column(name = "city",nullable = false)
+    @Column(name = "city",columnDefinition = "VARCHAR(100)",nullable = false)
     private String city;
 
-    @Column(name = "state",nullable = false)
+    @Column(name = "state",nullable = false,columnDefinition = "VARCHAR(100)")
     private String state;
 
-    @Column(name = "country",nullable = false)
+    @Column(name = "country",nullable = false,columnDefinition = "VARCHAR(100)")
     private String country;
 
-    @Column(name = "postal_code",nullable = false)
+    @Column(name = "postal_code",nullable = false,columnDefinition = "VARCHAR(20)")
     private String postalCode;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
