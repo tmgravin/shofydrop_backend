@@ -55,5 +55,4 @@ public class Product {
 >>>>>>> 9acf53a3cad8b60e47085ea77baac92c81e8afc9
     private SubCategory subCategory;
 
-
 }
