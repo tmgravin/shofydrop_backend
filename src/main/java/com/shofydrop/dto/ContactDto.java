@@ -15,7 +15,10 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @ToString
 public class ContactDto {
+<<<<<<< HEAD
     @NotBlank(message = "phoneNumber can not be null and empty")
+=======
+>>>>>>> 88ef6e0 (contactService)
     private String phoneNumber;
 
     @NotBlank(message = "email can not be blank and empty")
