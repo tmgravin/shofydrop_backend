@@ -29,9 +29,5 @@ public class SubCategory {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 9acf53a3cad8b60e47085ea77baac92c81e8afc9
 }
