@@ -2,6 +2,7 @@ package com.shofydrop.service.impl;
 
 import com.shofydrop.entity.Stores;
 import com.shofydrop.repository.StoresRepository;
+import com.shofydrop.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
