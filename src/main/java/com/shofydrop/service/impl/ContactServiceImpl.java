@@ -12,44 +12,33 @@ import java.util.List;
 public class ContactServiceImpl implements ContactService {
     @Autowired
     private ContactRepository contactRepository;
-
-<<<<<<< HEAD
     /**
      *
      * @return
      */
 
-=======
->>>>>>> 88ef6e0 (contactService)
     @Override
     public List<Contact> findAll() {
         return contactRepository.findAll();
     }
 
-<<<<<<< HEAD
     /**
      *
      * @param id
      * @return
      */
-
-=======
->>>>>>> 88ef6e0 (contactService)
     @Override
     public Contact findById(Long id) {
         return contactRepository.findById(id).orElseThrow(() -> new
                 RuntimeException("Contact does not exist with id" + id));
     }
 
-<<<<<<< HEAD
     /**
      *
      * @param contact
      * @return
      */
 
-=======
->>>>>>> 88ef6e0 (contactService)
     @Override
     public Contact save(Contact contact) {
         return contactRepository.save(contact);
@@ -74,14 +63,10 @@ public class ContactServiceImpl implements ContactService {
         return null;
     }
 
-<<<<<<< HEAD
     /**
      *
      * @param id
      */
-
-=======
->>>>>>> 88ef6e0 (contactService)
     @Override
     public void delete(Long id) {
         contactRepository.deleteById(id);
