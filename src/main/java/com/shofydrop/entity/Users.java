@@ -56,9 +56,14 @@ public class Users {
     private Timestamp updatedAt;
 
     @Enumerated(EnumType.STRING)
+<<<<<<< HEAD
     @Column(name = "sign_up_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
     private LoginType loginType;
 
 
+=======
+    @Column(name = "login_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
+    private LoginType loginType;
+>>>>>>> ea8b7a6 (cnflict)
 }
 
