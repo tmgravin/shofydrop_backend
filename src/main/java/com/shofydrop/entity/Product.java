@@ -19,18 +19,20 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name", columnDefinition = "VARCHAR(100)", nullable = false)
+    private String name;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price", nullable = false, columnDefinition = "DECIMAL(10,2)")
     private double price;
 
     @Column(name="stock")
     private int stock;
 
-    @Column(name = "discounted_price")
+    @Column(name = "discounted_price", columnDefinition = "DECIMAL(10,2)")
     private double discountedPrice;
 
     @Column(name = "created_at")
@@ -38,21 +40,14 @@ public class Product {
 
     @Column(name = "updated_at")
     private String updatedAt;
-<<<<<<< HEAD
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "store_id", referencedColumnName = "id")
-    private Stores stores;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-=======
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Stores stores;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "suc_category_id",referencedColumnName = "id")
->>>>>>> 9acf53a3cad8b60e47085ea77baac92c81e8afc9
+    @JoinColumn(name = "suc_category_id", referencedColumnName = "id")
     private SubCategory subCategory;
+
 
 }

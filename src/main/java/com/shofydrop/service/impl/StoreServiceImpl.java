@@ -31,7 +31,6 @@ public class StoreServiceImpl implements StoreService {
             Stores isExisting = storesRepository.findById(id).get();
             isExisting.setStoreName(stores.getStoreName());
             isExisting.setStoreDescription(stores.getStoreDescription());
-            isExisting.setStoreCategory(stores.getStoreCategory());
             isExisting.setStoreLogo(stores.getStoreLogo());
             isExisting.setStoreBanner(stores.getStoreBanner());
             isExisting.setIsOpen(stores.getIsOpen());

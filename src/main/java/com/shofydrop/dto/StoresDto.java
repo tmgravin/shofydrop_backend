@@ -1,9 +1,10 @@
 package com.shofydrop.dto;
 
-import jakarta.validation.constraints.FutureOrPresent;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import java.sql.Timestamp;
 @Data
 @ToString
 public class StoresDto {
+
     @NotBlank(message = "Store name is mandatory")
     private String storeName;
 
@@ -37,6 +39,6 @@ public class StoresDto {
     @PastOrPresent
     private Timestamp createdAt;
 
-   @FutureOrPresent
+    @NotNull(message = "updated date can not be null")
     private Timestamp updatedAt;
 }

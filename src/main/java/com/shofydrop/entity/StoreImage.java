@@ -17,7 +17,7 @@ public class StoreImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "image_url", columnDefinition = "text")
+    @Column(name = "image_url", columnDefinition = "TEXT")
     private String imageUrl;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)

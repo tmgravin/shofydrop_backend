@@ -1,6 +1,8 @@
 package com.shofydrop.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,24 +18,14 @@ public class ProductReview {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-<<<<<<< HEAD
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    private Product product;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private Users users;
-=======
-    @Column(name = "rating")
+    @Column(name = "rating", nullable = false)
+    @Min(1)
+    @Max(5)
     private int rating;
 
-    @Column(name = "comment")
->>>>>>> 9acf53a3cad8b60e47085ea77baac92c81e8afc9
+    @Column(name = "comment", columnDefinition = "TEXT")
     private String comment;
 
-    @Column(name = "kyc_completed", columnDefinition = "CHAR(1) DEFAULT '0'")
-    private char kycCompleted;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;
@@ -42,9 +34,10 @@ public class ProductReview {
     private Timestamp updatedAt;
 
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users users;
+
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id",referencedColumnName = "id")

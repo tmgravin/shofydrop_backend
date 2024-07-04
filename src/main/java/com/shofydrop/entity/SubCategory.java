@@ -17,7 +17,7 @@ public class SubCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", columnDefinition = "VARCHAR(100)", nullable = false)
     private String name;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)

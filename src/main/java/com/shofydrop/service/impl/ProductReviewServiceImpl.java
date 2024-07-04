@@ -53,7 +53,6 @@ public class ProductReviewServiceImpl implements ProductReviewService {
             ProductReview isExistingProductReview = productReviewRepository.findById(id).get();
             isExistingProductReview.setRating(productReview.getRating());
             isExistingProductReview.setComment(productReview.getComment());
-            isExistingProductReview.setKycCompleted(productReview.getKycCompleted());
             isExistingProductReview.setCreatedAt(productReview.getCreatedAt());
             isExistingProductReview.setUpdatedAt(productReview.getUpdatedAt());
             productReviewRepository.save(isExistingProductReview);
