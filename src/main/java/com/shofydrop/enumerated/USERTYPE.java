@@ -1,8 +1,9 @@
 package com.shofydrop.enumerated;
 
-public enum Role {
+public enum USERTYPE {
+    USER,
     ADMIN,
     EDITOR,
-    USER,
+    DELIVERY_BOY,
     VENDOR
 }

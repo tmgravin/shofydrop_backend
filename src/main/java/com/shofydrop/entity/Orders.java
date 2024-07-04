@@ -26,18 +26,18 @@ public class Orders {
     @Column(name = "order_status", columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'")
     private OrderStatus orderStatus;
 
-    @Column(name = "ordered_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "order_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp orderDate;
 
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updateAt;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users user;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "vendor_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "vendor_id", referencedColumnName = "id")
     private Users vendor;
 
     @OneToOne(cascade = CascadeType.ALL)

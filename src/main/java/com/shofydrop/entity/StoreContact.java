@@ -24,7 +24,7 @@ public class StoreContact {
     @Column(name = "contact_phone",nullable = false)
     private String contactPhone;
 
-    @Column(name = "address",nullable = false,columnDefinition = "text")
+    @Column(name = "address",nullable = false, columnDefinition = "text")
     private String address;
 
     @Column(name = "city",nullable = false)

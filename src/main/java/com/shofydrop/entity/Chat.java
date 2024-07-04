@@ -14,29 +14,25 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "chat")
 public class Chat {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sender_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "sender_id", referencedColumnName = "id")
     private Users sender;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "receiver_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "receiver_id", referencedColumnName = "id")
     private Users receiver;
 
-    @Column(name = "message", nullable = false, columnDefinition = "TEXT")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Orders orders;
+
+    @Column(name = "message", columnDefinition = "TEXT", nullable = false)
     private String message;
 
-    @Column(name = "is_read", columnDefinition = "CHAR(1) DEFAULT '0'")
-    private boolean read;
-
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Timestamp createdAt;
-
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private Timestamp updatedAt;
-
+    @Column(name = "send_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp sendAt;
 }

@@ -21,7 +21,7 @@ public class UserImages {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users users;
 
-    @Column(name = "image_url", columnDefinition = "TEXT")
+    @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

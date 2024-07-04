@@ -1,7 +1,6 @@
 package com.shofydrop.service.impl;
 
-import com.shofydrop.dto.ContactDto;
-import com.shofydrop.entity.Contact;
+import com.shofydrop.entity.UsersContact;
 import com.shofydrop.repository.ContactRepository;
 import com.shofydrop.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ public class ContactServiceImpl implements ContactService {
      */
 
     @Override
-    public List<Contact> findAll() {
+    public List<UsersContact> findAll() {
         return contactRepository.findAll();
     }
 
@@ -31,37 +30,35 @@ public class ContactServiceImpl implements ContactService {
      */
 
     @Override
-    public Contact findById(Long id) {
+    public UsersContact findById(Long id) {
         return contactRepository.findById(id).orElseThrow(() -> new
                 RuntimeException("Contact does not exist with id" + id));
     }
 
     /**
      *
-     * @param contact
+     * @param usersContact
      * @return
      */
 
     @Override
-    public Contact save(Contact contact) {
-        return contactRepository.save(contact);
+    public UsersContact save(UsersContact usersContact) {
+        return contactRepository.save(usersContact);
     }
 
     @Override
-    public Contact update(Contact contact, Long id) {
+    public UsersContact update(UsersContact usersContact, Long id) {
         boolean isExist = contactRepository.existsById(id);
         if (isExist) {
-            Contact isExistingContact = contactRepository.findById(id).get();
-            isExistingContact.setPhoneNumber(contact.getPhoneNumber());
-            isExistingContact.setEmail(contact.getEmail());
-            isExistingContact.setAddress1(contact.getAddress1());
-            isExistingContact.setAddress2(contact.getAddress2());
-            isExistingContact.setCity(contact.getCity());
-            isExistingContact.setState(contact.getState());
-            isExistingContact.setCountry(contact.getCountry());
-            isExistingContact.setCreatedAt(contact.getCreatedAt());
-            isExistingContact.setUpdatedAt(contact.getUpdatedAt());
-            return contactRepository.save(isExistingContact);
+            UsersContact isExistingUsersContact = contactRepository.findById(id).get();
+            isExistingUsersContact.setPhone(usersContact.getPhone());
+            isExistingUsersContact.setEmail(usersContact.getEmail());
+            isExistingUsersContact.setAddress(usersContact.getAddress());
+            isExistingUsersContact.setCity(usersContact.getCity());
+            isExistingUsersContact.setState(usersContact.getState());
+            isExistingUsersContact.setCreatedAt(usersContact.getCreatedAt());
+            isExistingUsersContact.setUpdatedAt(usersContact.getUpdatedAt());
+            return contactRepository.save(isExistingUsersContact);
         }
         return null;
     }

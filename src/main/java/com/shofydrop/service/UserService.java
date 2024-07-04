@@ -1,6 +1,5 @@
 package com.shofydrop.service;
 
-import com.shofydrop.dto.UsersDto;
 import com.shofydrop.entity.Users;
 import org.springframework.stereotype.Service;
 

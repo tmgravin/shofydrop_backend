@@ -1,10 +1,9 @@
 package com.shofydrop.dto;
 
 import com.shofydrop.enumerated.LoginType;
-import com.shofydrop.enumerated.Role;
+import com.shofydrop.enumerated.USERTYPE;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,7 +38,7 @@ public class UsersDto {
     private String isVerified;
     @NotBlank(message = "role can not be null")
 
-    private Role role;
+    private USERTYPE USERTYPE;
     @NotBlank(message = "kycCompleted can not be null")
 
     private char kycCompleted;

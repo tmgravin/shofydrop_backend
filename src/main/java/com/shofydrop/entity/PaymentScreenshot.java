@@ -19,10 +19,10 @@ public class PaymentScreenshot {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id", referencedColumnName = "id", nullable = false)
-    private Orders orders;
+    private Payment payment;
 
-    @Column(name = "image", columnDefinition = "TEXT")
-    private String image;
+    @Column(name = "screenshot_url", nullable = false)
+    private String screenshotUrl;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
