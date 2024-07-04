@@ -1,5 +1,6 @@
 package com.shofydrop.service.impl;
 
+import com.shofydrop.dto.ContactDto;
 import com.shofydrop.entity.Contact;
 import com.shofydrop.repository.ContactRepository;
 import com.shofydrop.service.ContactService;

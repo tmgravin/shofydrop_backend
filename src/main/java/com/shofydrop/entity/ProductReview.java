@@ -18,7 +18,6 @@ public class ProductReview {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "rating", nullable = false)
     @Min(1)
     @Max(5)
@@ -39,9 +38,11 @@ public class ProductReview {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users users;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id",referencedColumnName = "id")
     private Product product;
+
 
 
 }

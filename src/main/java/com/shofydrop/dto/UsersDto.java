@@ -51,5 +51,4 @@ public class UsersDto {
     private Timestamp updatedAt;
 
     private LoginType loginType;
-
 }

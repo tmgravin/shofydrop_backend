@@ -59,6 +59,5 @@ public class Users {
     @Column(name = "sign_up_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
     private LoginType loginType;
 
-
 }
 

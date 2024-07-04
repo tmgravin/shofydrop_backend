@@ -26,6 +26,7 @@ public class Contact {
     @Column(name = "address_line1", nullable = false)
     private String address1;
 
+<<<<<<< HEAD
     @Column(name = "address_line2")
     private String address2;
 
@@ -40,6 +41,21 @@ public class Contact {
     private String postalCode;
 
     @Column(name = "country", nullable = false, length = 100)
+=======
+    @Column(name = "address_line2", nullable = false)
+    private String address2;
+
+    @Column(name = "city", nullable = false)
+    private String city;
+
+    @Column(name = "state", nullable = false)
+    private String state;
+
+    @Column(name = "postal_code", nullable = false)
+    private String postalCode;
+
+    @Column(name = "country", nullable = false)
+>>>>>>> origin/kshitiz
     private String country;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)

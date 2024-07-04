@@ -7,10 +7,10 @@ import java.util.List;
 
 @Service
 public interface ContactService {
-    public List<Contact> findAll();
-    public Contact findById(Long id);
-    public Contact save(Contact contact);
-    public Contact update(Contact contact, Long id);
-    public void delete(Long id);
+    List<Contact> findAll();
+    Contact findById(Long id);
+    Contact save(Contact contact);
+    Contact update(Contact contact, Long id);
+    void delete(Long id);
 
 }
