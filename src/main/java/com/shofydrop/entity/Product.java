@@ -50,4 +50,9 @@ public class Product {
     private SubCategory subCategory;
 
 
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "sub_category_id")
+    private Category category;
+
+
 }
