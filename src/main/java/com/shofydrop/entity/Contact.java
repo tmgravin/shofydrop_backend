@@ -41,17 +41,12 @@ public class Contact {
 
     @Column(name = "country", nullable = false, length = 100)
     private String country;
-<<<<<<< HEAD
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
-=======
-    @Column(name="created_at", columnDefinition=" TIMESTAMP Default Current_Timestamp", insertable = false)
-    private Timestamp createdAt;
     @Column(name="updated_at", columnDefinition=" TIMESTAMP Default Current_Timestamp ON UPDATE Current_Timestamp", insertable = false)
->>>>>>> ea8b7a6 (cnflict)
+
     private Timestamp updatedAt;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
