@@ -56,13 +56,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-<<<<<<< HEAD
     public Object delete(Long id) {
         userRepository.deleteById(id);
         return null;
-=======
     public void delete(Long id) {
         usersRepository.deleteById(id);
->>>>>>> 9acf53a3cad8b60e47085ea77baac92c81e8afc9
     }
 }
