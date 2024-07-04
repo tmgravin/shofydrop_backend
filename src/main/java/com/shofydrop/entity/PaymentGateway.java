@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "payment_gate_way")
-public class PaymentGateWay {
+public class PaymentGateway {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,6 +25,4 @@ public class PaymentGateWay {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "vendor_id", referencedColumnName = "id")
     private Users users;
-
-
 }
