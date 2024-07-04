@@ -23,7 +23,7 @@ public class Product {
     @Column(name = "price", nullable = false)
     private double price;
 
-    @Column(name="stock")
+    @Column(name= "stock")
     private int stock;
 
     @Column(name = "discounted_price")
@@ -40,8 +40,6 @@ public class Product {
     private Stores stores;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sub_category_id",referencedColumnName = "id")
+    @JoinColumn(name = "sub_category_id", referencedColumnName = "id")
     private SubCategory subCategory;
-
-
 }

@@ -33,13 +33,13 @@ public class Stores {
     @Column(name = "store_banner", nullable = false)
     private String storeBanner;
 
-    @Column(name = "is_open", columnDefinition = "CHAR(1) DEFAULT '0'")
+    @Column(name = "is_open")
     private char isOpen;
 
     @Column(name = "created_at", columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
+    @Column(name = "updated_at", columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -45,7 +45,7 @@ public class UsersContact {
     private Timestamp updatedAt;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id",referencedColumnName = "id",unique = true)
-    private Users user;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Users users;
 
 }

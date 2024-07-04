@@ -32,10 +32,11 @@ public class ProductReview {
     private Timestamp updatedAt;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id",referencedColumnName = "id")
-    private Product product;
-
-    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users users;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private Product product;
+
 }

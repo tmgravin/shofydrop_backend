@@ -1,6 +1,6 @@
 package com.shofydrop.enumerated;
 
-public enum USERTYPE {
+public enum UserType {
     USER,
     ADMIN,
     EDITOR,

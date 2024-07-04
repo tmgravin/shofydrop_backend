@@ -19,10 +19,6 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
-    private Orders orders;
-
     @Column(name = "payment",columnDefinition = "DECIMAL(10,2)", nullable = false)
     private double amount;
 
@@ -39,4 +35,8 @@ public class Payment {
 
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
+    private Orders orders;
 }

@@ -32,13 +32,13 @@ public class Orders {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updateAt;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private Users user;
+    private Users users;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "vendor_id", referencedColumnName = "id")
-    private Users vendor;
+    private Users vendors;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "promocode_id", referencedColumnName = "id")

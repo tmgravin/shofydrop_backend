@@ -24,29 +24,29 @@ public class StoreContact {
     @Column(name = "contact_phone",nullable = false)
     private String contactPhone;
 
-    @Column(name = "address",nullable = false, columnDefinition = "text")
+    @Column(name = "address", columnDefinition = "TEXT", nullable = false)
     private String address;
 
-    @Column(name = "city",nullable = false)
+    @Column(name = "city", nullable = false)
     private String city;
 
-    @Column(name = "state",nullable = false)
+    @Column(name = "state", nullable = false)
     private String state;
 
-    @Column(name = "country",nullable = false)
+    @Column(name = "country", nullable = false)
     private String country;
 
-    @Column(name = "postal_code",nullable = false)
+    @Column(name = "postal_code", nullable = false)
     private String postalCode;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "store_id",referencedColumnName = "id",unique = true)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "store_id", referencedColumnName = "id")
     private Stores store;
 
 }

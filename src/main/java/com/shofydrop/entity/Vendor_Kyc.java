@@ -18,10 +18,10 @@ public class Vendor_Kyc {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "document_type", columnDefinition = "VARCHAR(50)")
+    @Column(name = "document_type", length = 50)
     private String documentType;
 
-    @Column(name = "document_number", columnDefinition = "VARCHAR(50)")
+    @Column(name = "document_number",length = 50)
     private String documentNumber;
 
     @Column(name = "document_image_front", nullable = false)

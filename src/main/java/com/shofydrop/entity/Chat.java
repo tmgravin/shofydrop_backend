@@ -18,6 +18,12 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "message", columnDefinition = "TEXT", nullable = false)
+    private String message;
+
+    @Column(name = "send_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp sendAt;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sender_id", referencedColumnName = "id")
     private Users sender;
@@ -29,10 +35,4 @@ public class Chat {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Orders orders;
-
-    @Column(name = "message", columnDefinition = "TEXT", nullable = false)
-    private String message;
-
-    @Column(name = "send_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Timestamp sendAt;
 }
