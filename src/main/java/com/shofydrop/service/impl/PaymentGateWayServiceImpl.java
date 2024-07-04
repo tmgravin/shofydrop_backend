@@ -1,6 +1,6 @@
 package com.shofydrop.service.impl;
 
-import com.shofydrop.entity.PaymentGateWay;
+import com.shofydrop.entity.PaymentGateway;
 import com.shofydrop.exception.ResourceNotFoundException;
 import com.shofydrop.repository.PaymentGateWayRepository;
 import com.shofydrop.service.PaymentGateWayService;
@@ -17,7 +17,7 @@ public class PaymentGateWayServiceImpl implements PaymentGateWayService {
      * @return 
      */
     @Override
-    public List<PaymentGateWay> findAll() {
+    public List<PaymentGateway> findAll() {
         return paymentGateWayRepository.findAll();
     }
 
@@ -26,7 +26,7 @@ public class PaymentGateWayServiceImpl implements PaymentGateWayService {
      * @return
      */
     @Override
-    public PaymentGateWay findById(Long id) {
+    public PaymentGateway findById(Long id) {
         return paymentGateWayRepository.findById(id).
                 orElseThrow(()->new
                         ResourceNotFoundException("payment gateway does not exist with id"+id)
@@ -38,7 +38,7 @@ public class PaymentGateWayServiceImpl implements PaymentGateWayService {
      * @return
      */
     @Override
-    public PaymentGateWay save(PaymentGateWay paymentGateWay) {
+    public PaymentGateway save(PaymentGateway paymentGateWay) {
         return paymentGateWayRepository.save(paymentGateWay);
     }
 
@@ -48,12 +48,12 @@ public class PaymentGateWayServiceImpl implements PaymentGateWayService {
      * @return
      */
     @Override
-    public PaymentGateWay update(PaymentGateWay paymentGateWay, Long id) {
+    public PaymentGateway update(PaymentGateway paymentGateWay, Long id) {
         boolean isExist=paymentGateWayRepository.existsById(id);
         if (isExist){
-            PaymentGateWay isExistingPaymentGateWay=paymentGateWayRepository.findById(id).get();
-            isExistingPaymentGateWay.setPaymentMethod(paymentGateWay.getPaymentMethod());
-            isExistingPaymentGateWay.setQrCode(paymentGateWay.getQrCode());
+            PaymentGateway isExistingPaymentGateway =paymentGateWayRepository.findById(id).get();
+            isExistingPaymentGateway.setPaymentMethod(paymentGateWay.getPaymentMethod());
+            isExistingPaymentGateway.setQrCode(paymentGateWay.getQrCode());
             return paymentGateWayRepository.save(paymentGateWay);
         }
         return null;

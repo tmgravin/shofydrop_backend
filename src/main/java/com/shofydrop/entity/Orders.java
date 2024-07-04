@@ -34,7 +34,11 @@ public class Orders {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private Users users;
+    private Users user;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "vendor_id", referencedColumnName = "id", nullable = false)
+    private Users vendor;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "promocode_id", referencedColumnName = "id")
