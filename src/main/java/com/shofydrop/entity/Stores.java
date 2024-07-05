@@ -34,7 +34,7 @@ public class Stores {
     private String storeBanner;
 
     @Column(name = "is_open", columnDefinition = "char(1) DEFAULT 'Y'", nullable = false)
-    private char isOpen;
+    private Boolean isOpen;
     @Column(name = "created_at", columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
     private Timestamp createdAt;
 

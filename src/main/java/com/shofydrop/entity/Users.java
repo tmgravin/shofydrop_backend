@@ -6,10 +6,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -43,7 +40,7 @@ public class Users {
     private char isVerified;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'USER'")
+    @Column(name = "user_type", columnDefinition = "VARCHAR(20) DEFAULT 'USER'")
     private Role role;
 
     @Column(name = "kyc_completed", columnDefinition = "CHAR(1) DEFAULT 'N'")
@@ -58,8 +55,6 @@ public class Users {
     @Enumerated(EnumType.STRING)
     @Column(name = "sign_up_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
     private LoginType loginType;
-
-
 
 }
 
