@@ -11,20 +11,18 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "payment_gate_way")
-public class PaymentGateWay {
+public class PaymentGateway {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "payment_method")
+    @Column(name = "payment_method",columnDefinition = "VARCHAR(100)")
     private String paymentMethod;
 
-    @Column(name = "qr_code")
+    @Column(name = "qr_code",columnDefinition = "TEXT")
     private String qrCode;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "vendor_id", referencedColumnName = "id")
     private Users users;
-
-
 }
