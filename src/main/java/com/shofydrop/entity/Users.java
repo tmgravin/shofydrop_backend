@@ -1,6 +1,5 @@
 package com.shofydrop.entity;
 
-import com.shofydrop.dto.UsersDto;
 import com.shofydrop.enumerated.LoginType;
 import com.shofydrop.enumerated.UserType;
 import jakarta.persistence.*;
@@ -12,11 +11,9 @@ import lombok.NoArgsConstructor;
 import java.sql.Timestamp;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Table(name = "users")
-public class Users extends UsersDto {
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

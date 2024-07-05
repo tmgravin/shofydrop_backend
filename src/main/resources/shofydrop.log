@@ -1,0 +1,161 @@
+2024-07-05T16:44:50.963+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 47784 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
+2024-07-05T16:44:50.968+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-05T16:44:51.067+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-07-05T16:44:51.067+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-07-05T16:44:52.640+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-05T16:44:52.903+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 247 ms. Found 19 JPA repository interfaces.
+2024-07-05T16:44:54.265+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-07-05T16:44:54.289+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-05T16:44:54.290+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-05T16:44:54.397+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-05T16:44:54.399+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3329 ms
+2024-07-05T16:44:54.744+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-05T16:44:54.856+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-05T16:44:55.004+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-05T16:44:55.741+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-05T16:44:55.791+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-05T16:44:56.504+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@e133556
+2024-07-05T16:44:56.507+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-05T16:44:56.606+05:45  WARN 47784 --- [ShofyDrop] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-07-05T16:44:59.153+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-05T16:45:00.432+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-05T16:45:01.513+05:45  WARN 47784 --- [ShofyDrop] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-05T16:45:01.561+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2024-07-05T16:45:02.394+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-07-05T16:45:02.466+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-07-05T16:45:02.486+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Started ShofyDropApplication in 12.495 seconds (process running for 13.429)
+2024-07-05T16:51:48.187+05:45  INFO 47784 --- [ShofyDrop] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 3 class path changes (1 addition, 2 deletions, 0 modifications)
+2024-07-05T16:51:48.207+05:45  INFO 47784 --- [ShofyDrop] [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-05T16:51:48.212+05:45  INFO 47784 --- [ShofyDrop] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-05T16:51:48.233+05:45  INFO 47784 --- [ShofyDrop] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-05T16:51:48.556+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 47784 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
+2024-07-05T16:51:48.557+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-05T16:51:49.435+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-05T16:51:49.586+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 147 ms. Found 19 JPA repository interfaces.
+2024-07-05T16:51:50.125+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-07-05T16:51:50.126+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-05T16:51:50.127+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-05T16:51:50.176+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-05T16:51:50.177+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1615 ms
+2024-07-05T16:51:50.239+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-05T16:51:50.244+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-05T16:51:50.260+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-05T16:51:50.261+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2024-07-05T16:51:50.412+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@a99ec5e
+2024-07-05T16:51:50.412+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2024-07-05T16:51:50.417+05:45  WARN 47784 --- [ShofyDrop] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-07-05T16:51:51.264+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-05T16:51:52.556+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-05T16:51:52.763+05:45  WARN 47784 --- [ShofyDrop] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [E:\ShofyDrop\target\classes\com\shofydrop\controller\UserController.class]: Post-processing of merged bean definition failed
+2024-07-05T16:51:52.765+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-05T16:51:52.766+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2024-07-05T16:51:52.790+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2024-07-05T16:51:52.791+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-07-05T16:51:52.814+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-07-05T16:51:52.868+05:45 ERROR 47784 --- [ShofyDrop] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userController' defined in file [E:\ShofyDrop\target\classes\com\shofydrop\controller\UserController.class]: Post-processing of merged bean definition failed
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:577) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:962) ~[spring-context-6.1.10.jar:6.1.10]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624) ~[spring-context-6.1.10.jar:6.1.10]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.1.jar:3.3.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.1.jar:3.3.1]
+	at com.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.1.jar:3.3.1]
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.shofydrop.controller.UserController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@1df734e3]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:757) ~[spring-core-6.1.10.jar:6.1.10]
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:689) ~[spring-core-6.1.10.jar:6.1.10]
+	at org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor.buildPersistenceMetadata(PersistenceAnnotationBeanPostProcessor.java:436) ~[spring-orm-6.1.10.jar:6.1.10]
+	at org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor.findPersistenceMetadata(PersistenceAnnotationBeanPostProcessor.java:417) ~[spring-orm-6.1.10.jar:6.1.10]
+	at org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor.findInjectionMetadata(PersistenceAnnotationBeanPostProcessor.java:376) ~[spring-orm-6.1.10.jar:6.1.10]
+	at org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(PersistenceAnnotationBeanPostProcessor.java:353) ~[spring-orm-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1085) ~[spring-beans-6.1.10.jar:6.1.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:574) ~[spring-beans-6.1.10.jar:6.1.10]
+	... 18 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: com/shofydrop/service/UserService
+	at java.base/java.lang.Class.getDeclaredFields0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.privateGetDeclaredFields(Class.java:3496) ~[na:na]
+	at java.base/java.lang.Class.getDeclaredFields(Class.java:2552) ~[na:na]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:752) ~[spring-core-6.1.10.jar:6.1.10]
+	... 25 common frames omitted
+Caused by: java.lang.ClassNotFoundException: com.shofydrop.service.UserService
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641) ~[na:na]
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[na:na]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[na:na]
+	at java.base/java.lang.Class.forName0(Native Method) ~[na:na]
+	at java.base/java.lang.Class.forName(Class.java:529) ~[na:na]
+	at java.base/java.lang.Class.forName(Class.java:508) ~[na:na]
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:121) ~[spring-boot-devtools-3.3.1.jar:3.3.1]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[na:na]
+	... 29 common frames omitted
+
+2024-07-05T16:51:56.561+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 47784 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
+2024-07-05T16:51:56.561+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-05T16:51:57.446+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-05T16:51:57.640+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 191 ms. Found 19 JPA repository interfaces.
+2024-07-05T16:51:57.954+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-07-05T16:51:57.956+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-05T16:51:57.956+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-05T16:51:58.022+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2024-07-05T16:51:58.023+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1455 ms
+2024-07-05T16:51:58.120+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-05T16:51:58.126+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-05T16:51:58.203+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-05T16:51:58.209+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2024-07-05T16:51:58.239+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4d480e85
+2024-07-05T16:51:58.240+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2024-07-05T16:51:58.245+05:45  WARN 47784 --- [ShofyDrop] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-07-05T16:51:59.245+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-05T16:52:00.624+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-05T16:52:01.073+05:45  WARN 47784 --- [ShofyDrop] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-05T16:52:01.088+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2024-07-05T16:52:01.466+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-07-05T16:52:01.480+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-07-05T16:52:01.487+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Started ShofyDropApplication in 4.997 seconds (process running for 432.43)
+2024-07-05T16:52:01.492+05:45  INFO 47784 --- [ShofyDrop] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-07-05T16:52:01.500+05:45  INFO 47784 --- [ShofyDrop] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-05T16:52:01.501+05:45  INFO 47784 --- [ShofyDrop] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2024-07-05T16:52:01.520+05:45  INFO 47784 --- [ShofyDrop] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2024-07-05T16:52:07.531+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 38068 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
+2024-07-05T16:52:07.536+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-05T16:52:07.645+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-07-05T16:52:07.645+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-07-05T16:52:09.500+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-05T16:52:09.787+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 272 ms. Found 19 JPA repository interfaces.
+2024-07-05T16:52:11.063+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-07-05T16:52:11.089+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-05T16:52:11.090+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-05T16:52:11.188+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-05T16:52:11.189+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3542 ms
+2024-07-05T16:52:11.509+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-05T16:52:11.626+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-05T16:52:11.799+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-05T16:52:12.414+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-05T16:52:12.455+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-05T16:52:13.051+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@60f4008e
+2024-07-05T16:52:13.053+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-05T16:52:13.150+05:45  WARN 38068 --- [ShofyDrop] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-07-05T16:52:15.895+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-05T16:52:17.363+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-05T16:52:18.438+05:45  WARN 38068 --- [ShofyDrop] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-05T16:52:18.488+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2024-07-05T16:52:19.374+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-07-05T16:52:19.427+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-07-05T16:52:19.448+05:45  INFO 38068 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Started ShofyDropApplication in 12.877 seconds (process running for 13.965)
+2024-07-05T16:57:30.883+05:45  INFO 38068 --- [ShofyDrop] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-05T16:57:30.889+05:45  INFO 38068 --- [ShofyDrop] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-05T16:57:30.907+05:45  INFO 38068 --- [ShofyDrop] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

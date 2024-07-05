@@ -1,6 +1,7 @@
 package com.shofydrop.service.impl;
 
 import com.shofydrop.entity.Orders;
+import com.shofydrop.entity.Users;
 import com.shofydrop.exception.ResourceNotFoundException;
 import com.shofydrop.repository.OrdersRepository;
 import com.shofydrop.service.OrderService;
@@ -52,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Object delete(Long id) {
+    public Users delete(Long id) {
         return null;
     }
 }
