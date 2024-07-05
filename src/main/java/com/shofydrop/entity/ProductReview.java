@@ -19,7 +19,7 @@ public class ProductReview {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "rating", nullable = false)
+    @Column(name = "rating")
     private int rating;
 
     @Column(name = "review", columnDefinition = "TEXT")

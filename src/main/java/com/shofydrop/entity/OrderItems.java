@@ -33,10 +33,10 @@ public class OrderItems {
     private Timestamp updateAt;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Orders orders;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 }

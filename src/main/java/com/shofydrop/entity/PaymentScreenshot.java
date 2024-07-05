@@ -17,10 +17,6 @@ public class PaymentScreenshot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "payment_id", referencedColumnName = "id", nullable = false)
-    private Payment payment;
-
     @Column(name = "screenshot_url", nullable = false)
     private String screenshotUrl;
 
@@ -29,4 +25,8 @@ public class PaymentScreenshot {
 
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "payment_id", referencedColumnName = "id", nullable = false)
+    private Payment payment;
 }

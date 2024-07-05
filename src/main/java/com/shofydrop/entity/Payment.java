@@ -23,7 +23,7 @@ public class Payment {
     private double amount;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "paymentMethod", columnDefinition = "ENUM('ESEWA','KHALTI','FONEPAY','CASH_ON_DELIVERY')", nullable = false)
+    @Column(name = "paymentMethod", columnDefinition = "ENUM('ESEWA','KHALTI','FONEPAY','CASH_ON_DELIVERY')")
     private PaymentMethod paymentMethod;
 
     @Enumerated(EnumType.STRING)

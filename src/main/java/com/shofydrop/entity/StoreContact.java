@@ -18,10 +18,10 @@ public class StoreContact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "contact_email",nullable = false)
+    @Column(name = "contact_email", nullable = false)
     private String contactEmail;
 
-    @Column(name = "contact_phone",nullable = false)
+    @Column(name = "contact_phone", nullable = false)
     private String contactPhone;
 
     @Column(name = "address", columnDefinition = "TEXT", nullable = false)
@@ -45,8 +45,8 @@ public class StoreContact {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "store_id", referencedColumnName = "id")
-    private Stores store;
+    private Stores stores;
 
 }
