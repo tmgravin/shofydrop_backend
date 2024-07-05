@@ -14,7 +14,6 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @ToString
 public class VendorKycDto {
-    private Long id;
     private String documentType;
     private String documentNumber;
     private String documentImageFront;

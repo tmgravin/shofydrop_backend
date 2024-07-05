@@ -5,6 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
 @Data
@@ -12,10 +16,16 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @ToString
 public class HeroSectionImageDto {
-    private Long id;
+
+    @NotBlank(message = "Image Url cannot be null")
     private String imageUrl;
+
+    @Size(message = "150")
     private String altText;
-    private String redirectUrl;
+
+    @PastOrPresent
     private Timestamp createdAt;
+
+    @FutureOrPresent
     private Timestamp updatedAt;
 }

@@ -1,5 +1,8 @@
 package com.shofydrop.dto;
 
+import com.shofydrop.enumerated.PaymentMethod;
+import com.shofydrop.enumerated.Status;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,14 +17,21 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class PaymentScreenshotDto {
+public class PaymentDto {
 
     @NotBlank
-    private String screenshotUrl;
+    private double amount;
+
+    @Enumerated
+    private PaymentMethod paymentMethod;
+
+    @Enumerated
+    private Status status;
 
     @PastOrPresent
     private Timestamp createdAt;
 
     @FutureOrPresent
     private Timestamp updatedAt;
+
 }

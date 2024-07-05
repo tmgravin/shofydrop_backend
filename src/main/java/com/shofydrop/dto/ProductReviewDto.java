@@ -13,16 +13,12 @@ import java.sql.Timestamp;
 @ToString
 @Data
 public class ProductReviewDto {
-
     @Min(value = 0)
     @Max(value = 5)
     private int rating;
 
     @NotBlank
-    private String comment;
-
-    @Pattern(regexp = "[YN]", message = "KYC completed must be 'Y' or 'N'")
-    private char kyeCompleted;
+    private String review;
 
     @PastOrPresent
     private Timestamp createdAt;

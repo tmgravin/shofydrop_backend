@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
 import java.sql.Timestamp;
 
 @AllArgsConstructor
@@ -13,10 +15,10 @@ import java.sql.Timestamp;
 @Data
 @ToString
 public class ChatDto {
-    private Long id;
-    private Users users;
+    @NotBlank(message = "Message cannot be null")
     private String message;
-    private boolean read;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+
+    @PastOrPresent
+    private Timestamp sendAt;
+
 }

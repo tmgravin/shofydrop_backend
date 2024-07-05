@@ -13,7 +13,6 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @ToString
 public class UserImagesDto {
-     private Long id;
      private String imageUrl;
      private Timestamp createdAt;
      private Timestamp updatedAt;

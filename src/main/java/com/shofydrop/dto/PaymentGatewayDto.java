@@ -10,7 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Data
 @ToString
-public class PaymentGateWayDto {
+public class PaymentGatewayDto {
     @NotBlank
     private String paymentMethod;
 
