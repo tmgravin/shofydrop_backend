@@ -30,5 +30,4 @@ public class SubCategory {
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-
 }

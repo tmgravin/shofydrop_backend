@@ -54,5 +54,4 @@ public class StoreContact {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "store_id",referencedColumnName = "id",unique = true)
     private Stores store;
-
 }

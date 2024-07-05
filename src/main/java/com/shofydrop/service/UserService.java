@@ -1,6 +1,5 @@
 package com.shofydrop.service;
 
-import com.shofydrop.dto.UsersDto;
 import com.shofydrop.entity.Users;
 import org.springframework.stereotype.Service;
 
@@ -12,5 +11,6 @@ public interface UserService {
     Users findById(Long id);
     Users update(Users users, Long id);
     Users save(Users users);
-    void delete(Long id);
+    Object delete(Long id);
+
 }

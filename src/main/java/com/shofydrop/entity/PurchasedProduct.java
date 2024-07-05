@@ -28,8 +28,6 @@ public class PurchasedProduct {
     private Users user;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id", columnDefinition = "id")
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
-
-
 }

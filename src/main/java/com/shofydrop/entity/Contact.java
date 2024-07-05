@@ -1,15 +1,12 @@
 package com.shofydrop.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 import java.sql.Timestamp;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "contact")
 public class Contact {
@@ -29,7 +26,6 @@ public class Contact {
     @Column(name = "address_line2")
     private String address2;
 
-
     @Column(name = "city", nullable = false, length = 100)
     private String city;
 
@@ -42,14 +38,16 @@ public class Contact {
     @Column(name = "country", nullable = false, length = 100)
     private String country;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;
 
-    @Column(name="updated_at", columnDefinition=" TIMESTAMP Default Current_Timestamp ON UPDATE Current_Timestamp", insertable = false)
-
+    @Column(name="updated_at", columnDefinition="TIMESTAMP Default Current_Timestamp ON UPDATE Current_Timestamp", insertable = false)
     private Timestamp updatedAt;
+
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users user;
+
+
 }
