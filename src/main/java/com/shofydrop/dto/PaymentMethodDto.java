@@ -1,9 +1,5 @@
 package com.shofydrop.dto;
 
-import com.shofydrop.enumerated.PaymentMethod;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

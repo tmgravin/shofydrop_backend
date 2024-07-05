@@ -1,7 +1,5 @@
 package com.shofydrop.dto;
 
-import com.shofydrop.entity.Users;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

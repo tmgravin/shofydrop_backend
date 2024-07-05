@@ -2,6 +2,7 @@ package com.shofydrop.enumerated;
 
 public enum Status {
     PENDING,
-    APPROVED,
-    REJECTED
+    ON_THE_WAY,
+    DELIVERED,
+    FAILED
 }

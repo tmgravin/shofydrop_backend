@@ -1,7 +1,7 @@
 package com.shofydrop.entity;
 
 import com.shofydrop.enumerated.LoginType;
-import com.shofydrop.enumerated.Role;
+import com.shofydrop.enumerated.UserType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,7 +44,7 @@ public class Users {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'USER'")
-    private Role role;
+    private UserType userType;
 
     @Column(name = "kyc_completed", columnDefinition = "CHAR(1) DEFAULT 'N'")
     private char kycCompleted;
