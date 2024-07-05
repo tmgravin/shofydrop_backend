@@ -67,9 +67,11 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * @param id
+     * @return
      */
     @Override
-    public void delete(Long id) {
+    public Object delete(Long id) {
         productRepository.deleteById(id);
+        return null;
     }
 }
