@@ -32,21 +32,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Users update(Users user, Long id) {
-        boolean isExist = usersRepository.existsById(id);
+       try{
+           boolean isExist = usersRepository.existsById(id);
 
-        if (isExist) {
-            Users existingUser = usersRepository.findById(id).orElseThrow(() ->
-                    new ResourceNotFoundException("user does not exist with this id " + id));
-            existingUser.setName(user.getName());
-            existingUser.setEmail(user.getEmail());
-            existingUser.setPassword(user.getPassword());
-            existingUser.setUserType(user.getUserType());
-            existingUser.setCreatedAt(user.getCreatedAt());
-            existingUser.setUpdatedAt(user.getUpdatedAt());
-            existingUser.setLoginType(user.getLoginType());
-            return usersRepository.save(existingUser);
-        }
-        return null;
+           if (isExist) {
+               Users existingUser = usersRepository.findById(id).orElseThrow(() ->
+                       new ResourceNotFoundException("user does not exist with this id " + id));
+               existingUser.setName(user.getName());
+               existingUser.setEmail(user.getEmail());
+               existingUser.setPassword(user.getPassword());
+               existingUser.setUserType(user.getUserType());
+               existingUser.setCreatedAt(user.getCreatedAt());
+               existingUser.setUpdatedAt(user.getUpdatedAt());
+               existingUser.setLoginType(user.getLoginType());
+               return usersRepository.save(existingUser);
+           }
+           return null;
+       }catch (Exception e){
+           return null;       }
     }
 
     @Override

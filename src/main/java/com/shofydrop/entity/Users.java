@@ -1,5 +1,6 @@
 package com.shofydrop.entity;
 
+import com.shofydrop.dto.UsersDto;
 import com.shofydrop.enumerated.LoginType;
 import com.shofydrop.enumerated.UserType;
 import jakarta.persistence.*;
@@ -9,14 +10,13 @@ import lombok.NoArgsConstructor;
 
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Table(name = "users")
-public class Users {
+public class Users extends UsersDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,11 +40,12 @@ public class Users {
     private String postalCode;
 
     @Column(name = "is_verified", nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'")
-    private char isVerified;
+    private String isVerified;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'USER'")
     private UserType userType;
+
 
     @Column(name = "kyc_completed", columnDefinition = "CHAR(1) DEFAULT 'N'")
     private char kycCompleted;
