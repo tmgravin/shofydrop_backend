@@ -2,7 +2,6 @@ package com.shofydrop.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.sql.Timestamp;
 
 @Data
@@ -42,8 +41,9 @@ public class Contact {
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
+    @Column(name="updated_at", columnDefinition="TIMESTAMP Default Current_Timestamp ON UPDATE Current_Timestamp", insertable = false)
     private Timestamp updatedAt;
+
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")

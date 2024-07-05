@@ -45,6 +45,12 @@ public class StoreContact {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updatedAt;
 
+    @Column(name = "longitute")
+    private double longitute;
+
+    @Column(name = "latitute")
+    private double latitute;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "store_id",referencedColumnName = "id",unique = true)
     private Stores store;

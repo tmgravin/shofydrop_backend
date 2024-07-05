@@ -11,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@ToString
 @Entity
 @Table(name = "product")
 public class Product {
@@ -48,6 +47,11 @@ public class Product {
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "suc_category_id", referencedColumnName = "id")
     private SubCategory subCategory;
+
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "sub_category_id")
+    private Category category;
 
 
 }
