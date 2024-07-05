@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ContactDto {
+public class UsersContactDto {
     @NotBlank(message = "phoneNumber can not be null and empty")
     private String phoneNumber;
 

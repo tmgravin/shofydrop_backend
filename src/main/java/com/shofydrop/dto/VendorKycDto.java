@@ -1,6 +1,7 @@
 package com.shofydrop.dto;
 
 import com.shofydrop.enumerated.Status;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,13 +13,12 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class KycDto {
+public class VendorKycDto {
     private Long id;
     private String documentType;
     private String documentNumber;
-    private String documentFile;
-    private Status status;
-    private Timestamp submittedAt;
-    private Timestamp verifiedAt;
+    private String documentImageFront;
+    private String documentImageBack;
+    private Timestamp createdAt;
     private Timestamp updatedAt;
 }

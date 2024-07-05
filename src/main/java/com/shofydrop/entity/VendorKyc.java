@@ -1,6 +1,5 @@
 package com.shofydrop.entity;
 
-import com.shofydrop.enumerated.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +12,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Entity
 @Table(name= "vendor_kyc")
-public class Vendor_Kyc {
+public class VendorKyc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
