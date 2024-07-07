@@ -15,5 +15,6 @@ public interface ProductService {
 
     public Product update(Product product, Long id);
 
-    public Product delete(Long id);
+    public Void delete(Long id);
+    public List<Product> findByCategoryId(Long id);
 }

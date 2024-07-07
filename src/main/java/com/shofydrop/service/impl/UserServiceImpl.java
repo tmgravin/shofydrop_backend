@@ -38,7 +38,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users update(Users user, Long id) {
        try{
-
                Users existingUser = usersRepository.findById(id).orElseThrow(() ->
                        new ResourceNotFoundException("user does not exist with this id " + id));
                existingUser.setName(user.getName());
@@ -64,17 +63,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Users delete(Long id) {
-        try{
-            Users existingUser = usersRepository.findById(id).orElseThrow(() ->
-                    new ResourceNotFoundException("user does not exist with this id " + id));
-            usersRepository.delete(existingUser);
-            return existingUser;
-
-        }catch (Exception e){
-            throw new RuntimeException("Internal Server Error" + id + e.getMessage());
-        }
-    }
+  public Void delete(Long id) {
+      try{
+          usersRepository.deleteById(id);
+          return null;
+      }catch (Exception e){
+          throw new RuntimeException("Internal Server Error" + id + e.getMessage());
+      }
+  }
 
     @Override
     public Users findByEmail(String email) {

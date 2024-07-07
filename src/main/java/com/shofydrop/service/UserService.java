@@ -11,7 +11,7 @@ public interface UserService {
     Users findById(Long id);
     Users update(Users users, Long id);
     Users save(Users users);
-    Users delete(Long id);
+    Void delete(Long id);
     Users findByEmail(String email);
     Users findByName(String name);
 }

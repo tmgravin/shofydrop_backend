@@ -13,5 +13,5 @@ public interface OrderService {
     Orders update(Orders orders, Long id);
     Orders findById(Long id);
     List<Orders> findAll();
-    Users delete(Long id);
+    Void delete(Long id);
 }
