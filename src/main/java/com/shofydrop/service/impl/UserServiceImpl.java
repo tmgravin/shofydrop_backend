@@ -2,7 +2,9 @@ package com.shofydrop.service.impl;
 
 import com.shofydrop.entity.Users;
 import com.shofydrop.exception.ResourceNotFoundException;
+
 import com.shofydrop.repository.UsersRepository;
+
 import com.shofydrop.service.UserService;
 //import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users update(Users user, Long id) {
         boolean isExist = usersRepository.existsById(id);
+
         if (isExist) {
             Users existingUser = usersRepository.findById(id).orElseThrow(() ->
                     new ResourceNotFoundException("user does not exist with this id " + id));
@@ -52,7 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(Long id) {
-        usersRepository.deleteById(id);
+    public Object delete(Long id) {
+        return null;
     }
 }

@@ -9,41 +9,57 @@ import lombok.NoArgsConstructor;
 
 
 import java.sql.Timestamp;
+import java.util.List;
 
-
-
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
 @Table(name = "users")
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", length = 50, nullable = false)
+    @Column(name = "name", nullable = false,columnDefinition = "VARCHAR(255)")
     private String name;
 
-    @Column(name = "email", length = 100, unique = true, nullable = false)
+    @Column(name = "email", unique = true,columnDefinition = "VARCHAR(255)",nullable = false)
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, columnDefinition = "VARCHAR(255)")
     private String password;
 
+    @Column(name = "phone", nullable = false, columnDefinition = "VARCHAR(20)")
+    private String phone;
+
+    @Column(name = "address", nullable = false, columnDefinition = "TEXT")
+    private String address;
+
+    @Column(name = "postal_code", columnDefinition = "INT(6)")
+    private String postalCode;
+
+    @Column(name = "is_verified", nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'")
+    private char isVerified;
+
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_type", columnDefinition ="ENUM('USER','ADMIN','EDITOR','DELIVERY_BOY','VENDOR')", nullable = false)
+    @Column(name = "role", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'USER'")
     private UserType userType;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "kyc_completed", columnDefinition = "CHAR(1) DEFAULT 'N'")
+    private char kycCompleted;
+
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updatedAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "login_type", columnDefinition = "VARCHAR(255) DEFAULT 'EMAIL'", nullable = false)
+    @Column(name = "sign_up_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
     private LoginType loginType;
+
+
 
 }
 

@@ -16,10 +16,10 @@ public class PaymentGateway {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "payment_method")
+    @Column(name = "payment_method",columnDefinition = "VARCHAR(100)")
     private String paymentMethod;
 
-    @Column(name = "qr_code")
+    @Column(name = "qr_code",columnDefinition = "TEXT")
     private String qrCode;
 
     @ManyToOne(cascade = CascadeType.ALL)

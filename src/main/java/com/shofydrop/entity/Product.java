@@ -6,10 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@ToString
 @Entity
 @Table(name = "product")
 public class Product {
@@ -17,16 +18,20 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "name", columnDefinition = "VARCHAR(100)", nullable = false)
+    private String name;
+
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "price", nullable = false)
+
+    @Column(name = "price", nullable = false, columnDefinition = "DECIMAL(10,2)")
     private double price;
 
-    @Column(name= "stock")
+    @Column(name="stock")
     private int stock;
 
-    @Column(name = "discounted_price")
+    @Column(name = "discounted_price", columnDefinition = "DECIMAL(10,2)")
     private double discountedPrice;
 
     @Column(name = "created_at")
@@ -35,11 +40,18 @@ public class Product {
     @Column(name = "updated_at")
     private String updatedAt;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "store_id", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
     private Stores stores;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sub_category_id", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "suc_category_id", referencedColumnName = "id")
     private SubCategory subCategory;
+
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "sub_category_id")
+    private Category category;
+
+
 }
