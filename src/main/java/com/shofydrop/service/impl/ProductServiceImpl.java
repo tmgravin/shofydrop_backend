@@ -14,18 +14,13 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    /**
-     * @return
-     */
+
     @Override
     public List<Product> findAll() {
         return productRepository.findAll();
     }
 
-    /**
-     * @param id
-     * @return
-     */
+
     @Override
     public Product findById(Long id) {
         return productRepository.findById(id).
@@ -35,20 +30,13 @@ public class ProductServiceImpl implements ProductService {
                         ));
     }
 
-    /**
-     * @param product
-     * @return
-     */
+
     @Override
     public Product save(Product product) {
         return productRepository.save(product);
     }
 
-    /**
-     * @param product
-     * @param id
-     * @return
-     */
+
     @Override
     public Product update(Product product, Long id) {
         boolean isExist = productRepository.existsById(id);
@@ -65,11 +53,14 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
 
-    /**
-     * @param id
-     */
     @Override
-    public void delete(Long id) {
+    public Void delete(Long id) {
         productRepository.deleteById(id);
+        return null;
+    }
+
+    @Override
+    public List<Product> findByCategoryId(Long id) {
+        return productRepository.findByCategoryId(id);
     }
 }

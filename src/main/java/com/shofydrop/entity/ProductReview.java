@@ -18,20 +18,13 @@ public class ProductReview {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-<<<<<<< HEAD
     @Column(name = "rating", nullable = false)
     @Min(1)
     @Max(5)
-=======
-
-    @Column(name = "rating")
-    @Min(value = 1)
-    @Max(value = 5)
->>>>>>> e805ae5b71d401ac2381906962c127cf4f8d10a0
     private int rating;
 
-    @Column(name = "review", columnDefinition = "TEXT")
-    private String review;
+    @Column(name = "comment", columnDefinition = "TEXT")
+    private String comment;
 
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
@@ -40,7 +33,6 @@ public class ProductReview {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updatedAt;
 
-<<<<<<< HEAD
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -53,14 +45,4 @@ public class ProductReview {
 
 
 
-=======
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private Users users;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    private Product product;
-
->>>>>>> e805ae5b71d401ac2381906962c127cf4f8d10a0
 }

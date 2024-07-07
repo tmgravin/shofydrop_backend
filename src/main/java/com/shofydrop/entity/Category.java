@@ -8,9 +8,7 @@ import lombok.ToString;
 
 import java.sql.Timestamp;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
+
 @Data
 @Entity
 @Table(name = "category")

@@ -5,12 +5,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public interface UserService {
     List<Users> findAll();
     Users findById(Long id);
     Users update(Users users, Long id);
     Users save(Users users);
-    Object delete(Long id);
-
+    Void delete(Long id);
+    Users findByEmail(String email);
+    Users findByName(String name);
 }
