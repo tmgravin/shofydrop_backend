@@ -1,6 +1,5 @@
 package com.shofydrop.entity;
 
-import com.shofydrop.enumerated.PaymentMethod;
 import com.shofydrop.enumerated.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

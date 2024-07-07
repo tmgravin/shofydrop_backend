@@ -19,7 +19,7 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "payment",columnDefinition = "DECIMAL(10,2)", nullable = false)
+    @Column(name = "payment", columnDefinition = "DECIMAL(10,2)", nullable = false)
     private double amount;
 
     @Enumerated(EnumType.STRING)
