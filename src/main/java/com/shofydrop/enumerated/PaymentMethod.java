@@ -1,6 +1,8 @@
 package com.shofydrop.enumerated;
 
 public enum PaymentMethod {
-    CashOnDelivery,
-    OnlinePayment
+    ESEWA,
+    KHALTI,
+    FONEPAY,
+    CASH_ON_DELIVERY
 }

@@ -20,11 +20,8 @@ public class HeroSectionImage {
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
-    @Column(name = "alt_text")
+    @Column(name = "alt_text", length = 150)
     private String altText;
-
-    @Column(name = "redirect_url")
-    private String redirectUrl;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;

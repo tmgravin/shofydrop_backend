@@ -1,6 +1,5 @@
 package com.shofydrop.entity;
 
-import com.shofydrop.enumerated.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,20 +7,27 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "delivery")
-public class Delivery {
+@Table(name= "vendor_kyc")
+public class VendorKyc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", columnDefinition = "ENUM('PENDING','ON_THE_WAY','DELIVERED','FAILED')", nullable = false)
-    private Status status;
+    @Column(name = "document_type", length = 50)
+    private String documentType;
+
+    @Column(name = "document_number",length = 50)
+    private String documentNumber;
+
+    @Column(name = "document_image_front", nullable = false)
+    private String documentImageFront;
+
+    @Column(name = "document_image_back", nullable = false)
+    private String documentImageBack;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
@@ -30,11 +36,7 @@ public class Delivery {
     private Timestamp updatedAt;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private Orders orders;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "delivery_boy_id", referencedColumnName = "id")
-    private Users deliveryBoy;
+    @JoinColumn(name = "vendor_id", referencedColumnName = "id", nullable = false)
+    private Users users;
 
 }

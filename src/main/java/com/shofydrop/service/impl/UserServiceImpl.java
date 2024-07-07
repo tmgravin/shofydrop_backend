@@ -6,7 +6,7 @@ import com.shofydrop.exception.ResourceNotFoundException;
 import com.shofydrop.repository.UsersRepository;
 
 import com.shofydrop.service.UserService;
-import org.modelmapper.ModelMapper;
+//import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +14,8 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private ModelMapper modelMapper;
+//    @Autowired
+//    private ModelMapper modelMapper;
     @Autowired
     private UsersRepository usersRepository;
 
@@ -40,11 +40,7 @@ public class UserServiceImpl implements UserService {
             existingUser.setName(user.getName());
             existingUser.setEmail(user.getEmail());
             existingUser.setPassword(user.getPassword());
-            existingUser.setPhone(user.getPhone());
-            existingUser.setAddress(user.getAddress());
-            existingUser.setIsVerified(user.getIsVerified());
-            existingUser.setRole(user.getRole());
-            existingUser.setKycCompleted(user.getKycCompleted());
+            existingUser.setUserType(user.getUserType());
             existingUser.setCreatedAt(user.getCreatedAt());
             existingUser.setUpdatedAt(user.getUpdatedAt());
             existingUser.setLoginType(user.getLoginType());
