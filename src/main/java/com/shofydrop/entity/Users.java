@@ -3,12 +3,10 @@ package com.shofydrop.entity;
 import com.shofydrop.enumerated.LoginType;
 import com.shofydrop.enumerated.UserType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 
 import java.sql.Timestamp;
+import java.util.TimeZone;
 
 @Entity
 @Data
@@ -18,10 +16,10 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false,columnDefinition = "VARCHAR(255)")
+    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(255)")
     private String name;
 
-    @Column(name = "email", unique = true,columnDefinition = "VARCHAR(255)",nullable = false)
+    @Column(name = "email", unique = true, nullable = false, columnDefinition = "VARCHAR(255)")
     private String email;
 
     @Column(name = "password", nullable = false, columnDefinition = "VARCHAR(255)")
@@ -33,29 +31,40 @@ public class Users {
     @Column(name = "address", nullable = false, columnDefinition = "TEXT")
     private String address;
 
-    @Column(name = "postal_code", columnDefinition = "INT(6)")
+    @Column(name = "postal_code", columnDefinition = "VARCHAR(6)")
     private String postalCode;
 
-    @Column(name = "is_verified", nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'")
-    private String isVerified;
+    @Column(name = "is_verified", nullable = false)
+    private char isVerified = 'N';
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'USER'")
-    private UserType userType;
+    @Column(name = "role", nullable = false)
+    private UserType userType = UserType.USER;
 
+    @Column(name = "kyc_completed", nullable = false)
+    private char kycCompleted = 'N';
 
-    @Column(name = "kyc_completed", columnDefinition = "CHAR(1) DEFAULT 'N'")
-    private char kycCompleted;
-
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
+    @Column(name = "updated_at", nullable = false)
     private Timestamp updatedAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "sign_up_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
-    private LoginType loginType;
+    @Column(name = "sign_up_type", columnDefinition = "VARCHAR(255)")
+    private LoginType loginType = LoginType.FACEBOOK;
 
+    @PrePersist
+    protected void onCreate() {
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
+
+        createdAt = new Timestamp(System.currentTimeMillis());
+        updatedAt = new Timestamp(System.currentTimeMillis());
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
+        updatedAt = new Timestamp(System.currentTimeMillis());
+    }
 }
-

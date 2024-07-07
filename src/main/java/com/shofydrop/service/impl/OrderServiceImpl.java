@@ -31,21 +31,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Orders update(Orders orders, Long id) {
-     try{
-         Orders order = ordersRepository.findById(id).get();
-         order.setTotalPrice(orders.getTotalPrice());
-         order.setOrderStatus(orders.getOrderStatus());
-         order.setOrderDate(orders.getOrderDate());
-         order.setUpdateAt(orders.getUpdateAt());
-         order.setUsers(orders.getUsers());
-         order.setVendors(orders.getVendors());
-         order.setPromoCode(orders.getPromoCode());
-         ordersRepository.save(order);
-         return order;
-     }catch (Exception e){
-         throw new RuntimeException("Order not found" + id + e.getMessage());
-     }
+    public Orders update(Orders orders) {
+        return ordersRepository.save(orders);
     }
 
     @Override

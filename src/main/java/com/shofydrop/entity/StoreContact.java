@@ -1,15 +1,11 @@
 package com.shofydrop.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.sql.Timestamp;
+import java.util.TimeZone;
 
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "store_contact")
@@ -39,10 +35,10 @@ public class StoreContact {
     @Column(name = "postal_code",nullable = false,columnDefinition = "VARCHAR(20)")
     private String postalCode;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    @Column(name = "created_at", insertable = false, updatable = false)
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
+    @Column(name = "updated_at", insertable = false)
     private Timestamp updatedAt;
 
     @Column(name = "longitute")
@@ -54,4 +50,19 @@ public class StoreContact {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "store_id",referencedColumnName = "id",unique = true)
     private Stores store;
+
+    @PrePersist
+    protected void onCreate() {
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
+        createdAt = new Timestamp(System.currentTimeMillis());
+        updatedAt = new Timestamp(System.currentTimeMillis());
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
+        updatedAt = new Timestamp(System.currentTimeMillis());
+    }
 }
+
+

@@ -1,13 +1,10 @@
 package com.shofydrop.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import java.sql.Timestamp;
+import java.util.TimeZone;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "product")
@@ -33,10 +30,10 @@ public class Product {
     private double discountedPrice;
 
     @Column(name = "created_at")
-    private String createdAt;
+    private Timestamp createdAt;
 
     @Column(name = "updated_at")
-    private String updatedAt;
+    private Timestamp updatedAt;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "store_id", referencedColumnName = "id")
@@ -48,8 +45,20 @@ public class Product {
 
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "sub_category_id")
+    @JoinColumn(name = "category_id")
     private Category category;
 
+    @PrePersist
+    protected void onCreate() {
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
+        createdAt = new Timestamp(System.currentTimeMillis());
+        updatedAt = new Timestamp(System.currentTimeMillis());
+    }
+
+    @PreUpdate
+    protected void onUpdate(){
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
+        updatedAt = new Timestamp(System.currentTimeMillis());
+    }
 
 }

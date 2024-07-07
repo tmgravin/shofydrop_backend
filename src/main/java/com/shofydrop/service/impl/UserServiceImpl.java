@@ -36,10 +36,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Users update(Users user, Long id) {
+    public Users update(Users user) {
        try{
-               Users existingUser = usersRepository.findById(id).orElseThrow(() ->
-                       new ResourceNotFoundException("user does not exist with this id " + id));
+               Users existingUser = usersRepository.findById(user.getId()).orElseThrow(() ->
+                       new ResourceNotFoundException("user does not exist with this id " + user.getId()));
                existingUser.setName(user.getName());
                existingUser.setEmail(user.getEmail());
                existingUser.setPassword(user.getPassword());
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
                return usersRepository.save(existingUser);
 
        }catch (Exception e){
-           throw new RuntimeException("Internal Server Error" + id + e.getMessage());     }
+           throw new RuntimeException("Internal Server Error" + user.getId() + e.getMessage());     }
     }
 
     @Override

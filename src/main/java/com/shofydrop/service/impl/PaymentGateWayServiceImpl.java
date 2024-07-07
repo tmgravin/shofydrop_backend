@@ -13,18 +13,13 @@ import java.util.List;
 public class PaymentGateWayServiceImpl implements PaymentGateWayService {
     @Autowired
     private PaymentGateWayRepository paymentGateWayRepository;
-    /**
-     * @return 
-     */
+
     @Override
     public List<PaymentGateway> findAll() {
         return paymentGateWayRepository.findAll();
     }
 
-    /**
-     * @param id 
-     * @return
-     */
+
     @Override
     public PaymentGateway findById(Long id) {
         return paymentGateWayRepository.findById(id).
@@ -33,35 +28,16 @@ public class PaymentGateWayServiceImpl implements PaymentGateWayService {
                 );
     }
 
-    /**
-     * @param paymentGateWay 
-     * @return
-     */
+
     @Override
     public PaymentGateway save(PaymentGateway paymentGateWay) {
         return paymentGateWayRepository.save(paymentGateWay);
     }
-
-    /**
-     * @param paymentGateWay 
-     * @param id
-     * @return
-     */
     @Override
-    public PaymentGateway update(PaymentGateway paymentGateWay, Long id) {
-        boolean isExist=paymentGateWayRepository.existsById(id);
-        if (isExist){
-            PaymentGateway isExistingPaymentGateway =paymentGateWayRepository.findById(id).get();
-            isExistingPaymentGateway.setPaymentMethod(paymentGateWay.getPaymentMethod());
-            isExistingPaymentGateway.setQrCode(paymentGateWay.getQrCode());
-            return paymentGateWayRepository.save(paymentGateWay);
-        }
-        return null;
+    public PaymentGateway update(PaymentGateway paymentGateWay){
+        return paymentGateWayRepository.save(paymentGateWay);
     }
 
-    /**
-     * @param id 
-     */
     @Override
     public void delete(Long id) {
       paymentGateWayRepository.deleteById(id);

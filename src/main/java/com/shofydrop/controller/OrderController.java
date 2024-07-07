@@ -34,11 +34,11 @@ public class OrderController {
     }
 
     @PutMapping("/updateOrder/{id}")
-    public ResponseEntity<?> updateOrder(@PathVariable("id") Long id, @RequestBody Orders orders) {
+    public ResponseEntity<?> updateOrder(@RequestBody Orders orders) {
         ResponseDto responseDto = new ResponseDto();
         responseDto.setStatus(HttpStatus.OK);
         responseDto.setMessage("successfully order updated");
-        responseDto.setData(orderService.update(orders,id));
+        responseDto.setData(orderService.update(orders));
         return ResponseEntity.status(HttpStatus.OK).body(responseDto);
     }
 }

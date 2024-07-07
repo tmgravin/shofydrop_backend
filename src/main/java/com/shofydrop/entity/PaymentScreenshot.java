@@ -1,15 +1,11 @@
 package com.shofydrop.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.sql.Timestamp;
+import java.util.TimeZone;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "payment_screenshot")
 public class PaymentScreenshot {
@@ -20,13 +16,26 @@ public class PaymentScreenshot {
     @Column(name = "screenshot_url", nullable = false)
     private String screenshotUrl;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at")
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "updated_at")
     private Timestamp updatedAt;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "payment_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "payment_id", referencedColumnName = "id", unique = true, nullable = false)
     private Payment payment;
+
+    @PrePersist
+    protected void onCreate() {
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
+        createdAt = new Timestamp(System.currentTimeMillis());
+        updatedAt = new Timestamp(System.currentTimeMillis());
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
+        updatedAt = new Timestamp(System.currentTimeMillis());
+    }
 }

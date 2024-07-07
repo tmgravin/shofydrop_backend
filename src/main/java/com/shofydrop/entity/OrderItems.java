@@ -1,15 +1,11 @@
 package com.shofydrop.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.sql.Timestamp;
+import java.util.TimeZone;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "order_items")
 public class OrderItems {
@@ -20,17 +16,17 @@ public class OrderItems {
     @Column(name = "quantity", nullable = false)
     private int quantity;
 
-    @Column(name = "price", columnDefinition = "DECIMAL(10,2)", nullable = false)
+    @Column(name = "price", nullable = false)
     private double price;
 
-    @Column(name = "total", columnDefinition = "DECIMAL(10,2)", nullable = false)
+    @Column(name = "total", nullable = false)
     private double total;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Timestamp createdAt;
 
-    @Column(name = "update_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private Timestamp updateAt;
+    @Column(name = "updated_at", nullable = false)
+    private Timestamp updatedAt;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
@@ -39,4 +35,17 @@ public class OrderItems {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
+
+    @PrePersist
+    protected void onCreate() {
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
+        createdAt = new Timestamp(System.currentTimeMillis());
+        updatedAt = new Timestamp(System.currentTimeMillis());
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
+        updatedAt = new Timestamp(System.currentTimeMillis());
+    }
 }
