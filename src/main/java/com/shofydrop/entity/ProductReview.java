@@ -20,6 +20,8 @@ public class ProductReview {
     private Long id;
 
     @Column(name = "rating")
+    @Min(value = 1)
+    @Max(value = 5)
     private int rating;
 
     @Column(name = "review", columnDefinition = "TEXT")
