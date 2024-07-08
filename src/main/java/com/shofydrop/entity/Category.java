@@ -7,7 +7,7 @@ import java.util.TimeZone;
 @Data
 @Entity
 @Table(name = "category")
-public class Category {
+public class Category {g
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
