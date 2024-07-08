@@ -1,6 +1,6 @@
 package com.shofydrop.service.impl;
 
-import com.shofydrop.entity.StoreImage;
+import com.shofydrop.entity.StoreImages;
 import com.shofydrop.exception.ResourceNotFoundException;
 import com.shofydrop.repository.StoreImageRepository;
 import com.shofydrop.service.StoreImageService;
@@ -18,7 +18,7 @@ public class StoreImageServiceImpl implements StoreImageService {
      * @return
      */
     @Override
-    public List<StoreImage> findAll() {
+    public List<StoreImages> findAll() {
         return storeImageRepository.findAll();
     }
 
@@ -27,7 +27,7 @@ public class StoreImageServiceImpl implements StoreImageService {
      * @return
      */
     @Override
-    public StoreImage findById(Long id) {
+    public StoreImages findById(Long id) {
         return storeImageRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(
                         "store image does not exist with id" + id
@@ -36,28 +36,28 @@ public class StoreImageServiceImpl implements StoreImageService {
     }
 
     /**
-     * @param storeImage
+     * @param storeImages
      * @return
      */
     @Override
-    public StoreImage save(StoreImage storeImage) {
-        return storeImageRepository.save(storeImage);
+    public StoreImages save(StoreImages storeImages) {
+        return storeImageRepository.save(storeImages);
     }
 
     /**
-     * @param storeImage
+     * @param storeImages
      * @param id
      * @return
      */
     @Override
-    public StoreImage update(StoreImage storeImage, Long id) {
+    public StoreImages update(StoreImages storeImages, Long id) {
         boolean isExist = storeImageRepository.existsById(id);
         if (isExist) {
-            StoreImage existingStoreImage = storeImageRepository.findById(id).get();
-            existingStoreImage.setImageUrl(storeImage.getImageUrl());
-            existingStoreImage.setCreatedAt(storeImage.getCreatedAt());
-            existingStoreImage.setUpdatedAt(storeImage.getUpdatedAt());
-            return storeImageRepository.save(storeImage);
+            StoreImages existingStoreImages = storeImageRepository.findById(id).get();
+            existingStoreImages.setImageUrl(storeImages.getImageUrl());
+            existingStoreImages.setCreatedAt(storeImages.getCreatedAt());
+            existingStoreImages.setUpdatedAt(storeImages.getUpdatedAt());
+            return storeImageRepository.save(storeImages);
         }
         return null;
     }

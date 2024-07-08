@@ -1,17 +1,13 @@
 package com.shofydrop.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
+@Data
 @Entity
 @Table(name = "hero_section_image")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class HeroSectionImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +24,5 @@ public class HeroSectionImage {
 
     @Column(name="updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
-
 
 }

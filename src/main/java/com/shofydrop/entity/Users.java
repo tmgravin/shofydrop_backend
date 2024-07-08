@@ -3,63 +3,55 @@ package com.shofydrop.entity;
 import com.shofydrop.enumerated.LoginType;
 import com.shofydrop.enumerated.UserType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 
 import java.sql.Timestamp;
-import java.util.List;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
+@Entity
 @Table(name = "users")
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false,columnDefinition = "VARCHAR(255)")
+    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(255)")
     private String name;
 
-    @Column(name = "email", unique = true,columnDefinition = "VARCHAR(255)",nullable = false)
+    @Column(name = "email", unique = true, columnDefinition = "VARCHAR(255)", nullable = false)
     private String email;
 
     @Column(name = "password", nullable = false, columnDefinition = "VARCHAR(255)")
     private String password;
 
-    @Column(name = "phone", nullable = false, columnDefinition = "VARCHAR(20)")
-    private String phone;
-
-    @Column(name = "address", nullable = false, columnDefinition = "TEXT")
-    private String address;
-
-    @Column(name = "postal_code", columnDefinition = "INT(6)")
-    private String postalCode;
+    @Column(name = "kyc_completed", columnDefinition = "CHAR(1) DEFAULT 'N'")
+    private char kycCompleted;
 
     @Column(name = "is_verified", nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'")
     private char isVerified;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'USER'")
+    @Column(name = "user_type", columnDefinition = "VARCHAR(255) DEFAULT 'USER'", nullable = false)
     private UserType userType;
 
-    @Column(name = "kyc_completed", columnDefinition = "CHAR(1) DEFAULT 'N'")
-    private char kycCompleted;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "login_type", columnDefinition = "VARCHAR(255) DEFAULT 'EMAIL'", nullable = false)
+    private LoginType loginType;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp updatedAt;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "sign_up_type", columnDefinition = "ENUM('FACEBOOK','GOOGLE','INSTAGRAM','LINKEDIN')")
-    private LoginType loginType;
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Timestamp(System.currentTimeMillis());
+        updatedAt = new Timestamp(System.currentTimeMillis());
+    }
 
-
-
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = new Timestamp(System.currentTimeMillis());
+    }
 }
-

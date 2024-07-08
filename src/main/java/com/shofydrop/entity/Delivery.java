@@ -2,16 +2,11 @@ package com.shofydrop.entity;
 
 import com.shofydrop.enumerated.Status;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
-
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "delivery")
 public class Delivery {
@@ -26,7 +21,7 @@ public class Delivery {
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp updatedAt;
 
     @OneToOne(cascade = CascadeType.ALL)
