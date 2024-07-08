@@ -7,11 +7,6 @@ import lombok.Data;
 
 import java.sql.Timestamp;
 
-<<<<<<< HEAD
-@AllArgsConstructor
-@NoArgsConstructor
-=======
->>>>>>> kshitiz
 @Data
 @Entity
 @Table(name = "users")
