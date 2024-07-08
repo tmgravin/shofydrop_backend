@@ -32,10 +32,10 @@ public class Product {
     @Column(name = "discounted_price", columnDefinition = "DECIMAL(10,2)")
     private double discountedPrice;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private String createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private String updatedAt;
 
     @ManyToOne(cascade = CascadeType.ALL)

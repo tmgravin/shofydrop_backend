@@ -20,6 +20,8 @@ public class Chat {
 
     @Column(name = "send_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp sendAt;
+    @Column(name = "update_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp updateAt;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sender_id", referencedColumnName = "id")
