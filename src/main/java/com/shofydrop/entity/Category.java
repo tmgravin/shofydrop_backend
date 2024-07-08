@@ -23,7 +23,7 @@ public class Category {g
     @PrePersist
     protected void onCreate() {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
-        createdAt = LocalDateTime.now();
+        createdAt = LocalDateTime.now(
         updatedAt = LocalDateTime.now();
     }
 
