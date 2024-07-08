@@ -1,13 +1,10 @@
 package com.shofydrop.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "payment_gateway")
@@ -16,13 +13,19 @@ public class PaymentGateway {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "payment_method",columnDefinition = "VARCHAR(100)")
-    private String paymentMethod;
+    @Column(name = "gateway_name", columnDefinition = "VARCHAR(50)")
+    private String gatewayName;
 
-    @Column(name = "qr_code",columnDefinition = "TEXT")
-    private String qrCode;
+    @Column(name = "image_url", columnDefinition = "TEXT")
+    private String imageUrl;
+
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Timestamp createdAt;
+
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Timestamp updatedAt;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "vendor_id", referencedColumnName = "id")
-    private Users users;
+    @JoinColumn(name = "store_id", referencedColumnName = "id")
+    private Stores stores;
 }
