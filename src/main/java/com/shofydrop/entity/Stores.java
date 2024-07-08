@@ -24,8 +24,8 @@ public class Stores {
     @Column(name = "store_banner", nullable = false,columnDefinition = "VARCHAR(255)")
     private String storeBanner;
 
-    @Column(name = "is_open", columnDefinition = "char(1) DEFAULT 'Y'", nullable = false)
-    private Boolean isOpen;
+    @Column(name = "is_open", columnDefinition = "CHAR(1) DEFAULT 'Y'",  nullable = false)
+    private char isOpen;
 
     @Column(name = "created_at", columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;

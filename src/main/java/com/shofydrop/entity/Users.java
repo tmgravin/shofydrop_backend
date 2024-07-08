@@ -24,10 +24,10 @@ public class Users {
     @Column(name = "password", nullable = false, columnDefinition = "VARCHAR(255)")
     private String password;
 
-    @Column(name = "kyc_completed", columnDefinition = "CHAR(1) DEFAULT 'N'")
+    @Column(name = "kyc_completed", columnDefinition = "CHAR(1) DEFAULT 'N'", nullable = false)
     private char kycCompleted;
 
-    @Column(name = "is_verified", nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'")
+    @Column(name = "is_verified", columnDefinition = "CHAR(1) DEFAULT 'N'", nullable = false)
     private char isVerified;
 
     @Enumerated(EnumType.STRING)

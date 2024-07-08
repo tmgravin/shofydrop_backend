@@ -14,4 +14,7 @@ public interface UserService {
     Void delete(Long id);
     Users findByEmail(String email);
     Users findByName(String name);
+
+    //For logging and signing user
+
 }
