@@ -33,8 +33,9 @@ public class PaymentGateWayServiceImpl implements PaymentGateWayService {
     public PaymentGateway save(PaymentGateway paymentGateWay) {
         return paymentGateWayRepository.save(paymentGateWay);
     }
+
     @Override
-    public PaymentGateway update(PaymentGateway paymentGateWay){
+    public PaymentGateway update(PaymentGateway paymentGateWay) {
         return paymentGateWayRepository.save(paymentGateWay);
     }
 

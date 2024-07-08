@@ -54,13 +54,9 @@ public class StoreContactServiceImpl implements StoreContactService {
         boolean isExist=storeContactRepository.existsById(id);
         if (isExist){
             StoreContact isExistingStoreContact=storeContactRepository.findById(id).get();
-           isExistingStoreContact.setContactEmail(storeContact.getContactEmail());
-           isExistingStoreContact.setContactPhone(storeContact.getContactPhone());
            isExistingStoreContact.setAddress(storeContact.getAddress());
            isExistingStoreContact.setCity(storeContact.getCity());
            isExistingStoreContact.setState(storeContact.getState());
-           isExistingStoreContact.setCountry(storeContact.getCountry());
-           isExistingStoreContact.setPostalCode(storeContact.getPostalCode());
            isExistingStoreContact.setCreatedAt(storeContact.getCreatedAt());
            isExistingStoreContact.setUpdatedAt(storeContact.getUpdatedAt());
            return storeContactRepository.save(isExistingStoreContact);

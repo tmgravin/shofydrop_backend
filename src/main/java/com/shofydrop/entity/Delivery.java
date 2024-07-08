@@ -4,9 +4,7 @@ import com.shofydrop.enumerated.Status;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
-import java.time.LocalDateTime;
-import java.util.TimeZone;
+import java.sql.Timestamp;
 
 @Data
 @Entity
@@ -17,20 +15,21 @@ public class Delivery {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
+    @Column(name = "status", columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'", nullable = false)
     private Status status;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Timestamp createdAt;
 
-    @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Timestamp updatedAt;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Orders orders;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_boy_id", referencedColumnName = "id")
     private Users deliveryBoy;
+
 }

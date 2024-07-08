@@ -2,9 +2,8 @@ package com.shofydrop.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.time.LocalDateTime;
-import java.util.TimeZone;
 
+import java.sql.Timestamp;
 
 @Data
 @Entity
@@ -14,18 +13,19 @@ public class PaymentGateway {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "payment_gateway_name")
-    private String paymeteGateWayName;
+    @Column(name = "gateway_name", columnDefinition = "VARCHAR(50)")
+    private String gatewayName;
+
     @Column(name = "image_url", columnDefinition = "TEXT")
     private String imageUrl;
 
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Timestamp createdAt;
+
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Timestamp updatedAt;
+
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "vendor_id", referencedColumnName = "id")
-    private Users users;
-
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @JoinColumn(name = "store_id", referencedColumnName = "id")
+    private Stores stores;
 }

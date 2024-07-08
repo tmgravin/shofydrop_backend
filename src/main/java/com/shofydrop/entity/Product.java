@@ -3,8 +3,7 @@ package com.shofydrop.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-import java.util.TimeZone;
+import java.sql.Timestamp;
 
 @Data
 @Entity
@@ -30,11 +29,11 @@ public class Product {
     @Column(name = "discounted_price", columnDefinition = "DECIMAL(10,2)")
     private double discountedPrice;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp createdAt;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp updatedAt;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "store_id", referencedColumnName = "id")
@@ -46,6 +45,8 @@ public class Product {
 
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "sub_category_id")
     private Category category;
+
+
 }

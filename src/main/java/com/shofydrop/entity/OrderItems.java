@@ -2,8 +2,8 @@ package com.shofydrop.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.time.LocalDateTime;
-import java.util.TimeZone;
+
+import java.sql.Timestamp;
 
 @Data
 @Entity
@@ -16,17 +16,17 @@ public class OrderItems {
     @Column(name = "quantity", nullable = false)
     private int quantity;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price", columnDefinition = "DECIMAL(10,2)", nullable = false)
     private double price;
 
-    @Column(name = "total", nullable = false)
+    @Column(name = "total", columnDefinition = "DECIMAL(10,2)", nullable = false)
     private double total;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Timestamp createdAt;
 
-    @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
+    @Column(name = "update_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Timestamp updateAt;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "id")

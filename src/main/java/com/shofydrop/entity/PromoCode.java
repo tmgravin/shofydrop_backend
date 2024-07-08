@@ -1,9 +1,10 @@
 package com.shofydrop.entity;
+
 import jakarta.persistence.*;
 import lombok.Data;
-import java.time.LocalDateTime;
-import java.util.TimeZone;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 @Entity
@@ -12,19 +13,26 @@ public class PromoCode {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "code",columnDefinition = "VARCHAR(50)",unique = true, nullable = false)
+
+    @Column(name = "code",columnDefinition = "VARCHAR(50)", nullable = false)
     private String code;
 
-    @Column(name = "discount",columnDefinition = "DECIMAL(10,2)", nullable = false)
+    @Column(name = "discount",columnDefinition = "DECIMAL(5,2)", nullable = false)
     private double discount;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    @Column(name = "start_date")
+    private Date startDate;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @Column(name = "end_date")
+    private Date endDate;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "vendor_id", referencedColumnName = "id")
-    private Users users;
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Timestamp createdAt;
+
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Timestamp updatedAt;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "store_id", referencedColumnName = "id")
+    private Stores stores;
 }

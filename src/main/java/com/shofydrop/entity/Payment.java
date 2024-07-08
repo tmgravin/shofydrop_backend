@@ -4,8 +4,8 @@ import com.shofydrop.enumerated.PaymentMethod;
 import com.shofydrop.enumerated.Status;
 import jakarta.persistence.*;
 import lombok.Data;
-import java.time.LocalDateTime;
-import java.util.TimeZone;
+
+import java.sql.Timestamp;
 
 @Data
 @Entity
@@ -19,18 +19,18 @@ public class Payment {
     private double amount;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "paymentMethod")
+    @Column(name = "paymentMethod", columnDefinition = "VARCHAR(255) DEFAULT 'CASH_ON_DELIVERY'")
     private PaymentMethod paymentMethod;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private Status status = Status.PENDING;
+    @Column(name = "status", columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'", nullable = false)
+    private Status status;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Timestamp createdAt;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Timestamp updatedAt;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)

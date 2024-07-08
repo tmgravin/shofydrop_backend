@@ -5,11 +5,10 @@ import com.shofydrop.enumerated.UserType;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-import java.util.TimeZone;
+import java.sql.Timestamp;
 
-@Entity
 @Data
+@Entity
 @Table(name = "users")
 public class Users {
     @Id
@@ -19,38 +18,31 @@ public class Users {
     @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(255)")
     private String name;
 
-    @Column(name = "email", unique = true, nullable = false, columnDefinition = "VARCHAR(255)")
+    @Column(name = "email", unique = true, columnDefinition = "VARCHAR(255)", nullable = false)
     private String email;
 
     @Column(name = "password", nullable = false, columnDefinition = "VARCHAR(255)")
     private String password;
 
-    @Column(name = "phone", nullable = false, columnDefinition = "VARCHAR(20)")
-    private String phone;
+    @Column(name = "kyc_completed", columnDefinition = "CHAR(1) DEFAULT 'N'")
+    private char kycCompleted;
 
-    @Column(name = "address", nullable = false, columnDefinition = "TEXT")
-    private String address;
-
-    @Column(name = "postal_code", columnDefinition = "VARCHAR(6)")
-    private String postalCode;
-
-    @Column(name = "is_verified", nullable = false)
-    private char isVerified = 'N';
+    @Column(name = "is_verified", nullable = false, columnDefinition = "CHAR(1) DEFAULT 'N'")
+    private char isVerified;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private UserType userType = UserType.USER;
-
-    @Column(name = "kyc_completed", nullable = false)
-    private char kycCompleted = 'N';
-
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
+    @Column(name = "user_type", columnDefinition = "VARCHAR(255) DEFAULT 'USER'", nullable = false)
+    private UserType userType;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "sign_up_type", columnDefinition = "VARCHAR(255)")
-    private LoginType loginType = LoginType.FACEBOOK;
+    @Column(name = "login_type", columnDefinition = "VARCHAR(255) DEFAULT 'EMAIL'", nullable = false)
+    private LoginType loginType;
+
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Timestamp createdAt;
+
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Timestamp updatedAt;
+
 }
+

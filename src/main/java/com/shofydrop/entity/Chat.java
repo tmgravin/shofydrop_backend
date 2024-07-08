@@ -20,6 +20,8 @@ public class Chat {
 
     @Column(name = "send_at", nullable = false, updatable = false)
     private Timestamp sendAt;
+    @Column(name = "update_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp updateAt;
 
     @ManyToOne
     @JoinColumn(name = "sender_id", referencedColumnName = "id")
