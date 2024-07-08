@@ -3,7 +3,7 @@ package com.shofydrop.entity;
 import com.shofydrop.enumerated.OrderStatus;
 import jakarta.persistence.*;
 import lombok.Data;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.TimeZone;
 
 @Data
@@ -22,10 +22,10 @@ public class Orders {
     private OrderStatus orderStatus = OrderStatus.PENDING;
 
     @Column(name = "order_date", nullable = false, updatable = false)
-    private Timestamp orderDate;
+    private LocalDateTime orderDate;
 
     @Column(name = "updated_at", nullable = false)
-    private Timestamp updatedAt;
+    private LocalDateTime updatedAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -38,17 +38,4 @@ public class Orders {
     @ManyToOne
     @JoinColumn(name = "promocode_id", referencedColumnName = "id")
     private PromoCode promoCode;
-
-    @PrePersist
-    protected void onCreate() {
-        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
-        orderDate = new Timestamp(System.currentTimeMillis());
-        updatedAt = new Timestamp(System.currentTimeMillis());
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
-        updatedAt = new Timestamp(System.currentTimeMillis());
-    }
 }

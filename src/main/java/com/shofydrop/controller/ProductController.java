@@ -14,48 +14,35 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ProductController.class);
+
     @GetMapping("/getAllProducts")
     public ResponseEntity<?> getAllProducts() {
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setStatus(HttpStatus.OK);
-        responseDto.setMessage("Get All Products");
-        responseDto.setData(productService.findAll());
-        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+        return ResponseEntity.ok(productService.findAll());
     }
 
     @GetMapping("/getProduct/{id}")
     public ResponseEntity<?> getProduct(@PathVariable("id") Long id) {
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setStatus(HttpStatus.OK);
-        responseDto.setMessage("Get Product By Id");
-        responseDto.setData(productService.findById(id));
-        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+        log.info("Getting Product with ID: " + id);
+        return ResponseEntity.status(HttpStatus.OK).body(productService.findById(id));
     }
 
     @PostMapping("/addProduct")
     public ResponseEntity<?> addProduct(@RequestBody Product product) {
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setStatus(HttpStatus.OK);
-        responseDto.setMessage("Add Product");
-        responseDto.setData(productService.save(product));
-        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+        log.info("Saving Product: " + product.toString());
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(product));
     }
 
     @DeleteMapping("/deleteProduct/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id) {
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setStatus(HttpStatus.OK);
-        responseDto.setMessage("Delete Product");
-        responseDto.setData(productService.delete(id));
-        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+        log.info("Deleting Product with ID: " + id);
+        productService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PutMapping("/updateProduct/{id}")
-    public ResponseEntity<?> updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setStatus(HttpStatus.OK);
-        responseDto.setMessage("Update Product");
-        responseDto.setData(productService.update(product, id));
-        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    public ResponseEntity<?> updateProduct(@RequestBody Product product) {
+        log.info("Updating Product: " + product.toString());
+        return ResponseEntity.status(HttpStatus.OK).body(productService.update(product));
     }
 }

@@ -5,7 +5,7 @@ import com.shofydrop.enumerated.UserType;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.TimeZone;
 
 @Entity
@@ -45,26 +45,12 @@ public class Users {
     private char kycCompleted = 'N';
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
-    private Timestamp updatedAt;
+    private LocalDateTime updatedAt;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "sign_up_type", columnDefinition = "VARCHAR(255)")
     private LoginType loginType = LoginType.FACEBOOK;
-
-    @PrePersist
-    protected void onCreate() {
-        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
-
-        createdAt = new Timestamp(System.currentTimeMillis());
-        updatedAt = new Timestamp(System.currentTimeMillis());
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
-        updatedAt = new Timestamp(System.currentTimeMillis());
-    }
 }

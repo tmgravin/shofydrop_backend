@@ -38,19 +38,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users update(Users user) {
        try{
-               Users existingUser = usersRepository.findById(user.getId()).orElseThrow(() ->
-                       new ResourceNotFoundException("user does not exist with this id " + user.getId()));
-               existingUser.setName(user.getName());
-               existingUser.setEmail(user.getEmail());
-               existingUser.setPassword(user.getPassword());
-               existingUser.setUserType(user.getUserType());
-               existingUser.setCreatedAt(user.getCreatedAt());
-               existingUser.setUpdatedAt(user.getUpdatedAt());
-               existingUser.setLoginType(user.getLoginType());
-               return usersRepository.save(existingUser);
-
+      return usersRepository.save(user);
        }catch (Exception e){
-           throw new RuntimeException("Internal Server Error" + user.getId() + e.getMessage());     }
+           throw new RuntimeException("Internal Server Error" + user + e.getMessage());
+       }
     }
 
     @Override

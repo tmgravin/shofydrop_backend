@@ -2,7 +2,7 @@ package com.shofydrop.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.TimeZone;
 
 
@@ -36,10 +36,10 @@ public class StoreContact {
     private String postalCode;
 
     @Column(name = "created_at", insertable = false, updatable = false)
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at", insertable = false)
-    private Timestamp updatedAt;
+    private LocalDateTime updatedAt;
 
     @Column(name = "longitute")
     private double longitute;
@@ -54,14 +54,8 @@ public class StoreContact {
     @PrePersist
     protected void onCreate() {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
-        createdAt = new Timestamp(System.currentTimeMillis());
-        updatedAt = new Timestamp(System.currentTimeMillis());
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
-        updatedAt = new Timestamp(System.currentTimeMillis());
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 }
 

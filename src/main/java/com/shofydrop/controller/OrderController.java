@@ -3,7 +3,6 @@ package com.shofydrop.controller;
 import com.shofydrop.dto.ResponseDto;
 import com.shofydrop.entity.Orders;
 import com.shofydrop.service.OrderService;
-import jakarta.persistence.criteria.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,30 +14,30 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(OrderController.class);
+
     @PostMapping("/addOrder")
     public ResponseEntity<?> addOrder(@RequestBody Orders orders){
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setStatus(HttpStatus.OK);
-        responseDto.setMessage("successfully order added");
-        responseDto.setData(orderService.save(orders));
-        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+        log.info("Order Added");
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.save(orders));
     }
 
     @GetMapping("/getOrder/{id}")
     public ResponseEntity<?> getOrder(@PathVariable("id") Long id){
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setStatus(HttpStatus.OK);
-        responseDto.setMessage("successfully order found");
-        responseDto.setData(orderService.findById(id));
-        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+        log.info("Getting Order: " + id);
+            return ResponseEntity.status(HttpStatus.OK).body(orderService.findById(id));
     }
 
     @PutMapping("/updateOrder/{id}")
     public ResponseEntity<?> updateOrder(@RequestBody Orders orders) {
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setStatus(HttpStatus.OK);
-        responseDto.setMessage("successfully order updated");
-        responseDto.setData(orderService.update(orders));
-        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+        log.info("Updating Order: " + orders.toString());
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.update(orders));
+    }
+
+    @DeleteMapping("/deleteOrder/{id}")
+    public ResponseEntity<?> deleteOrder(@PathVariable("id") Long id){
+        orderService.delete(id);
+        log.info("Deleting Order: " + id);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

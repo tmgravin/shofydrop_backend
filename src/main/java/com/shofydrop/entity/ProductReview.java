@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.Data;
-
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.TimeZone;
 
 @Data
@@ -25,10 +24,10 @@ public class ProductReview {
 
 
     @Column(name = "created_at")
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
-    private Timestamp updatedAt;
+    private LocalDateTime updatedAt;
 
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -39,17 +38,4 @@ public class ProductReview {
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id",referencedColumnName = "id")
     private Product product;
-
-    @PrePersist
-    protected void onCreate() {
-        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
-        createdAt = new Timestamp(System.currentTimeMillis());
-        updatedAt = new Timestamp(System.currentTimeMillis());
-    }
-
-    @PreUpdate
-    protected void onUpdate(){
-        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kathmandu"));
-        updatedAt = new Timestamp(System.currentTimeMillis());
-    }
 }
