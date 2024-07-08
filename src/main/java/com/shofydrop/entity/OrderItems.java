@@ -22,10 +22,10 @@ public class OrderItems {
     @Column(name = "total", columnDefinition = "DECIMAL(10,2)", nullable = false)
     private double total;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;
 
-    @Column(name = "update_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "update_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp updateAt;
 
     @ManyToOne(cascade = CascadeType.ALL)

@@ -21,10 +21,10 @@ public class Orders {
     @Column(name = "order_status", columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'")
     private OrderStatus orderStatus;
 
-    @Column(name = "order_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "order_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp orderDate;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp updateAt;
 
     @ManyToOne(cascade = CascadeType.ALL)

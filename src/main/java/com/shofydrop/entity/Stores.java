@@ -27,10 +27,10 @@ public class Stores {
     @Column(name = "is_open", columnDefinition = "char(1) DEFAULT 'Y'", nullable = false)
     private Boolean isOpen;
 
-    @Column(name = "created_at", columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
+    @Column(name = "created_at", columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", insertable = false)
+    @Column(name = "updated_at", columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp updatedAt;
 
     @OneToOne(cascade = CascadeType.ALL)
