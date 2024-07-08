@@ -44,11 +44,12 @@ public class ContactServiceImpl implements ContactService {
         return contactRepository.save(usersContact);
     }
 
+
     @Override
-    public UsersContact update(UsersContact usersContact, Long id) {
-        boolean isExist = contactRepository.existsById(id);
+    public UsersContact update(UsersContact usersContact) {
+        boolean isExist = contactRepository.existsById(usersContact.getId());
         if (isExist) {
-            UsersContact isExistingUsersContact = contactRepository.findById(id).get();
+            UsersContact isExistingUsersContact = contactRepository.findById(usersContact.getId()).get();
             isExistingUsersContact.setPhone(usersContact.getPhone());
             isExistingUsersContact.setEmail(usersContact.getEmail());
             isExistingUsersContact.setAddress(usersContact.getAddress());

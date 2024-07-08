@@ -14,62 +14,40 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    /**
-     * @return
-     */
+
     @Override
     public List<Product> findAll() {
         return productRepository.findAll();
     }
 
-    /**
-     * @param id
-     * @return
-     */
+
     @Override
     public Product findById(Long id) {
-        return productRepository.findById(id).
-                orElseThrow(() -> new ResourceNotFoundException
-                        (
-                                "Product does not exist wwith id" + id
-                        ));
+        return productRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Product does not exist with this id " + id));
     }
 
-    /**
-     * @param product
-     * @return
-     */
+
     @Override
     public Product save(Product product) {
         return productRepository.save(product);
     }
 
-    /**
-     * @param product
-     * @param id
-     * @return
-     */
+
+  @Override
+  public Product update(Product product){
+      return productRepository.save(product);
+  }
+
+
     @Override
-    public Product update(Product product, Long id) {
-        boolean isExist = productRepository.existsById(id);
-        if (isExist) {
-            Product isExisstingProduct = productRepository.findById(id).get();
-            isExisstingProduct.setDescription(product.getDescription());
-            isExisstingProduct.setPrice(product.getPrice());
-            isExisstingProduct.setStock(product.getStock());
-            isExisstingProduct.setDiscountedPrice(product.getDiscountedPrice());
-            isExisstingProduct.setCreatedAt(product.getCreatedAt());
-            isExisstingProduct.setUpdatedAt(product.getUpdatedAt());
-            return productRepository.save(isExisstingProduct);
-        }
+    public Void delete(Long id) {
+        productRepository.deleteById(id);
         return null;
     }
 
-    /**
-     * @param id
-     */
     @Override
-    public void delete(Long id) {
-        productRepository.deleteById(id);
+    public List<Product> findByCategoryId(Long id) {
+        return productRepository.findByCategoryId(id);
     }
 }

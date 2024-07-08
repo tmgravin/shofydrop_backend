@@ -1,10 +1,11 @@
 package com.shofydrop.entity;
 
 import jakarta.persistence.*;
-
 import lombok.Data;
-
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.TimeZone;
 
 @Data
 @Entity
@@ -17,18 +18,25 @@ public class Chat {
     @Column(name = "message", columnDefinition = "TEXT", nullable = false)
     private String message;
 
-    @Column(name = "send_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    @Column(name = "send_at", nullable = false, updatable = false)
     private Timestamp sendAt;
+    @Column(name = "update_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp updateAt;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "sender_id", referencedColumnName = "id")
     private Users sender;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "receiver_id", referencedColumnName = "id")
     private Users receiver;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Orders orders;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 }

@@ -45,3 +45,4 @@ public class Users {
     private Timestamp updatedAt;
 
 }
+

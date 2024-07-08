@@ -44,5 +44,4 @@ public class StoreContact {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "store_id", referencedColumnName = "id")
     private Stores stores;
-
 }
