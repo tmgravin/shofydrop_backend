@@ -2,19 +2,15 @@ package com.shofydrop.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "payment_screenshot")
-public class PaymentScreenshot {
+@Table(name = "saved_product")
+public class SavedProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "screenshot_url", nullable = false)
-    private String screenshotUrl;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;
@@ -22,7 +18,11 @@ public class PaymentScreenshot {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp updatedAt;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "payment_id", referencedColumnName = "id", nullable = false)
-    private Payment payment;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Users user;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private Product product;
 }

@@ -2,15 +2,11 @@ package com.shofydrop.entity;
 
 import jakarta.persistence.*;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "chat")
 public class Chat {
@@ -21,7 +17,7 @@ public class Chat {
     @Column(name = "message", columnDefinition = "TEXT", nullable = false)
     private String message;
 
-    @Column(name = "send_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "send_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp sendAt;
 
     @ManyToOne(cascade = CascadeType.ALL)

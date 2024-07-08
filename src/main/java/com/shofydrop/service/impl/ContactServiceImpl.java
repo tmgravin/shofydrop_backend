@@ -12,7 +12,6 @@ import java.util.List;
 public class ContactServiceImpl implements ContactService {
     @Autowired
     private ContactRepository contactRepository;
-
     /**
      *
      * @return
@@ -28,7 +27,6 @@ public class ContactServiceImpl implements ContactService {
      * @param id
      * @return
      */
-
     @Override
     public UsersContact findById(Long id) {
         return contactRepository.findById(id).orElseThrow(() -> new
@@ -67,7 +65,6 @@ public class ContactServiceImpl implements ContactService {
      *
      * @param id
      */
-
     @Override
     public void delete(Long id) {
         contactRepository.deleteById(id);

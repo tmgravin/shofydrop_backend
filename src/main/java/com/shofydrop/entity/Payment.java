@@ -3,15 +3,11 @@ package com.shofydrop.entity;
 import com.shofydrop.enumerated.PaymentMethod;
 import com.shofydrop.enumerated.Status;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "payment")
 public class Payment {
@@ -23,17 +19,17 @@ public class Payment {
     private double amount;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "paymentMethod", columnDefinition = "ENUM('ESEWA','KHALTI','FONEPAY','CASH_ON_DELIVERY')")
+    @Column(name = "paymentMethod", columnDefinition = "VARCHAR(255) DEFAULT 'CASH_ON_DELIVERY'")
     private PaymentMethod paymentMethod;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'", nullable = false)
     private Status status;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp updatedAt;
 
     @OneToOne(cascade = CascadeType.ALL)

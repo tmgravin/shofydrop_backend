@@ -1,15 +1,11 @@
 package com.shofydrop.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-@AllArgsConstructor
-@NoArgsConstructor
+import java.sql.Timestamp;
+
 @Data
-@ToString
 @Entity
 @Table(name = "product")
 public class Product {
@@ -17,29 +13,37 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "name", columnDefinition = "VARCHAR(100)", nullable = false)
+    private String name;
+
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price", columnDefinition = "DECIMAL(10,2)", nullable = false)
     private double price;
 
-    @Column(name= "stock")
+    @Column(name="stock")
     private int stock;
 
-    @Column(name = "discounted_price")
+    @Column(name = "discounted_price", columnDefinition = "DECIMAL(10,2)")
     private double discountedPrice;
 
-    @Column(name = "created_at")
-    private String createdAt;
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Timestamp createdAt;
 
-    @Column(name = "updated_at")
-    private String updatedAt;
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    private Timestamp updatedAt;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "store_id", referencedColumnName = "id")
     private Stores stores;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sub_category_id", referencedColumnName = "id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category category;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "suc_category_id", referencedColumnName = "id")
     private SubCategory subCategory;
+
 }

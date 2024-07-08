@@ -21,10 +21,6 @@ public class PaymentGateWayServiceImpl implements PaymentGateWayService {
         return paymentGateWayRepository.findAll();
     }
 
-    /**
-     * @param id 
-     * @return
-     */
     @Override
     public PaymentGateway findById(Long id) {
         return paymentGateWayRepository.findById(id).
@@ -33,10 +29,6 @@ public class PaymentGateWayServiceImpl implements PaymentGateWayService {
                 );
     }
 
-    /**
-     * @param paymentGateWay 
-     * @return
-     */
     @Override
     public PaymentGateway save(PaymentGateway paymentGateWay) {
         return paymentGateWayRepository.save(paymentGateWay);
@@ -52,8 +44,6 @@ public class PaymentGateWayServiceImpl implements PaymentGateWayService {
         boolean isExist=paymentGateWayRepository.existsById(id);
         if (isExist){
             PaymentGateway isExistingPaymentGateway =paymentGateWayRepository.findById(id).get();
-            isExistingPaymentGateway.setPaymentMethod(paymentGateWay.getPaymentMethod());
-            isExistingPaymentGateway.setQrCode(paymentGateWay.getQrCode());
             return paymentGateWayRepository.save(paymentGateWay);
         }
         return null;

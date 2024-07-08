@@ -11,5 +11,6 @@ public interface UserService {
     Users findById(Long id);
     Users update(Users users, Long id);
     Users save(Users users);
-    void delete(Long id);
+    Object delete(Long id);
+
 }
