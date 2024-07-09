@@ -23,8 +23,8 @@ public class PaymentGateWayServiceImpl implements PaymentGateWayService {
     @Override
     public PaymentGateway findById(Long id) {
         return paymentGateWayRepository.findById(id).
-                orElseThrow(()->new
-                        ResourceNotFoundException("payment gateway does not exist with id"+id)
+                orElseThrow(() -> new
+                        ResourceNotFoundException("payment gateway does not exist with id" + id)
                 );
     }
 
@@ -41,6 +41,6 @@ public class PaymentGateWayServiceImpl implements PaymentGateWayService {
 
     @Override
     public void delete(Long id) {
-      paymentGateWayRepository.deleteById(id);
+        paymentGateWayRepository.deleteById(id);
     }
 }
