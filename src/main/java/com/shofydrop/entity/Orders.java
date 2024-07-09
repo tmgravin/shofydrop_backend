@@ -24,7 +24,7 @@ public class Orders {
     @Column(name = "order_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp orderDate;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updateAt;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -32,11 +32,11 @@ public class Orders {
     private Users users;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "vendor_id", referencedColumnName = "id")
+    @JoinColumn(name = "vendor_id", referencedColumnName = "id", unique = true)
     private Users vendors;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "promocode_id", referencedColumnName = "id")
+    @JoinColumn(name = "promocode_id", referencedColumnName = "id", unique = true, nullable = false)
     private PromoCode promoCode;
 
 }
