@@ -20,6 +20,8 @@ public interface UserService {
 
     Users findByName(String name);
 
-    //For logging and signing user
+    //For User login and signup
+    Users signupUser(Users users);
+    Users loginUser(String email, String password);
 
 }

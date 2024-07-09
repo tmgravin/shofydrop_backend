@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -15,12 +16,10 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     @Autowired
     private UsersRepository usersRepository;
 
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
-
 
     @Override
     public List<Users> findAll() {
@@ -80,7 +79,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users findByEmail(String email) {
         try {
-            return usersRepository.findByEmail(email);
+            return usersRepository.findByEmail(email).orElseThrow();
         } catch (Exception e) {
             throw new RuntimeException("Internal Server Error" + email + e.getMessage());
         }
@@ -95,4 +94,28 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    //Logic for logging and signing user
+    @Override
+    public Users signupUser(Users users) {
+        users.setPassword(DigestUtils.md5DigestAsHex(users.getPassword().getBytes()));
+        return usersRepository.save(users);
+    }
+
+
+    @Override
+    public Users loginUser(String email, String password) {
+        try {
+            Users user = usersRepository.findByEmail(email).orElseThrow(()->
+                    new ResourceNotFoundException("Email and Password don't match!"));
+            String hashedPassword = DigestUtils.md5DigestAsHex(password.getBytes());
+            if(user.getPassword().equals(hashedPassword)){
+                return user;
+            }else {
+                throw new ResourceNotFoundException("Email and password don't match!!");
+            }
+        }catch (Exception e){
+            log.error("Error during login", e);
+            throw new RuntimeException("Internal server Error: "+e.getMessage());
+        }
+    }
 }
