@@ -1,6 +1,5 @@
 package com.shofydrop.controller;
 
-import com.shofydrop.dto.ResponseDto;
 import com.shofydrop.entity.Product;
 import com.shofydrop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

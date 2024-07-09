@@ -12,8 +12,8 @@ import java.util.List;
 public class ContactServiceImpl implements ContactService {
     @Autowired
     private ContactRepository contactRepository;
+
     /**
-     *
      * @return
      */
 
@@ -23,7 +23,6 @@ public class ContactServiceImpl implements ContactService {
     }
 
     /**
-     *
      * @param id
      * @return
      */
@@ -34,7 +33,6 @@ public class ContactServiceImpl implements ContactService {
     }
 
     /**
-     *
      * @param usersContact
      * @return
      */
@@ -63,7 +61,6 @@ public class ContactServiceImpl implements ContactService {
     }
 
     /**
-     *
      * @param id
      */
     @Override

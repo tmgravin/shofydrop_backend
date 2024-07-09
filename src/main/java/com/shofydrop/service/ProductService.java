@@ -1,6 +1,7 @@
 package com.shofydrop.service;
 
 import com.shofydrop.entity.Product;
+
 import java.util.List;
 
 public interface ProductService {
@@ -13,5 +14,6 @@ public interface ProductService {
     Product update(Product product);
 
     Void delete(Long id);
+
     List<Product> findByCategoryId(Long id);
 }

@@ -51,15 +51,15 @@ public class StoreContactServiceImpl implements StoreContactService {
      */
     @Override
     public StoreContact update(StoreContact storeContact, Long id) {
-        boolean isExist=storeContactRepository.existsById(id);
-        if (isExist){
-            StoreContact isExistingStoreContact=storeContactRepository.findById(id).get();
-           isExistingStoreContact.setAddress(storeContact.getAddress());
-           isExistingStoreContact.setCity(storeContact.getCity());
-           isExistingStoreContact.setState(storeContact.getState());
-           isExistingStoreContact.setCreatedAt(storeContact.getCreatedAt());
-           isExistingStoreContact.setUpdatedAt(storeContact.getUpdatedAt());
-           return storeContactRepository.save(isExistingStoreContact);
+        boolean isExist = storeContactRepository.existsById(id);
+        if (isExist) {
+            StoreContact isExistingStoreContact = storeContactRepository.findById(id).get();
+            isExistingStoreContact.setAddress(storeContact.getAddress());
+            isExistingStoreContact.setCity(storeContact.getCity());
+            isExistingStoreContact.setState(storeContact.getState());
+            isExistingStoreContact.setCreatedAt(storeContact.getCreatedAt());
+            isExistingStoreContact.setUpdatedAt(storeContact.getUpdatedAt());
+            return storeContactRepository.save(isExistingStoreContact);
         }
         return null;
     }
