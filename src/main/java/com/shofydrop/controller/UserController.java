@@ -17,8 +17,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    private UsersRepository usersRepository;
-
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UserController.class);
 
     @GetMapping("/getAllUsers")
@@ -34,12 +32,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
-    @PostMapping("/addUser")
-    public ResponseEntity<?> addUser(@RequestBody Users users) {
-        log.info("Saving User: " + users.toString());
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(users));
-    }
-
     @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         userService.delete(id);
@@ -52,5 +44,21 @@ public class UserController {
         log.info("Updating User: " + users.toString());
         userService.update(id, users);
         return "User updated successfully";
+    }
+
+    //Controller for logging and signing user
+    @PostMapping("/signup")
+    public ResponseEntity<Users> signupUser(@RequestBody Users user){
+        if (user.getPassword() == null || user.getPassword().isEmpty()){
+            return ResponseEntity.badRequest().body(null);
+        }
+        Users registerUser = userService.signupUser(user);
+        return ResponseEntity.ok(registerUser);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Users> loginUser(@RequestParam String email, @RequestParam String password){
+        Users loginUSer = userService.loginUser(email,password);
+        return ResponseEntity.ok(loginUSer);
     }
 }

@@ -12,11 +12,15 @@ public interface UserService {
 
     Users update(Long id, Users users);
 
-    Users save(Users users);
-
     Void delete(Long id);
 
     Users findByEmail(String email);
 
     Users findByName(String name);
+
+    //For User login and signup
+    Users signupUser(Users users);
+
+    Users loginUser(String email, String password);
+
 }
