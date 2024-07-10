@@ -23,4 +23,10 @@ public interface UserService {
 
     Users loginUser(String email, String password);
 
+    //forget password, verifyUser and resetPassword
+    void forgetPassword(String email);
+
+    void verifyCode(int verificationCode);
+
+    void resetPassword(String newPassword, String confirmPassword);
 }
