@@ -185,5 +185,4 @@ public class UserServiceImpl implements UserService {
            throw new RuntimeException("Internal Server Error: "+e.getMessage());
        }
     }
-
 }
