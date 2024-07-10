@@ -39,10 +39,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users update(Long id, Users users) {
         try {
-            Users existingUser = usersRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+            Users existingUser = usersRepository.findById(id).orElseThrow(() ->
+                    new RuntimeException("User not found"));
             existingUser.setName(users.getName());
             existingUser.setEmail(users.getEmail());
-            existingUser.setPassword(DigestUtils.md5DigestAsHex(users.getPassword().getBytes()));
+//            existingUser.setPassword(DigestUtils.md5DigestAsHex(users.getPassword().getBytes()));
             existingUser.setKycCompleted(users.getKycCompleted());
             existingUser.setIsVerified(users.getIsVerified());
             existingUser.setUserType(users.getUserType());

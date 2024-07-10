@@ -61,4 +61,7 @@ public class UserController {
         Users loginUSer = userService.loginUser(email,password);
         return ResponseEntity.ok(loginUSer);
     }
+
+    //Forget Password
+
 }
