@@ -27,21 +27,15 @@ public class CategoryController {
         ResponseDto responseDto = new ResponseDto();
         try {
             List<Category> categoryList = categoryService.findAll();
-            if (!categoryList.isEmpty()) {
-                responseDto.setMessage("successfully data of category is fetched");
-                responseDto.setStatus(HttpStatus.ACCEPTED);
-                responseDto.setData(categoryService.findAll());
-                return ResponseEntity.ok(responseDto);
-            } else {
-                responseDto.setMessage("Category is empty");
-                responseDto.setStatus(HttpStatus.NO_CONTENT);
-                return ResponseEntity.ok(responseDto);
-            }
-        } catch (NullPointerException ex) {
-            responseDto.setMessage("Internal Server Error");
+            responseDto.setMessage("successfully data of category is fetched");
+            responseDto.setStatus(HttpStatus.ACCEPTED);
+            responseDto.setData(categoryService.findAll());
+            return ResponseEntity.ok(responseDto);
+        } catch (Exception ex) {
             log.error("Internal Server Error", ex);
+            responseDto.setMessage("Internal Server Error");
             responseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseDto);
+            return ResponseEntity.ok(responseDto);
         }
     }
 
@@ -53,11 +47,16 @@ public class CategoryController {
             responseDto.setStatus(HttpStatus.ACCEPTED);
             responseDto.setData(categoryService.findById(id));
             return ResponseEntity.ok(responseDto);
-        } catch (NullPointerException ex) {
-            responseDto.setMessage("Internal Server Error");
+        } catch (EntityNotFoundException ex) {
+            log.error("Category Not Found Error", ex);
+            responseDto.setStatus(HttpStatus.NOT_FOUND);
+            responseDto.setMessage("Category Not Found");
+            return ResponseEntity.ok(responseDto);
+        } catch (Exception ex) {
             log.error("Internal Server Error", ex);
+            responseDto.setMessage("Internal Server Error");
             responseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseDto);
+            return ResponseEntity.ok(responseDto);
         }
     }
 
@@ -85,6 +84,11 @@ public class CategoryController {
             responseDto.setMessage("successfully data is updated");
             responseDto.setStatus(HttpStatus.OK);
             return ResponseEntity.ok(responseDto);
+        } catch (EntityNotFoundException ex) {
+            log.error("Category Not Found Error", ex);
+            responseDto.setStatus(HttpStatus.NOT_FOUND);
+            responseDto.setMessage("Category Not Found");
+            return ResponseEntity.ok(responseDto);
         } catch (Exception ex) {
             log.error("Internal Server Error", ex);
             responseDto.setMessage("Internal Server Error");
@@ -105,6 +109,7 @@ public class CategoryController {
             log.error("Category Not Found Error", ex);
             responseDto.setStatus(HttpStatus.NOT_FOUND);
             responseDto.setMessage("Category Not Found");
+            return ResponseEntity.ok(responseDto);
         } catch (Exception ex) {
             log.error("Internal Server Error", ex);
             responseDto.setMessage("Internal Server Error");

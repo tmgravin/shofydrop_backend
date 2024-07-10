@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Internal Server Error" + e.getMessage());
         }
     }
-
+   
     @Override
     public Void delete(Long id) {
         try {
@@ -100,17 +100,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users loginUser(String email, String password) {
         try {
-            Users user = usersRepository.findByEmail(email).orElseThrow(()->
+            Users user = usersRepository.findByEmail(email).orElseThrow(() ->
                     new ResourceNotFoundException("Email and Password don't match!"));
 //            String hashedPassword = DigestUtils.md5DigestAsHex(password.getBytes());
-            if(user.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes()))){
+            if (user.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes()))) {
                 return user;
-            }else {
+            } else {
                 throw new ResourceNotFoundException("Email and password don't match!!");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Error during login", e);
-            throw new RuntimeException("Internal server Error: "+e.getMessage());
+            throw new RuntimeException("Internal server Error: " + e.getMessage());
         }
     }
 }
