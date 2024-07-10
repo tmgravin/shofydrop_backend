@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/category/api")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping(value = "/category/findAll")
+    @GetMapping(value = "/findAll")
     private ResponseEntity<?> findAll() {
         ResponseDto responseDto = new ResponseDto();
         try {
@@ -40,7 +40,7 @@ public class CategoryController {
         }
     }
 
-    @GetMapping("/category/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
         ResponseDto responseDto = new ResponseDto();
         try {
@@ -71,7 +71,7 @@ public class CategoryController {
         }
     }
 
-    @PutMapping("/categoryUpdate/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@RequestBody Category category, @PathVariable Long id) {
         ResponseDto responseDto = new ResponseDto();
         try {
@@ -86,7 +86,7 @@ public class CategoryController {
         }
     }
 
-    @DeleteMapping("/categoryDelete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         ResponseDto responseDto = new ResponseDto();
         responseDto.setStatus(HttpStatus.OK);
