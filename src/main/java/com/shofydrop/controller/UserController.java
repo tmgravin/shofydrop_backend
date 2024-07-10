@@ -32,12 +32,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
-    @PostMapping("/addUser")
-    public ResponseEntity<?> addUser(@RequestBody Users users) {
-        log.info("Saving User: " + users.toString());
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(users));
-    }
-
     @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         userService.delete(id);
