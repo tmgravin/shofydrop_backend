@@ -16,7 +16,6 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -140,7 +139,6 @@ public class UserServiceImpl implements UserService {
             log.error("Error during forget password.", e);
             throw new RuntimeException("Internal server Error: "+e.getMessage());
         }
-
     }
 
     @Override
