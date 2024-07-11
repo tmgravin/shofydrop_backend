@@ -5,15 +5,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface CategoryService {
-    public List<Category> findAll();
+    List<Category> findAll();
 
-    public Category findById(Long id);
+    Category findById(Long id);
 
-    public Category save(Category category);
+    Category save(Category category);
 
-    public Category update(Category category, Long id);
+    Category update(Category category, Long id);
 
-    public void delete(Long id);
+    void delete(Long id);
 }

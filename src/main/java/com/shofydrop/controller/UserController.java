@@ -1,6 +1,7 @@
 package com.shofydrop.controller;
 
 import com.shofydrop.entity.Users;
+import com.shofydrop.exception.ResourceNotFoundException;
 import com.shofydrop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,31 +46,52 @@ public class UserController {
         return "User updated successfully";
     }
 
-    //Controller for logging and signing user
+    //Controller for signing user
     @PostMapping("/signup")
     public ResponseEntity<Users> signupUser(@RequestBody Users user){
-        if (user.getPassword() == null || user.getPassword().isEmpty()){
+        try {
+            if (user.getPassword() == null || user.getPassword().isEmpty()) {
+                return ResponseEntity.badRequest().body(null);
+            }
+            Users registerUser = userService.signupUser(user);
+            return ResponseEntity.ok(registerUser);
+        }catch (IllegalArgumentException e){
             return ResponseEntity.badRequest().body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
-        Users registerUser = userService.signupUser(user);
-        return ResponseEntity.ok(registerUser);
+    }
+    //Controller for verifying user's email
+    @PostMapping("/verifyUser")
+    public ResponseEntity<String> verifyUser(@RequestParam int verificationCode){
+        try {
+            userService.verifyUserEmail(verificationCode);
+            return ResponseEntity.ok("User Verified Successfully!");
+        }catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid verification code.");
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Verification process failed.");
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error.");
+        }
     }
 
+    //Controller for logging user after verification
     @PostMapping("/login")
     public ResponseEntity<Users> loginUser(@RequestParam String email, @RequestParam String password){
         Users loginUSer = userService.loginUser(email,password);
         return ResponseEntity.ok(loginUSer);
     }
 
-    //Forget Password, Verification Code and reset password
+    //Controller for forget Password, code verification and password reset
     @PostMapping("/forgetPassword")
     public ResponseEntity<String> forgetPassword(@RequestParam String email){
         userService.forgetPassword(email);
         return ResponseEntity.ok("Verification code is send to your email.");
     }
 
-    @PostMapping("/verifyCode")
-    public ResponseEntity<String> verifyUser(@RequestParam int verificationCode){
+    @PostMapping("/passwordResetCode")
+    public ResponseEntity<String> verifyCode(@RequestParam int verificationCode){
         userService.verifyCode(verificationCode);
         return ResponseEntity.ok("User verified successfully!");
     }
