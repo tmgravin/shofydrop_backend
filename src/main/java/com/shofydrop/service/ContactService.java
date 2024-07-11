@@ -4,7 +4,6 @@ import com.shofydrop.entity.UsersContact;
 
 import java.util.List;
 
-
 public interface ContactService {
     List<UsersContact> findAll();
 
