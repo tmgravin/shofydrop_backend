@@ -14,13 +14,30 @@ public class MailUtils {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendVerificationCode(String toEmail, int verificationCode) throws MessagingException {
+//    Mail configuration for forget password code verification
+    public void forgetPasswordVerificationCode(String toEmail, int verificationCode) throws MessagingException {
 //        MimeMessage for supporting content in various format like text in plain, HTML, and other formats
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 
         String subject = "Password verification code.";
         String content = "Your Verification code for password reset is: "+ verificationCode;
+
+        helper.setTo(toEmail);
+        helper.setSubject(subject);
+        helper.setText(content, true);
+
+        javaMailSender.send(mimeMessage);
+
+    }
+//  Mail configuration for user verification code
+    public void emailVerificationCode(String toEmail, int verificationCode) throws MessagingException {
+
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+
+        String subject = "Email verification for Shofydrop login.";
+        String content = "Your Verification code for Shofydrop login is: "+ verificationCode;
 
         helper.setTo(toEmail);
         helper.setSubject(subject);

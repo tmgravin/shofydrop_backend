@@ -5,15 +5,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public interface SubCategoryService {
-    public List<SubCategory> findAll();
+    List<SubCategory> findAll();
 
-    public SubCategory findById(Long id);
+    SubCategory findById(Long id);
 
-    public SubCategory save(SubCategory subCategory);
+    SubCategory save(SubCategory subCategory);
 
-    public SubCategory update(SubCategory subCategory, Long id);
+    SubCategory update(SubCategory subCategory, Long id);
 
-    public void delete(Long id);
+    void delete(Long id);
 }
