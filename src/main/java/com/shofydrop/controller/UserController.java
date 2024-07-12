@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -61,19 +62,24 @@ public class UserController {
         }
     }
 
-    //Api for verifying email code
+    //Api for verifying email token
     @PostMapping("/verifyEmail")
-    public ResponseEntity<String> verifyEmailCode(@RequestParam int verificationCode) {
+    public ModelAndView verifyEmailCode(@RequestParam("token") String verificationToken) {
+       ModelAndView modelAndView = new ModelAndView();
         try {
-            userService.verifyEmailCode(verificationCode);
-            return ResponseEntity.ok("User Verified Successfully!");
+            userService.verifyEmailToken(verificationToken);
+            modelAndView.setViewName("verifySuccess");
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid verification code.");
+            modelAndView.addObject("error","Invalid verification token.");
+            modelAndView.setViewName("error");
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Verification process failed.");
+            modelAndView.addObject("error","Verification process failed.");
+            modelAndView.setViewName("error");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error.");
+            modelAndView.addObject("error","Internal server error.");
+            modelAndView.setViewName("error");
         }
+        return modelAndView;
     }
 
     //Api for login user after verifying email

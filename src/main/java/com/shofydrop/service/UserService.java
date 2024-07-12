@@ -25,7 +25,7 @@ public interface UserService {
     void sendVerificationEmail(String email);
 
     // Service for verifying email with code
-    void verifyEmailCode(int verificationCode);
+    void verifyEmailToken(String token);
 
     //Service for login user after verifying email
     Users loginUser(String email, String password);

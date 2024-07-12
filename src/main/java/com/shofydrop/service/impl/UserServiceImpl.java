@@ -18,6 +18,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -124,11 +125,14 @@ public class UserServiceImpl implements UserService {
         try {
             Users user = usersRepository.findByEmail(email).orElseThrow(() ->
                     new ResourceNotFoundException("User doesn't exist with this email: " + email));
-            int verificationCode = generateVerificationCode();
+            String verificationToken = UUID.randomUUID().toString();
+            String verificationLink = "http://localhost:8080/users/api/verifyEmail?token=" + verificationToken;
+
             session.setAttribute("verificationEmail", email);
-            session.setAttribute("vCode", verificationCode);
-            mailUtils.emailVerificationCode(email, verificationCode);
-            log.info("Verification code send to: {}", email);
+            session.setAttribute("verificationToken", verificationToken);
+
+            mailUtils.emailVerificationCode(email, verificationLink);
+            log.info("Verification link send to: {}", email);
         } catch (Exception e) {
             log.error("Error during sending verification email.", e);
             throw new RuntimeException("Internal Server Error:" + e.getMessage());
@@ -137,25 +141,23 @@ public class UserServiceImpl implements UserService {
 
     //Implementation for verifying email with code
     @Override
-    public void verifyEmailCode(int verificationCode) {
+    public void verifyEmailToken(String token) {
         try {
             String storedEmail = (String) session.getAttribute("verificationEmail");
-            Integer storedVerificationCode = (Integer) session.getAttribute("vCode");
-            if (storedEmail == null || storedVerificationCode == null) {
-                throw new IllegalStateException("Email or verification code not found in the session. User verification failed.");
+            String storedToken = (String) session.getAttribute("verificationToken");
+            if (storedEmail == null || storedToken == null || !storedToken.equals(token)) {
+                throw new IllegalStateException("Invalid verification token or email not found in session.");
             }
-            if (storedVerificationCode.equals(verificationCode)) {
-                Users user = usersRepository.findByEmail(storedEmail).orElseThrow(() ->
-                        new ResourceNotFoundException("User doesn't exist with this email: " + storedEmail));
-                user.setIsVerified('Y');
-                user.setUpdatedAt(Timestamp.from(Instant.now()));
-                usersRepository.save(user);
-                log.info("User is verified: {}", storedEmail);
-                session.removeAttribute("vCode");
-                session.removeAttribute("verificationEmail");
-            } else {
-                throw new ResourceNotFoundException("Invalid Verification Code.");
-            }
+            Users user = usersRepository.findByEmail(storedEmail).orElseThrow(() ->
+                    new ResourceNotFoundException("User doesn't exist with this email: " + storedEmail));
+            user.setIsVerified('Y');
+            user.setUpdatedAt(Timestamp.from(Instant.now()));
+            usersRepository.save(user);
+
+            session.removeAttribute("verificationToken");
+            session.removeAttribute("verificationEmail");
+
+            log.info("User is verified: {}", storedEmail);
         } catch (Exception e) {
             log.error("Error during user verification.", e);
             throw new RuntimeException("Internal server error: " + e.getMessage());
