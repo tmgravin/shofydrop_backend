@@ -5,16 +5,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface StoreContactService {
-    public List<StoreContact> findAll();
+    List<StoreContact> findAll();
 
-    public StoreContact findById(Long id);
+    StoreContact findById(Long id);
 
-    public StoreContact save(StoreContact storeContact);
+    StoreContact save(StoreContact storeContact);
 
-    public StoreContact update(StoreContact storeContact, Long id);
+    StoreContact update(StoreContact storeContact, Long id);
 
-    public void delete(Long id);
+    void delete(Long id);
 
 }

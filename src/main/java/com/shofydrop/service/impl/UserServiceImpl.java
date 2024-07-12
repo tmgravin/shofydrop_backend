@@ -1,6 +1,8 @@
 package com.shofydrop.service.impl;
 
 import com.shofydrop.entity.Users;
+import com.shofydrop.enumerated.LoginType;
+import com.shofydrop.enumerated.UserType;
 import com.shofydrop.exception.ResourceNotFoundException;
 import com.shofydrop.repository.UsersRepository;
 import com.shofydrop.service.UserService;
@@ -16,7 +18,6 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -52,12 +53,6 @@ public class UserServiceImpl implements UserService {
             Users existingUser = usersRepository.findById(id).orElseThrow(() ->
                     new RuntimeException("User not found"));
             existingUser.setName(users.getName());
-            existingUser.setEmail(users.getEmail());
-            existingUser.setPassword(DigestUtils.md5DigestAsHex(users.getPassword().getBytes()));
-            existingUser.setKycCompleted(users.getKycCompleted());
-            existingUser.setIsVerified(users.getIsVerified());
-            existingUser.setUserType(users.getUserType());
-            existingUser.setLoginType(users.getLoginType());
             existingUser.setUpdatedAt(Timestamp.from(Instant.now()));
             log.info("User Successfully Updated");
             return usersRepository.save(existingUser);
@@ -95,24 +90,87 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    //Logic for logging and signing user
+    //Implementation for signing user
     @Override
     public Users signupUser(Users users) {
         try {
             users.setPassword(DigestUtils.md5DigestAsHex(users.getPassword().getBytes()));
-            return usersRepository.save(users);
+
+            //Ensure default value are set
+            if(users.getKycCompleted() == '\0'){
+                users.setKycCompleted('N');
+            }
+            if(users.getIsVerified() == '\0'){
+                users.setIsVerified('N');
+            }
+            if(users.getUserType() == null){
+                users.setUserType(UserType.USER);
+            }
+            if(users.getLoginType() == null){
+                users.setLoginType(LoginType.EMAIL);
+            }
+
+            Users savedUser = usersRepository.save(users);
+            sendVerificationEmail(users.getEmail());
+            return savedUser;
         } catch (Exception e) {
             throw new RuntimeException("Internal Server Error" + users + e.getMessage());
         }
     }
 
+    //Implementation for verify User after signup
+    @Override
+    public void sendVerificationEmail(String email) {
+        try {
+            Users user = usersRepository.findByEmail(email).orElseThrow(() ->
+                    new ResourceNotFoundException("User doesn't exist with this email: "+email));
+            int verificationCode = generateVerificationCode();
+            session.setAttribute("verificationEmail", email);
+            session.setAttribute("vCode", verificationCode);
+            mailUtils.emailVerificationCode(email, verificationCode);
+            log.info("Verification code send to: {}", email);
+        }catch (Exception e){
+            log.error("Error during sending verification email.",e);
+            throw new RuntimeException("Internal Server Error:"+e.getMessage());
+        }
+    }
 
+    @Override
+    public void verifyUserEmail(int verificationCode) {
+        try{
+            String storedEmail = (String) session.getAttribute("verificationEmail");
+            Integer storedVerificationCode = (Integer) session.getAttribute("vCode");
+            if(storedEmail == null || storedVerificationCode == null){
+                throw new IllegalStateException("Email or verification code not found in the session. User verification failed.");
+            }
+            if(storedVerificationCode.equals(verificationCode)){
+                Users user = usersRepository.findByEmail(storedEmail).orElseThrow(() ->
+                        new ResourceNotFoundException("User doesn't exist with this email: "+storedEmail));
+                user.setIsVerified('Y');
+                user.setUpdatedAt(Timestamp.from(Instant.now()));
+                usersRepository.save(user);
+                log.info("User is verified: {}", storedEmail);
+                session.removeAttribute("vCode");
+                session.removeAttribute("verificationEmail");
+            }else{
+                throw new ResourceNotFoundException("Invalid Verification Code.");
+            }
+        }catch (Exception e){
+            log.error("Error during user verification.", e);
+            throw new RuntimeException("Internal server error: "+e.getMessage());
+        }
+    }
+
+    //Implementation for user login after verification
     @Override
     public Users loginUser(String email, String password) {
         try {
             Users user = usersRepository.findByEmail(email).orElseThrow(()->
                     new ResourceNotFoundException("Email and Password don't match!"));
             if(user.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes()))){
+                if (user.getIsVerified() =='N'){
+                    throw new IllegalStateException("User is not verified, please verify your email");
+                }
                 return user;
             }else {
                 throw new ResourceNotFoundException("Email and password don't match!!");
@@ -129,19 +187,17 @@ public class UserServiceImpl implements UserService {
         try{
             Users user = usersRepository.findByEmail(email).orElseThrow(() ->
                     new ResourceNotFoundException("User doesn't exist with this email: "+email));
-            Random random = new Random();
-            int verificationCode = random.nextInt(90000) + 100000;
+            int verificationCode = generateVerificationCode();
             session.setAttribute("resetPasswordVerificationCode", verificationCode);
             session.setAttribute("resetPasswordEmail", email);
             usersRepository.save(user);
-            // Send verification code to user's email (implementation depends on your email service)
-            mailUtils.sendVerificationCode(email, verificationCode);
-            log.info("Verification code send to: {}", email);
+            // Send verification code to user's email
+            mailUtils.forgetPasswordVerificationCode(email, verificationCode);
+            log.info("Verification code send to a: {}", email);
         }catch (Exception e){
             log.error("Error during forget password.", e);
             throw new RuntimeException("Internal server Error: "+e.getMessage());
         }
-
     }
 
     @Override
@@ -185,5 +241,10 @@ public class UserServiceImpl implements UserService {
            log.error("Error during password reset", e);
            throw new RuntimeException("Internal Server Error: "+e.getMessage());
        }
+    }
+
+    private int generateVerificationCode(){
+        Random random = new Random();
+        return random.nextInt(900000) + 100000;
     }
 }
