@@ -89,7 +89,7 @@ public class VendorKycImpl implements VendorKycService {
     public void delete(Long id) {
         ResponseDto responseDto = new ResponseDto();
         try {
-            log.info("KYC deleted successfully", id);
+            log.info("KYC deleted successfully" + id);
             responseDto.setStatus(HttpStatus.OK);
             responseDto.setMessage("KYC deleted Successfully");
         } catch (EntityNotFoundException e) {
