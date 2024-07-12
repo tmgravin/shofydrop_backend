@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name= "vendor_kyc")
+@Table(name = "vendor_kyc")
 public class VendorKyc {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class VendorKyc {
     @Column(name = "document_type", length = 50)
     private String documentType;
 
-    @Column(name = "document_number",length = 50)
+    @Column(name = "document_number", length = 50)
     private String documentNumber;
 
     @Column(name = "document_image_front", nullable = false)
@@ -34,5 +34,4 @@ public class VendorKyc {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "vendor_id", referencedColumnName = "id", nullable = false, unique = true)
     private Users users;
-
 }
