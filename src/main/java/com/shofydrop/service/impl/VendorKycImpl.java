@@ -8,14 +8,16 @@ import com.shofydrop.exception.ResourceNotFoundException;
 import com.shofydrop.repository.UsersRepository;
 import com.shofydrop.repository.VendorKycRepository;
 import com.shofydrop.service.VendorKycService;
-import jakarta.persistence.EntityNotFoundException;
+import com.shofydrop.utils.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
@@ -29,59 +31,73 @@ public class VendorKycImpl implements VendorKycService {
     @Autowired
     private UsersRepository usersRepository;
 
-    private static final Logger log = LoggerFactory.getLogger(VendorKyc.class);
+    @Autowired
+    private FileUtils fileUtils; // Autowire FileUtils component
 
+    private static final Logger log = LoggerFactory.getLogger(VendorKycImpl.class);
 
     @Override
-    public VendorKyc save(@PathVariable Long userId, VendorKyc vendorKyc) {
+    public VendorKyc save(Long userId, VendorKyc vendorKyc, MultipartFile frontImageFile, MultipartFile backImageFile) {
         ResponseDto responseDto = new ResponseDto();
         try {
             Users user = usersRepository.findById(userId)
                     .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + userId));
 
-            if (user.getUserType() != UserType.VENDOR) {
+            if (user.getUserType() != UserType.VENDOR || user.getUserType() != UserType.DELIVERY_BOY) {
                 throw new IllegalStateException("User is not authorized to submit vendor KYC");
             }
-            vendorKyc.setUsers(user);
+
+            // Handle file uploads
+            if (frontImageFile != null && !frontImageFile.isEmpty()) {
+                String fileName = StringUtils.cleanPath(frontImageFile.getOriginalFilename());
+                vendorKyc.setDocumentImageFront(fileName);
+                fileUtils.saveFile(frontImageFile, fileName); // Save front image file
+            }
+
+            if (backImageFile != null && !backImageFile.isEmpty()) {
+                String fileName = StringUtils.cleanPath(backImageFile.getOriginalFilename());
+                vendorKyc.setDocumentImageBack(fileName);
+                fileUtils.saveFile(backImageFile, fileName); // Save back image file
+            }
+
+            vendorKyc.setUsers(user); // Set the user for vendor KYC
             return vendorKycRepository.save(vendorKyc);
         } catch (IllegalArgumentException e) {
             log.error("User not Found: " + userId);
             responseDto.setStatus(HttpStatus.NOT_FOUND);
-            throw new IllegalArgumentException("User not Found" + e);
-        } catch (RuntimeException e) {
-            log.error("Internal Server Error" + e);
+            throw new IllegalArgumentException("User not Found: " + e.getMessage());
+        } catch (IOException e) {
+            log.error("File IO Error: " + e);
             responseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-            responseDto.setMessage("Internal Server Error" + e);
-            throw new RuntimeException(e);
+            responseDto.setMessage("File IO Error: " + e.getMessage());
+            throw new RuntimeException("Internal Server Error: " + e.getMessage(), e);
         }
     }
 
     @Override
     public List<VendorKyc> findAll() {
-        ResponseDto response = new ResponseDto();
+        ResponseDto responseDto = new ResponseDto();
         try {
-            log.info("Vendor KYC successfully fetched");
-            response.setStatus(HttpStatus.OK);
+            log.info("Fetching all Vendor KYC records");
             return vendorKycRepository.findAll();
         } catch (RuntimeException e) {
-            log.error("Internal Server Error");
-            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-            throw new RuntimeException("Internal Server Error" + e);
+            log.error("Error fetching Vendor KYC records: " + e.getMessage());
+            throw new RuntimeException("Internal Server Error: " + e.getMessage(), e);
         }
     }
-
 
     @Override
     public VendorKyc findById(Long id) {
         ResponseDto responseDto = new ResponseDto();
         try {
-            return vendorKycRepository.findById(id).orElseThrow(() ->
-                    new ResourceNotFoundException("VendorKYC Not Found" + id));
+            return vendorKycRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Vendor KYC not found with ID: " + id));
+        } catch (ResourceNotFoundException e) {
+            log.error("Vendor KYC not found: " + e.getMessage());
+            throw e;
         } catch (RuntimeException e) {
-            log.error("Internal Server error");
-            responseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-            responseDto.setMessage("Internal Server Error" + e);
-            throw new RuntimeException("Internal Server Error", e);
+            log.error("Error finding Vendor KYC: " + e.getMessage());
+            throw new RuntimeException("Internal Server Error: " + e.getMessage(), e);
         }
     }
 
@@ -89,17 +105,10 @@ public class VendorKycImpl implements VendorKycService {
     public void delete(Long id) {
         ResponseDto responseDto = new ResponseDto();
         try {
-            log.info("KYC deleted successfully" + id);
-            responseDto.setStatus(HttpStatus.OK);
-            responseDto.setMessage("KYC deleted Successfully");
-        } catch (EntityNotFoundException e) {
-            log.error("Not Found" + e);
-            responseDto.setStatus(HttpStatus.NOT_FOUND);
-            throw new EntityNotFoundException("Not Found");
+            vendorKycRepository.deleteById(id);
         } catch (RuntimeException e) {
-            log.error("Internal Server Error" + e);
-            responseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-            throw new RuntimeException("Internal Server Error" + e);
+            log.error("Error deleting Vendor KYC: " + e.getMessage());
+            throw new RuntimeException("Internal Server Error: " + e.getMessage(), e);
         }
     }
 
@@ -107,22 +116,22 @@ public class VendorKycImpl implements VendorKycService {
     public VendorKyc update(Long id, VendorKyc vendorKyc) {
         ResponseDto responseDto = new ResponseDto();
         try {
-            VendorKyc vendorKyc1 = vendorKycRepository.findById(id).orElseThrow(() -> new RuntimeException("KYC Not Found"));
-            vendorKyc1.setDocumentType(vendorKyc.getDocumentType());
-            vendorKyc1.setDocumentNumber(vendorKyc.getDocumentNumber());
-            vendorKyc1.setDocumentImageFront(vendorKyc.getDocumentImageFront());
-            vendorKyc1.setDocumentImageBack(vendorKyc.getDocumentImageBack());
-            vendorKyc1.setUpdatedAt(Timestamp.from(Instant.now()));
-            return vendorKycRepository.save(vendorKyc);
-        } catch (EntityNotFoundException e) {
-            log.error("Not Found" + e);
-            responseDto.setStatus(HttpStatus.NOT_FOUND);
-            throw new EntityNotFoundException("Not Found" + e);
-        } catch (RuntimeException e) {
-            log.error("Internal Server Error" + e);
-            responseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-            throw new RuntimeException("Internal Server Error" + e);
-        }
+            VendorKyc existingKyc = vendorKycRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Vendor KYC not found with ID: " + id));
 
+            existingKyc.setDocumentType(vendorKyc.getDocumentType());
+            existingKyc.setDocumentNumber(vendorKyc.getDocumentNumber());
+            existingKyc.setDocumentImageFront(vendorKyc.getDocumentImageFront());
+            existingKyc.setDocumentImageBack(vendorKyc.getDocumentImageBack());
+            existingKyc.setUpdatedAt(Timestamp.from(Instant.now()));
+
+            return vendorKycRepository.save(existingKyc);
+        } catch (ResourceNotFoundException e) {
+            log.error("Vendor KYC not found: " + e.getMessage());
+            throw e;
+        } catch (RuntimeException e) {
+            log.error("Error updating Vendor KYC: " + e.getMessage());
+            throw new RuntimeException("Internal Server Error: " + e.getMessage(), e);
+        }
     }
 }

@@ -2,11 +2,12 @@ package com.shofydrop.service;
 
 
 import com.shofydrop.entity.VendorKyc;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 public interface VendorKycService {
-    VendorKyc save(Long userId, VendorKyc vendorKyc);
+    VendorKyc save(Long userId, VendorKyc vendorKyc, MultipartFile frontImageFile, MultipartFile backImageFile);
 
     List<VendorKyc> findAll();
 
