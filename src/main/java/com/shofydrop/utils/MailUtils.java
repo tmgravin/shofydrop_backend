@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 
 
 @Service
-public class MailUtils {
+public class MailUtils{
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -35,8 +35,9 @@ public class MailUtils {
         javaMailSender.send(mimeMessage);
 
     }
+
 //  Mail configuration for user verification token
-    public void emailVerificationCode(String toEmail, String verificationLink) throws MessagingException, IOException {
+    public void emailVerificationEmail(String toEmail, String recipientName, String verificationLink) throws MessagingException, IOException {
 
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
@@ -48,6 +49,7 @@ public class MailUtils {
         String htmlContent = StreamUtils.copyToString(htmlFile.getInputStream(), StandardCharsets.UTF_8);
 
         htmlContent = htmlContent.replace("[link]", verificationLink);
+        htmlContent = htmlContent.replace("[name]", recipientName);
 
         helper.setTo(toEmail);
         helper.setSubject(subject);

@@ -6,8 +6,11 @@ import com.shofydrop.enumerated.UserType;
 import com.shofydrop.exception.ResourceNotFoundException;
 import com.shofydrop.repository.UsersRepository;
 import com.shofydrop.service.UserService;
+import com.shofydrop.entity.VerificationToken;
+import com.shofydrop.repository.VerificationTokenRepository;
 import com.shofydrop.utils.MailUtils;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private MailUtils mailUtils;
+
+    @Autowired
+    private VerificationTokenRepository tokenRepository;
 
     @Override
     public List<Users> findAll() {
@@ -95,14 +101,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users signupUser(Users users) {
         try {
+            if(users.getPassword() == null || users.getPassword().isEmpty()){
+                throw new IllegalArgumentException("Password cannot be empty.");
+            }
             users.setPassword(DigestUtils.md5DigestAsHex(users.getPassword().getBytes()));
 
             //Ensure default value are set
-            if (users.getKycCompleted() == '\0') {
-                users.setKycCompleted('N');
+            if (users.getIsKycCompleted() == '\0') {
+                users.setIsKycCompleted('N');
             }
-            if (users.getIsVerified() == '\0') {
-                users.setIsVerified('N');
+            if(users.getIsKycApproved() == '\0'){
+                users.setIsKycApproved('N');
+            }
+            if (users.getIsEmailVerified() == '\0') {
+                users.setIsEmailVerified('N');
             }
             if (users.getUserType() == null) {
                 users.setUserType(UserType.USER);
@@ -115,7 +127,7 @@ public class UserServiceImpl implements UserService {
             sendVerificationEmail(users.getEmail());
             return savedUser;
         } catch (Exception e) {
-            throw new RuntimeException("Internal Server Error" + users + e.getMessage());
+            throw new RuntimeException("Failed to signup user: " + e.getMessage());
         }
     }
 
@@ -125,13 +137,18 @@ public class UserServiceImpl implements UserService {
         try {
             Users user = usersRepository.findByEmail(email).orElseThrow(() ->
                     new ResourceNotFoundException("User doesn't exist with this email: " + email));
+
             String verificationToken = UUID.randomUUID().toString();
             String verificationLink = "http://localhost:8080/users/api/verifyEmail?token=" + verificationToken;
 
-            session.setAttribute("verificationEmail", email);
-            session.setAttribute("verificationToken", verificationToken);
+            VerificationToken tokenEntity = new VerificationToken();
+            tokenEntity.setToken(verificationToken);
+            tokenEntity.setExpiryDate(Timestamp.from(Instant.now().plusSeconds(21600)));
+            tokenEntity.setUser(user);
 
-            mailUtils.emailVerificationCode(email, verificationLink);
+            tokenRepository.save(tokenEntity);
+
+            mailUtils.emailVerificationEmail(email,  user.getName(), verificationLink);
             log.info("Verification link send to: {}", email);
         } catch (Exception e) {
             log.error("Error during sending verification email.", e);
@@ -141,23 +158,26 @@ public class UserServiceImpl implements UserService {
 
     //Implementation for verifying email with code
     @Override
+    @Transactional
     public void verifyEmailToken(String token) {
         try {
-            String storedEmail = (String) session.getAttribute("verificationEmail");
-            String storedToken = (String) session.getAttribute("verificationToken");
-            if (storedEmail == null || storedToken == null || !storedToken.equals(token)) {
-                throw new IllegalStateException("Invalid verification token or email not found in session.");
+            VerificationToken verificationToken = tokenRepository.findByToken(token).orElseThrow(() ->
+                    new IllegalStateException("Invalid verification token."));
+            if (verificationToken.getExpiryDate().toInstant().isBefore(Instant.now())) {
+                throw new IllegalStateException("Verification token expired.");
             }
-            Users user = usersRepository.findByEmail(storedEmail).orElseThrow(() ->
-                    new ResourceNotFoundException("User doesn't exist with this email: " + storedEmail));
-            user.setIsVerified('Y');
+            Users user = verificationToken.getUser();
+
+            if(user == null) {
+                throw new ResourceNotFoundException("User doesn't exist with this email: " + user.getEmail());
+            }
+            user.setIsEmailVerified('Y');
             user.setUpdatedAt(Timestamp.from(Instant.now()));
             usersRepository.save(user);
 
-            session.removeAttribute("verificationToken");
-            session.removeAttribute("verificationEmail");
+            tokenRepository.deleteByToken(token);
 
-            log.info("User is verified: {}", storedEmail);
+            log.info("User is verified: {}", user.getEmail());
         } catch (Exception e) {
             log.error("Error during user verification.", e);
             throw new RuntimeException("Internal server error: " + e.getMessage());
@@ -171,7 +191,7 @@ public class UserServiceImpl implements UserService {
             Users user = usersRepository.findByEmail(email).orElseThrow(() ->
                     new ResourceNotFoundException("Email and Password don't match!"));
             if (user.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes()))) {
-                if (user.getIsVerified() == 'N') {
+                if (user.getIsEmailVerified() == 'N') {
                     throw new IllegalStateException("User is not verified, please verify your email");
                 }
                 return user;

@@ -63,14 +63,17 @@ public class UserController {
     }
 
     //Api for verifying email token
-    @PostMapping("/verifyEmail")
+    @GetMapping("/verifyEmail")
     public ModelAndView verifyEmailCode(@RequestParam("token") String verificationToken) {
        ModelAndView modelAndView = new ModelAndView();
         try {
             userService.verifyEmailToken(verificationToken);
             modelAndView.setViewName("verifySuccess");
+        }catch (IllegalStateException e){
+            modelAndView.addObject("error", e.getMessage());
+            modelAndView.setViewName("error");
         } catch (ResourceNotFoundException e) {
-            modelAndView.addObject("error","Invalid verification token.");
+            modelAndView.addObject("error","User doesn't exist with this email.");
             modelAndView.setViewName("error");
         } catch (IllegalArgumentException e) {
             modelAndView.addObject("error","Verification process failed.");
