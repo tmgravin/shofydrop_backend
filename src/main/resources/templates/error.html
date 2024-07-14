@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,20 +11,25 @@
             background-color: #f4f4f4;
             margin: 0;
             padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 600px;
-            margin: 0 auto;
+            text-align: center;
             background-color: #e74c3c;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            margin-top: 10px;
         }
 
         h2 {
             color: #ffffff;
-            text-align: center;
             font-size: 24px;
             margin-bottom: 20px;
         }
@@ -33,6 +38,8 @@
             color: #ffffff;
             font-size: 16px;
             line-height: 1.8;
+            margin: 0 auto;
+            max-width: 80%;
         }
 
         .footer {
@@ -45,7 +52,7 @@
 <body>
 <div class="container">
     <h2>Error</h2>
-    <p>${error}</p>
+    <p th:text="${error}"></p>
     <p class="footer">Please try again later.<br>ShofyDrop</p>
 </div>
 </body>
