@@ -19,10 +19,10 @@ public class VendorKyc {
     @Column(name = "document_number", length = 50)
     private String documentNumber;
 
-    @Column(name = "document_image_front", nullable = false)
+    @Column(name = "document_image_front", nullable = false, columnDefinition = "TEXT")
     private String documentImageFront;
 
-    @Column(name = "document_image_back", nullable = false)
+    @Column(name = "document_image_back", nullable = false, columnDefinition = "TEXT")
     private String documentImageBack;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)

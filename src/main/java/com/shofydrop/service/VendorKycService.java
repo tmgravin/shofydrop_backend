@@ -15,7 +15,6 @@ public interface VendorKycService {
 
     void delete(Long id);
 
-
-    VendorKyc update(Long id, VendorKyc vendorKyc);
-
+    VendorKyc update(Long id, VendorKyc updatedVendorKyc,
+                     MultipartFile frontImageFile, MultipartFile backImageFile);
 }

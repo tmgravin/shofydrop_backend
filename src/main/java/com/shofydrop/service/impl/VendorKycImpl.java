@@ -3,23 +3,20 @@ package com.shofydrop.service.impl;
 import com.shofydrop.dto.ResponseDto;
 import com.shofydrop.entity.Users;
 import com.shofydrop.entity.VendorKyc;
-import com.shofydrop.enumerated.UserType;
 import com.shofydrop.exception.ResourceNotFoundException;
 import com.shofydrop.repository.UsersRepository;
 import com.shofydrop.repository.VendorKycRepository;
 import com.shofydrop.service.VendorKycService;
 import com.shofydrop.utils.FileUtils;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -43,19 +40,15 @@ public class VendorKycImpl implements VendorKycService {
             Users user = usersRepository.findById(userId)
                     .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + userId));
 
-            if (user.getUserType() != UserType.VENDOR || user.getUserType() != UserType.DELIVERY_BOY) {
-                throw new IllegalStateException("User is not authorized to submit vendor KYC");
-            }
-
             // Handle file uploads
             if (frontImageFile != null && !frontImageFile.isEmpty()) {
-                String fileName = StringUtils.cleanPath(frontImageFile.getOriginalFilename());
+                String fileName = fileUtils.generateFileName(frontImageFile); // Generate unique filename
                 vendorKyc.setDocumentImageFront(fileName);
                 fileUtils.saveFile(frontImageFile, fileName); // Save front image file
             }
 
             if (backImageFile != null && !backImageFile.isEmpty()) {
-                String fileName = StringUtils.cleanPath(backImageFile.getOriginalFilename());
+                String fileName = fileUtils.generateFileName(backImageFile); // Generate unique filename
                 vendorKyc.setDocumentImageBack(fileName);
                 fileUtils.saveFile(backImageFile, fileName); // Save back image file
             }
@@ -76,19 +69,11 @@ public class VendorKycImpl implements VendorKycService {
 
     @Override
     public List<VendorKyc> findAll() {
-        ResponseDto responseDto = new ResponseDto();
-        try {
-            log.info("Fetching all Vendor KYC records");
-            return vendorKycRepository.findAll();
-        } catch (RuntimeException e) {
-            log.error("Error fetching Vendor KYC records: " + e.getMessage());
-            throw new RuntimeException("Internal Server Error: " + e.getMessage(), e);
-        }
+        return vendorKycRepository.findAll();
     }
 
     @Override
     public VendorKyc findById(Long id) {
-        ResponseDto responseDto = new ResponseDto();
         try {
             return vendorKycRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException("Vendor KYC not found with ID: " + id));
@@ -101,36 +86,56 @@ public class VendorKycImpl implements VendorKycService {
         }
     }
 
+    @Transactional
+    public VendorKyc update(Long id, VendorKyc updatedVendorKyc,
+                            MultipartFile frontImageFile, MultipartFile backImageFile) {
+        try {
+            VendorKyc existingVendorKyc = vendorKycRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Vendor KYC not found with ID: " + id));
+
+            // Delete existing front image file
+            if (frontImageFile != null && !frontImageFile.isEmpty()) {
+                if (existingVendorKyc.getDocumentImageFront() != null) {
+                    fileUtils.deleteFileIfExists(existingVendorKyc.getDocumentImageFront());
+                }
+                String frontFileName = fileUtils.generateFileName(frontImageFile);
+                fileUtils.saveFile(frontImageFile, frontFileName);
+                existingVendorKyc.setDocumentImageFront(frontFileName);
+            }
+
+            // Delete existing back image file
+            if (backImageFile != null && !backImageFile.isEmpty()) {
+                if (existingVendorKyc.getDocumentImageBack() != null) {
+                    fileUtils.deleteFileIfExists(existingVendorKyc.getDocumentImageBack());
+                }
+                String backFileName = fileUtils.generateFileName(backImageFile);
+                fileUtils.saveFile(backImageFile, backFileName);
+                existingVendorKyc.setDocumentImageBack(backFileName);
+            }
+
+            // Update other fields of VendorKyc
+            existingVendorKyc.setDocumentType(updatedVendorKyc.getDocumentType());
+            existingVendorKyc.setDocumentNumber(updatedVendorKyc.getDocumentNumber());
+            // Add more field updates as needed
+
+            // Save the updated VendorKyc object
+            return vendorKycRepository.save(existingVendorKyc);
+        } catch (ResourceNotFoundException e) {
+            throw e;
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to perform file operation: " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new RuntimeException("Error updating Vendor KYC: " + e.getMessage(), e);
+        }
+    }
+
+
     @Override
     public void delete(Long id) {
-        ResponseDto responseDto = new ResponseDto();
         try {
             vendorKycRepository.deleteById(id);
         } catch (RuntimeException e) {
             log.error("Error deleting Vendor KYC: " + e.getMessage());
-            throw new RuntimeException("Internal Server Error: " + e.getMessage(), e);
-        }
-    }
-
-    @Override
-    public VendorKyc update(Long id, VendorKyc vendorKyc) {
-        ResponseDto responseDto = new ResponseDto();
-        try {
-            VendorKyc existingKyc = vendorKycRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Vendor KYC not found with ID: " + id));
-
-            existingKyc.setDocumentType(vendorKyc.getDocumentType());
-            existingKyc.setDocumentNumber(vendorKyc.getDocumentNumber());
-            existingKyc.setDocumentImageFront(vendorKyc.getDocumentImageFront());
-            existingKyc.setDocumentImageBack(vendorKyc.getDocumentImageBack());
-            existingKyc.setUpdatedAt(Timestamp.from(Instant.now()));
-
-            return vendorKycRepository.save(existingKyc);
-        } catch (ResourceNotFoundException e) {
-            log.error("Vendor KYC not found: " + e.getMessage());
-            throw e;
-        } catch (RuntimeException e) {
-            log.error("Error updating Vendor KYC: " + e.getMessage());
             throw new RuntimeException("Internal Server Error: " + e.getMessage(), e);
         }
     }
