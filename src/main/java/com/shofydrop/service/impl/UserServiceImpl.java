@@ -210,10 +210,18 @@ public class UserServiceImpl implements UserService {
         try {
             Users user = usersRepository.findByEmail(email).orElseThrow(() ->
                     new ResourceNotFoundException("User doesn't exist with this email: " + email));
-            int verificationCode = generateVerificationCode();
+
+            //Generate verification code using UUID
+            Random random = new Random();
+            int verificationCode = random.nextInt(900000) + 100000;
+//            UUID uuid = UUID.randomUUID();
+//            long lsb = uuid.getLeastSignificantBits();
+//            int verificationCode = Math.abs((int) (lsb % 1000000));
+
             session.setAttribute("resetPasswordVerificationCode", verificationCode);
             session.setAttribute("resetPasswordEmail", email);
             usersRepository.save(user);
+
             // Send verification code to user's email
             mailUtils.forgetPasswordVerificationCode(email, verificationCode);
             log.info("Verification code send to a: {}", email);
@@ -266,11 +274,5 @@ public class UserServiceImpl implements UserService {
             log.error("Error during password reset", e);
             throw new RuntimeException("Internal Server Error: " + e.getMessage());
         }
-    }
-
-    //private method for generating random code
-    private int generateVerificationCode() {
-        Random random = new Random();
-        return random.nextInt(900000) + 100000;
     }
 }
