@@ -212,11 +212,11 @@ public class UserServiceImpl implements UserService {
                     new ResourceNotFoundException("User doesn't exist with this email: " + email));
 
             //Generate verification code using UUID
-            Random random = new Random();
-            int verificationCode = random.nextInt(900000) + 100000;
-//            UUID uuid = UUID.randomUUID();
-//            long lsb = uuid.getLeastSignificantBits();
-//            int verificationCode = Math.abs((int) (lsb % 1000000));
+//            Random random = new Random();
+//            int verificationCode = random.nextInt(900000) + 100000;
+            UUID uuid = UUID.randomUUID();
+            long lsb = uuid.getLeastSignificantBits();
+            int verificationCode = Math.abs((int) (lsb % 1000000));
 
             session.setAttribute("resetPasswordVerificationCode", verificationCode);
             session.setAttribute("resetPasswordEmail", email);
