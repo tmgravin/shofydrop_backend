@@ -1,13 +1,13 @@
 package com.shofydrop.service.impl;
 
 import com.shofydrop.entity.Users;
+import com.shofydrop.entity.VerificationToken;
 import com.shofydrop.enumerated.LoginType;
 import com.shofydrop.enumerated.UserType;
 import com.shofydrop.exception.ResourceNotFoundException;
 import com.shofydrop.repository.UsersRepository;
-import com.shofydrop.service.UserService;
-import com.shofydrop.entity.VerificationToken;
 import com.shofydrop.repository.VerificationTokenRepository;
+import com.shofydrop.service.UserService;
 import com.shofydrop.utils.MailUtils;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
@@ -20,7 +20,6 @@ import org.springframework.util.DigestUtils;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -101,21 +100,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users signupUser(Users users) {
         try {
-            if(users.getPassword() == null || users.getPassword().isEmpty()){
+            if (users.getPassword() == null || users.getPassword().isEmpty()) {
                 throw new IllegalArgumentException("Password cannot be empty.");
             }
             users.setPassword(DigestUtils.md5DigestAsHex(users.getPassword().getBytes()));
 
-            //Ensure default value are set
-            if (users.getIsKycCompleted() == '\0') {
-                users.setIsKycCompleted('N');
-            }
-            if(users.getIsKycApproved() == '\0'){
-                users.setIsKycApproved('N');
-            }
-            if (users.getIsEmailVerified() == '\0') {
-                users.setIsEmailVerified('N');
-            }
+//            //Ensure default value are set
+//            if (users.getIsKycCompleted() == '\0') {
+//                users.setIsKycCompleted('N');
+//            }
+//            if(users.getIsKycApproved() == '\0'){
+//                users.setIsKycApproved('N');
+//            }
+//            if (users.getIsEmailVerified() == '\0') {
+//                users.setIsEmailVerified('N');
+//            }
             if (users.getUserType() == null) {
                 users.setUserType(UserType.USER);
             }
@@ -148,7 +147,7 @@ public class UserServiceImpl implements UserService {
 
             tokenRepository.save(tokenEntity);
 
-            mailUtils.emailVerificationEmail(email,  user.getName(), verificationLink);
+            mailUtils.emailVerificationEmail(email, user.getName(), verificationLink);
             log.info("Verification link send to: {}", email);
         } catch (Exception e) {
             log.error("Error during sending verification email.", e);
@@ -168,10 +167,10 @@ public class UserServiceImpl implements UserService {
             }
             Users user = verificationToken.getUser();
 
-            if(user == null) {
+            if (user == null) {
                 throw new ResourceNotFoundException("User doesn't exist with this email: " + user.getEmail());
             }
-            user.setIsEmailVerified('Y');
+//            user.setIsEmailVerified('Y');
             user.setUpdatedAt(Timestamp.from(Instant.now()));
             usersRepository.save(user);
 
@@ -191,9 +190,9 @@ public class UserServiceImpl implements UserService {
             Users user = usersRepository.findByEmail(email).orElseThrow(() ->
                     new ResourceNotFoundException("Email and Password don't match!"));
             if (user.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes()))) {
-                if (user.getIsEmailVerified() == 'N') {
-                    throw new IllegalStateException("User is not verified, please verify your email");
-                }
+//                if (user.getIsEmailVerified() == 'N') {
+//                    throw new IllegalStateException("User is not verified, please verify your email");
+//                }
                 return user;
             } else {
                 throw new ResourceNotFoundException("Email and password don't match!!");

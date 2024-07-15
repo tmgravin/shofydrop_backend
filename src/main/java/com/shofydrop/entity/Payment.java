@@ -26,6 +26,9 @@ public class Payment {
     @Column(name = "status", columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'", nullable = false)
     private Status status;
 
+    @Column(name = "payment_type", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'ONLINE'")
+    private String paymentType;
+    
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;
 

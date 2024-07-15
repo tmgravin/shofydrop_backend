@@ -5,7 +5,7 @@ import com.shofydrop.entity.Users;
 import com.shofydrop.entity.VendorKyc;
 import com.shofydrop.exception.ResourceNotFoundException;
 import com.shofydrop.repository.UsersRepository;
-import com.shofydrop.repository.VendorKycRepository;
+import com.shofydrop.repository.VendorKycRepo;
 import com.shofydrop.service.VendorKycService;
 import com.shofydrop.utils.FileUtils;
 import jakarta.transaction.Transactional;
@@ -23,7 +23,7 @@ import java.util.List;
 public class VendorKycImpl implements VendorKycService {
 
     @Autowired
-    private VendorKycRepository vendorKycRepository;
+    private VendorKycRepo vendorKycRepository;
 
     @Autowired
     private UsersRepository usersRepository;

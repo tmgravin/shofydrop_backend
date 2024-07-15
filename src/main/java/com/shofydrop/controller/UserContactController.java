@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user/contact/api")
@@ -19,9 +20,9 @@ public class UserContactController {
 
     private static final Logger log = LoggerFactory.getLogger(UserContactController.class);
 
-    @PostMapping("/addContact")
-    public ResponseEntity<UsersContact> addUserContact(UsersContact usersContact) {
-        UsersContact usersContact1 = userContactService.save(usersContact);
+    @PostMapping("/addContact/{id}")
+    public ResponseEntity<UsersContact> addUserContact(@PathVariable Long userId, UsersContact usersContact) {
+        UsersContact usersContact1 = userContactService.save(userId, usersContact);
         log.info("User Successfully Saved" + usersContact1);
         return ResponseEntity.status(HttpStatus.CREATED).body(usersContact1);
     }
@@ -33,9 +34,8 @@ public class UserContactController {
     }
 
     @GetMapping("/getUserContact/{id}")
-    public ResponseEntity<UsersContact> getUserContact(@PathVariable Long id) {
-        UsersContact usersContact = userContactService.findById(id);
-        log.info("Getting User Contact:" + id);
+    public ResponseEntity<Optional<UsersContact>> getUserContact(@PathVariable Long id) {
+        Optional<UsersContact> usersContact = userContactService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(usersContact);
     }
 
