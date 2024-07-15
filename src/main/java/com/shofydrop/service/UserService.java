@@ -21,18 +21,21 @@ public interface UserService {
     //Service for user signup
     Users signupUser(Users users);
 
-    //Service for verify user after signup
+    //Service for sending email verification code
     void sendVerificationEmail(String email);
 
-    void verifyUserEmail(int verificationCode);
+    // Service for verifying email with code
+    void verifyEmailToken(String token);
 
-    //Service for user login
+    //Service for login user after verifying email
     Users loginUser(String email, String password);
 
-    //Service for forget password, verifyUser and resetPassword
+    //Service for sending password reset code
     void forgetPassword(String email);
 
-    void verifyCode(int verificationCode);
+    //Service for verifying password reset code
+    void verifyPasswordResetCode(int verificationCode);
 
+    //Service for resetting password
     void resetPassword(String newPassword, String confirmPassword);
 }

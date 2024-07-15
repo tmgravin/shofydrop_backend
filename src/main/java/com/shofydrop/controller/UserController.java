@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -45,65 +46,90 @@ public class UserController {
         return "User updated successfully";
     }
 
-    //Controller for signing user
+    //Api for user signup
     @PostMapping("/signup")
-    public ResponseEntity<Users> signupUser(@RequestBody Users user){
+    public ResponseEntity<Users> signupUser(@RequestBody Users user) {
         try {
             if (user.getPassword() == null || user.getPassword().isEmpty()) {
                 return ResponseEntity.badRequest().body(null);
             }
             Users registerUser = userService.signupUser(user);
             return ResponseEntity.ok(registerUser);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(null);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
-    //Controller for verifying user's email
-    @PostMapping("/verifyUser")
-    public ResponseEntity<String> verifyUser(@RequestParam int verificationCode){
+
+    //Api for verifying email token
+    @GetMapping("/verifyEmail")
+    public ModelAndView verifyEmailCode(@RequestParam("token") String verificationToken) {
+       ModelAndView modelAndView = new ModelAndView();
         try {
-            userService.verifyUserEmail(verificationCode);
-            return ResponseEntity.ok("User Verified Successfully!");
-        }catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid verification code.");
-        }catch (IllegalArgumentException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Verification process failed.");
-        }catch (Exception e){
+            userService.verifyEmailToken(verificationToken);
+            modelAndView.setViewName("verifySuccess");
+        }catch (IllegalStateException e){
+            modelAndView.addObject("error", e.getMessage());
+            modelAndView.setViewName("error");
+        } catch (ResourceNotFoundException e) {
+            modelAndView.addObject("error","User doesn't exist with this email.");
+            modelAndView.setViewName("error");
+        } catch (IllegalArgumentException e) {
+            modelAndView.addObject("error","Verification process failed.");
+            modelAndView.setViewName("error");
+        } catch (Exception e) {
+            modelAndView.addObject("error","Internal server error.");
+            modelAndView.setViewName("error");
+        }
+        return modelAndView;
+    }
+
+    //Api for login user after verifying email
+    @PostMapping("/login")
+    public ResponseEntity<Users> loginUser(@RequestParam String email, @RequestParam String password) {
+        Users loginUSer = userService.loginUser(email, password);
+        return ResponseEntity.ok(loginUSer);
+    }
+
+    //Api for sending password reset code
+    @PostMapping("/forgetPassword")
+    public ResponseEntity<String> forgetPassword(@RequestParam String email) {
+        try {
+            userService.forgetPassword(email);
+            return ResponseEntity.ok("Password verification code is send to your email.");
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesn't exist with this email.");
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error.");
         }
     }
 
-    //Controller for logging user after verification
-    @PostMapping("/login")
-    public ResponseEntity<Users> loginUser(@RequestParam String email, @RequestParam String password){
-        Users loginUSer = userService.loginUser(email,password);
-        return ResponseEntity.ok(loginUSer);
+    //Api for verifying password reset code
+    @PostMapping("/verifyResetPasswordCode")
+    public ResponseEntity<String> verifyResetPasswordCode(@RequestParam int verificationCode) {
+        try {
+            userService.verifyPasswordResetCode(verificationCode);
+            return ResponseEntity.ok("Verification code verified successfully!");
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid verification code.");
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Verification process failed");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error.");
+        }
     }
 
-    //Controller for forget Password, code verification and password reset
-    @PostMapping("/forgetPassword")
-    public ResponseEntity<String> forgetPassword(@RequestParam String email){
-        userService.forgetPassword(email);
-        return ResponseEntity.ok("Verification code is send to your email.");
-    }
-
-    @PostMapping("/passwordResetCode")
-    public ResponseEntity<String> verifyCode(@RequestParam int verificationCode){
-        userService.verifyCode(verificationCode);
-        return ResponseEntity.ok("User verified successfully!");
-    }
-
+    //Api for resetting password
     @PostMapping("/resetPassword")
-    public ResponseEntity<String> resetPassword(@RequestParam String newPassword, @RequestParam String confirmPassword){
-        try{
+    public ResponseEntity<String> resetPassword(@RequestParam String newPassword, @RequestParam String confirmPassword) {
+        try {
             userService.resetPassword(newPassword, confirmPassword);
-            return ResponseEntity.ok("Password changed successfully!");
-        }catch (IllegalArgumentException e){
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error resetting password");
+            return ResponseEntity.ok("Password reset successfully!");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error.");
         }
     }
 

@@ -10,6 +10,4 @@ public class HomeController {
     public String getLandingPage() {
         return "index";
     }
-
-//    @GetMapping({'/' })
 }
