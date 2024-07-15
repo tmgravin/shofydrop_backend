@@ -23,7 +23,7 @@ public class UserImages {
     private Timestamp updatedAt;
 
     @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", unique = true)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users users;
 
 }
