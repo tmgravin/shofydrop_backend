@@ -24,15 +24,6 @@ public class Users {
     @Column(name = "password", nullable = false, columnDefinition = "VARCHAR(255)")
     private String password;
 
-    @Column(name = "is_kycCompleted", columnDefinition = "CHAR(1) DEFAULT 'N'", nullable = false)
-    private char isKycCompleted;
-
-    @Column(name = "is_kycApproved", columnDefinition = "CHAR(1) DEFAULT 'N'", nullable = false)
-    private char isKycApproved;
-
-    @Column(name = "is_emailVerified", columnDefinition = "CHAR(1) DEFAULT 'N'", nullable = false)
-    private char isEmailVerified;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "user_type", columnDefinition = "VARCHAR(255) DEFAULT 'USER'", nullable = false)
     private UserType userType;

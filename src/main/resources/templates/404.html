@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamburger Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .hamburger-menu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50px;
+            background-color: #333;
+        }
+        .burger {
+            background: none;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 24px;
+        }
+        .burger span {
+            display: block;
+            width: 30px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: all 0.3s ease-in-out;
+        }
+        .burger[data-state="open"] span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .burger[data-state="open"] span:nth-child(2) {
+            opacity: 0;
+        }
+        .burger[data-state="open"] span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+        nav {
+            display: none;
+            background-color: #333;
+        }
+        nav[data-state="open"] {
+            display: block;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav li {
+            text-align: center;
+            padding: 15px 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        main {
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="hamburger-menu">
+    <button class="burger" data-state="closed">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</div>
+<nav data-state="closed">
+    <ul>
+        <li>
+            <a href="#">Home</a>
+        </li>
+        <li>
+            <a href="#">Services</a>
+        </li>
+        <li>
+            <a href="#">About</a>
+        </li>
+        <li>
+            <a href="#">Contact</a>
+        </li>
+    </ul>
+</nav>
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 align-self-center">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+                    <!-- SVG content goes here -->
+                </svg>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    const burger = document.querySelector('.burger');
+    const nav = document.querySelector('nav');
+
+    burger.addEventListener('click', () => {
+        const isOpen = burger.getAttribute('data-state') === 'open';
+        burger.setAttribute('data-state', isOpen ? 'closed' : 'open');
+        nav.setAttribute('data-state', isOpen ? 'closed' : 'open');
+    });
+</script>
+
+</body>
+</html>

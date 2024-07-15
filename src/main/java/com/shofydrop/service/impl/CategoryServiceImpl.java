@@ -4,12 +4,17 @@ import com.shofydrop.entity.Category;
 import com.shofydrop.exception.ResourceNotFoundException;
 import com.shofydrop.repository.CategoryRepository;
 import com.shofydrop.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
+    @Autowired
     private CategoryRepository categoryRepository;
 
     /**
@@ -50,8 +55,7 @@ public class CategoryServiceImpl implements CategoryService {
         if (isExist) {
             Category isExistingCategory = categoryRepository.findById(id).get();
             isExistingCategory.setName(category.getName());
-            isExistingCategory.setCreatedAt(isExistingCategory.getCreatedAt());
-            isExistingCategory.setUpdatedAt(category.getUpdatedAt());
+            isExistingCategory.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
             return categoryRepository.save(isExistingCategory);
         }
         return null;
