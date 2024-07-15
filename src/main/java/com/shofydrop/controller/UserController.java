@@ -1,6 +1,7 @@
 package com.shofydrop.controller;
 
 import com.shofydrop.entity.Users;
+import com.shofydrop.exception.EmailNotVerifiedException;
 import com.shofydrop.exception.ResourceNotFoundException;
 import com.shofydrop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,7 +101,9 @@ public class UserController {
             return ResponseEntity.ok("Password verification code is send to your email.");
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesn't exist with this email.");
-        } catch (Exception e) {
+        }catch (EmailNotVerifiedException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error.");
         }
     }

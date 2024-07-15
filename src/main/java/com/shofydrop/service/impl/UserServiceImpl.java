@@ -1,12 +1,15 @@
 package com.shofydrop.service.impl;
 
 import com.shofydrop.entity.PasswordResetCode;
+import com.shofydrop.entity.UserDetails;
 import com.shofydrop.entity.Users;
-import com.shofydrop.entity.VerificationToken;
+import com.shofydrop.entity.EmailVerificationToken;
 import com.shofydrop.enumerated.LoginType;
 import com.shofydrop.enumerated.UserType;
+import com.shofydrop.exception.EmailNotVerifiedException;
 import com.shofydrop.exception.ResourceNotFoundException;
 import com.shofydrop.repository.PasswordResetCodeRepository;
+import com.shofydrop.repository.UserDetailsRepository;
 import com.shofydrop.repository.UsersRepository;
 import com.shofydrop.repository.VerificationTokenRepository;
 import com.shofydrop.service.UserService;
@@ -25,10 +28,13 @@ import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     private UsersRepository usersRepository;
 
-    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+    @Autowired
+    private UserDetailsRepository userDetailsRepository;
 
     @Autowired
     private MailUtils mailUtils;
@@ -47,8 +53,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users findById(Long id) {
         try {
-            return usersRepository.findById(id).orElseThrow(() ->
-                    new ResourceNotFoundException("user does not exist with this id " + id));
+            return usersRepository.findById(id).orElseThrow(()
+                    -> new ResourceNotFoundException("user does not exist with this id " + id));
         } catch (Exception e) {
             throw new RuntimeException("Internal Server Error" + id + e.getMessage());
         }
@@ -57,8 +63,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users update(Long id, Users users) {
         try {
-            Users existingUser = usersRepository.findById(id).orElseThrow(() ->
-                    new RuntimeException("User not found"));
+            Users existingUser = usersRepository.findById(id).orElseThrow(()
+                    -> new RuntimeException("User not found"));
             existingUser.setName(users.getName());
             existingUser.setUpdatedAt(Timestamp.from(Instant.now()));
             log.info("User Successfully Updated");
@@ -106,24 +112,25 @@ public class UserServiceImpl implements UserService {
             }
             users.setPassword(DigestUtils.md5DigestAsHex(users.getPassword().getBytes()));
 
-//            //Ensure default value are set
-//            if (users.getIsKycCompleted() == '\0') {
-//                users.setIsKycCompleted('N');
-//            }
-//            if(users.getIsKycApproved() == '\0'){
-//                users.setIsKycApproved('N');
-//            }
-//            if (users.getIsEmailVerified() == '\0') {
-//                users.setIsEmailVerified('N');
-//            }
+            //Ensure default value are set for the user first
             if (users.getUserType() == null) {
                 users.setUserType(UserType.USER);
             }
             if (users.getLoginType() == null) {
                 users.setLoginType(LoginType.EMAIL);
             }
-
+            //Save the users first to get the generated ID
             Users savedUser = usersRepository.save(users);
+
+            //Now work for it child entity
+            UserDetails userDetails = new UserDetails();
+            userDetails.setIsKycCompleted('N');
+            userDetails.setIsKycApproved('N');
+            userDetails.setIsEmailVerified('N');
+
+            userDetails.setUsers(savedUser);
+            userDetailsRepository.save(userDetails);
+
             sendVerificationEmail(users.getEmail());
             return savedUser;
         } catch (Exception e) {
@@ -135,13 +142,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public void sendVerificationEmail(String email) {
         try {
-            Users user = usersRepository.findByEmail(email).orElseThrow(() ->
-                    new ResourceNotFoundException("User doesn't exist with this email: " + email));
+            Users user = usersRepository.findByEmail(email).orElseThrow(()
+                    -> new ResourceNotFoundException("User doesn't exist with this email: " + email));
 
             String verificationToken = UUID.randomUUID().toString();
             String verificationLink = "http://localhost:8080/users/api/verifyEmail?token=" + verificationToken;
 
-            VerificationToken tokenEntity = new VerificationToken();
+            EmailVerificationToken tokenEntity = new EmailVerificationToken();
             tokenEntity.setToken(verificationToken);
             tokenEntity.setExpiredAt(Timestamp.from(Instant.now().plusSeconds(21600)));
             tokenEntity.setUser(user);
@@ -161,19 +168,24 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void verifyEmailToken(String token) {
         try {
-            VerificationToken verificationToken = tokenRepository.findByToken(token).orElseThrow(() ->
+            EmailVerificationToken emailVerificationToken = tokenRepository.findByToken(token).orElseThrow(() ->
                     new IllegalStateException("Invalid verification token."));
-            if (verificationToken.getExpiredAt().toInstant().isBefore(Instant.now())) {
+            if (emailVerificationToken.getExpiredAt().toInstant().isBefore(Instant.now())) {
                 throw new IllegalStateException("Verification token expired.");
             }
-            Users user = verificationToken.getUser();
-
+            Users user = emailVerificationToken.getUser();
             if (user == null) {
                 throw new ResourceNotFoundException("User doesn't exist with this email: " + user.getEmail());
             }
-//            user.setIsEmailVerified('Y');
+
+            UserDetails userDetails = userDetailsRepository.findByUsers(user).orElseThrow(() ->
+                    new ResourceNotFoundException("User Details not found for user: "+ user.getEmail()));
+            userDetails.setIsEmailVerified('Y');
             user.setUpdatedAt(Timestamp.from(Instant.now()));
+            userDetails.setUpdatedAt(Timestamp.from(Instant.now()));
+
             usersRepository.save(user);
+            userDetailsRepository.save(userDetails);
 
             tokenRepository.deleteByToken(token);
 
@@ -188,12 +200,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users loginUser(String email, String password) {
         try {
-            Users user = usersRepository.findByEmail(email).orElseThrow(() ->
-                    new ResourceNotFoundException("Email and Password don't match!"));
+            Users user = usersRepository.findByEmail(email).orElseThrow(()
+                    -> new ResourceNotFoundException("Email and Password don't match!"));
             if (user.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes()))) {
-//                if (user.getIsEmailVerified() == 'N') {
-//                    throw new IllegalStateException("User is not verified, please verify your email");
-//                }
+                UserDetails userDetails = new UserDetails();
+                if (userDetails.getIsEmailVerified() == 'N') {
+                    throw new IllegalStateException("User is not verified, please verify your email");
+                }
                 return user;
             } else {
                 throw new ResourceNotFoundException("Email and password don't match!!");
@@ -211,6 +224,13 @@ public class UserServiceImpl implements UserService {
             Users user = usersRepository.findByEmail(email).orElseThrow(() ->
                     new ResourceNotFoundException("User doesn't exist with this email: " + email));
 
+            //Check if user is verified or not
+            UserDetails userDetails = userDetailsRepository.findByUsers(user).orElseThrow(() ->
+                    new ResourceNotFoundException("User details not found for the user: " + email));
+            if (userDetails.getIsEmailVerified() == 'N') {
+                throw new EmailNotVerifiedException("Email not verified. Please verify your email before requesting for resetting password.");
+            }
+
             //Generate verification code using UUID
             UUID uuid = UUID.randomUUID();
             long lsb = uuid.getLeastSignificantBits();
@@ -223,10 +243,13 @@ public class UserServiceImpl implements UserService {
 
             passwordResetCodeRepository.save(resetCode);
 
-            // Send verification code to user's email
+            //Send verification code to user's email
             mailUtils.forgetPasswordVerificationCode(email, user.getName(), verificationCode);
             log.info("Verification code send to a: {}", email);
-        } catch (Exception e) {
+        }catch (EmailNotVerifiedException e){
+            log.error("Email not verified.", e);
+            throw e;
+        }catch (Exception e) {
             log.error("Error during forget password.", e);
             throw new RuntimeException("Internal server Error: " + e.getMessage());
         }
@@ -237,8 +260,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void verifyPasswordResetCode(int verificationCode) {
         try {
-            PasswordResetCode resetCode = passwordResetCodeRepository.findByCode(verificationCode).orElseThrow(() ->
-                    new ResourceNotFoundException("Invalid password verification code."));
+            PasswordResetCode resetCode = passwordResetCodeRepository.findByCode(verificationCode).orElseThrow(()
+                    -> new ResourceNotFoundException("Invalid password verification code."));
 
             if (resetCode.getExpiredAt().toInstant().isBefore(Instant.now())) {
                 throw new IllegalStateException("Password verification code expired.");
@@ -262,8 +285,8 @@ public class UserServiceImpl implements UserService {
             if (!newPassword.equals(confirmPassword)) {
                 throw new IllegalArgumentException("Password do not match.");
             }
-            PasswordResetCode resetCode = passwordResetCodeRepository.findByVerified(true).orElseThrow(() ->
-                    new ResourceNotFoundException("No verified password reset code found."));
+            PasswordResetCode resetCode = passwordResetCodeRepository.findByVerified(true).orElseThrow(()
+                    -> new ResourceNotFoundException("No verified password reset code found."));
 
             Users user = resetCode.getUser();
             user.setPassword(DigestUtils.md5DigestAsHex(newPassword.getBytes()));

@@ -7,8 +7,8 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "verification_token")
-public class VerificationToken {
+@Table(name = "email_verification_token")
+public class EmailVerificationToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class VerificationToken {
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false, insertable = false)
     private Timestamp createdAt;
 
-    @Column(name = "expired_at", nullable = false, updatable = false)
+    @Column(name = "expired_at", nullable = false, updatable = false, unique = true)
     private Timestamp expiredAt;
 
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
