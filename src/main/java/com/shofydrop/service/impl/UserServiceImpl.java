@@ -1,15 +1,16 @@
 package com.shofydrop.service.impl;
 
+import com.shofydrop.entity.PasswordResetCode;
 import com.shofydrop.entity.Users;
 import com.shofydrop.enumerated.LoginType;
 import com.shofydrop.enumerated.UserType;
 import com.shofydrop.exception.ResourceNotFoundException;
+import com.shofydrop.repository.PasswordResetCodeRepository;
 import com.shofydrop.repository.UsersRepository;
 import com.shofydrop.service.UserService;
 import com.shofydrop.entity.VerificationToken;
 import com.shofydrop.repository.VerificationTokenRepository;
 import com.shofydrop.utils.MailUtils;
-import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,6 @@ import org.springframework.util.DigestUtils;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -31,13 +31,13 @@ public class UserServiceImpl implements UserService {
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
-    private HttpSession session;
-
-    @Autowired
     private MailUtils mailUtils;
 
     @Autowired
     private VerificationTokenRepository tokenRepository;
+
+    @Autowired
+    private PasswordResetCodeRepository passwordResetCodeRepository;
 
     @Override
     public List<Users> findAll() {
@@ -143,7 +143,7 @@ public class UserServiceImpl implements UserService {
 
             VerificationToken tokenEntity = new VerificationToken();
             tokenEntity.setToken(verificationToken);
-            tokenEntity.setExpiryDate(Timestamp.from(Instant.now().plusSeconds(21600)));
+            tokenEntity.setExpiredAt(Timestamp.from(Instant.now().plusSeconds(21600)));
             tokenEntity.setUser(user);
 
             tokenRepository.save(tokenEntity);
@@ -163,7 +163,7 @@ public class UserServiceImpl implements UserService {
         try {
             VerificationToken verificationToken = tokenRepository.findByToken(token).orElseThrow(() ->
                     new IllegalStateException("Invalid verification token."));
-            if (verificationToken.getExpiryDate().toInstant().isBefore(Instant.now())) {
+            if (verificationToken.getExpiredAt().toInstant().isBefore(Instant.now())) {
                 throw new IllegalStateException("Verification token expired.");
             }
             Users user = verificationToken.getUser();
@@ -212,18 +212,19 @@ public class UserServiceImpl implements UserService {
                     new ResourceNotFoundException("User doesn't exist with this email: " + email));
 
             //Generate verification code using UUID
-//            Random random = new Random();
-//            int verificationCode = random.nextInt(900000) + 100000;
             UUID uuid = UUID.randomUUID();
             long lsb = uuid.getLeastSignificantBits();
             int verificationCode = Math.abs((int) (lsb % 1000000));
 
-            session.setAttribute("resetPasswordVerificationCode", verificationCode);
-            session.setAttribute("resetPasswordEmail", email);
-            usersRepository.save(user);
+            PasswordResetCode resetCode = new PasswordResetCode();
+            resetCode.setCode(verificationCode);
+            resetCode.setUser(user);
+            resetCode.setExpiredAt(Timestamp.from(Instant.now().plusSeconds(3600)));
+
+            passwordResetCodeRepository.save(resetCode);
 
             // Send verification code to user's email
-            mailUtils.forgetPasswordVerificationCode(email, verificationCode);
+            mailUtils.forgetPasswordVerificationCode(email, user.getName(), verificationCode);
             log.info("Verification code send to a: {}", email);
         } catch (Exception e) {
             log.error("Error during forget password.", e);
@@ -233,19 +234,20 @@ public class UserServiceImpl implements UserService {
 
     //Implementation for verifying password reset code
     @Override
+    @Transactional
     public void verifyPasswordResetCode(int verificationCode) {
         try {
-            String storedEmail = (String) session.getAttribute("resetPasswordEmail");
-            Integer storedVerificationCode = (Integer) session.getAttribute("resetPasswordVerificationCode");
+            PasswordResetCode resetCode = passwordResetCodeRepository.findByCode(verificationCode).orElseThrow(() ->
+                    new ResourceNotFoundException("Invalid password verification code."));
 
-            if (storedEmail == null || storedVerificationCode == null) {
-                throw new IllegalStateException("Email or verification code not found in the session. User verification failed.");
+            if (resetCode.getExpiredAt().toInstant().isBefore(Instant.now())) {
+                throw new IllegalStateException("Password verification code expired.");
             }
-            if (storedVerificationCode == verificationCode) {
-                log.info("Code verified successfully.");
-            } else {
-                throw new ResourceNotFoundException("Invalid Verification Code.");
-            }
+
+            resetCode.setVerified(true);
+            passwordResetCodeRepository.save(resetCode);
+
+            log.info("Code verified successfully for user: {}", resetCode.getUser().getEmail());
         } catch (Exception e) {
             log.error("Error during user verification.");
             throw new RuntimeException("Internal server error: " + e.getMessage());
@@ -254,22 +256,21 @@ public class UserServiceImpl implements UserService {
 
     //Implementation for resetting password
     @Override
+    @Transactional
     public void resetPassword(String newPassword, String confirmPassword) {
         try {
-            String email = (String) session.getAttribute("resetPasswordEmail");
-            if (email == null) {
-                throw new IllegalStateException("Email not found in the session. User verification failed.");
-            }
             if (!newPassword.equals(confirmPassword)) {
                 throw new IllegalArgumentException("Password do not match.");
             }
-            Users user = usersRepository.findByEmail(email).orElseThrow(() ->
-                    new ResourceNotFoundException("User doesn't exist with this email: " + email));
+            PasswordResetCode resetCode = passwordResetCodeRepository.findByVerified(true).orElseThrow(() ->
+                    new ResourceNotFoundException("No verified password reset code found."));
+
+            Users user = resetCode.getUser();
             user.setPassword(DigestUtils.md5DigestAsHex(newPassword.getBytes()));
             usersRepository.save(user);
-            log.info("Password reset for user: {}", email);
-            session.removeAttribute("resetPasswordVerificationCode");
-            session.removeAttribute("resetPasswordEmail");
+
+            log.info("Password reset for user: {}", user.getEmail());
+            passwordResetCodeRepository.deleteByCode(resetCode.getCode());
         } catch (Exception e) {
             log.error("Error during password reset", e);
             throw new RuntimeException("Internal Server Error: " + e.getMessage());

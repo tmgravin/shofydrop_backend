@@ -21,24 +21,32 @@ public class MailUtils{
     private JavaMailSender javaMailSender;
 
 //    Mail configuration for forget password code verification
-    public void forgetPasswordVerificationCode(String toEmail, int verificationCode) throws MessagingException {
+    public void forgetPasswordVerificationCode(String toEmail, String recipientName, int verificationCode) throws MessagingException {
 //        MimeMessage for supporting content in various format like text in plain, HTML, and other formats
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 
-            String subject = "Password verification code.";
-            String content = "Your Verification code for password reset is: "+ verificationCode;
+            String subject = "Forget password verification code.";
+
+            //Load html templates
+            ClassPathResource htmlFile = new ClassPathResource("templates/verifyCode.html");
+            String htmlContent = StreamUtils.copyToString(htmlFile.getInputStream(), StandardCharsets.UTF_8);
+
+            htmlContent = htmlContent.replace("[code]", String.valueOf(verificationCode));
+            htmlContent = htmlContent.replace("[name]", recipientName);
 
             helper.setTo(toEmail);
             helper.setSubject(subject);
-            helper.setText(content, true);
+            helper.setText(htmlContent, true);
 
             javaMailSender.send(mimeMessage);
         } catch (MessagingException e) {
             throw new RuntimeException("Failed to sent message.", e);
         } catch (MailException e) {
             throw new RuntimeException("Failed to sent email.", e);
+        } catch (IOException e) {
+            throw new RuntimeException("Runtime exception.", e);
         }
 
     }
@@ -64,7 +72,7 @@ public class MailUtils{
 
             javaMailSender.send(mimeMessage);
         } catch (IOException e) {
-            throw new RuntimeException("Run time exception.", e);
+            throw new RuntimeException("Runtime exception.", e);
         } catch (MessagingException e) {
             throw new RuntimeException("Failed to send message.", e);
         } catch (MailException e) {
