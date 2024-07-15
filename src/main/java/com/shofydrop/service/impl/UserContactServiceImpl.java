@@ -1,28 +1,23 @@
 package com.shofydrop.service.impl;
 
 import com.shofydrop.entity.UsersContact;
+import com.shofydrop.exception.ResourceNotFoundException;
 import com.shofydrop.repository.UserContactRepo;
-import com.shofydrop.service.ContactService;
+import com.shofydrop.service.UserContactService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 @Service
-public class UserContactServiceImpl implements ContactService {
+public class UserContactServiceImpl implements UserContactService {
+    private static final Logger log = LoggerFactory.getLogger(UserContactServiceImpl.class);
     @Autowired
     private UserContactRepo userContactRepo;
-
-    @Override
-    public List<UsersContact> findAll() {
-        return userContactRepo.findAll();
-    }
-
-    @Override
-    public UsersContact findById(Long id) {
-        return userContactRepo.findById(id).orElseThrow(() -> new
-                RuntimeException("Contact does not exist with id" + id));
-    }
 
 
     @Override
@@ -30,27 +25,45 @@ public class UserContactServiceImpl implements ContactService {
         return userContactRepo.save(usersContact);
     }
 
-
     @Override
-    public UsersContact update(UsersContact usersContact) {
-        boolean isExist = userContactRepo.existsById(usersContact.getId());
-        if (isExist) {
-            UsersContact isExistingUsersContact = userContactRepo.findById(usersContact.getId()).get();
-            isExistingUsersContact.setPhone(usersContact.getPhone());
-            isExistingUsersContact.setEmail(usersContact.getEmail());
-            isExistingUsersContact.setAddress(usersContact.getAddress());
-            isExistingUsersContact.setCity(usersContact.getCity());
-            isExistingUsersContact.setState(usersContact.getState());
-            isExistingUsersContact.setCreatedAt(usersContact.getCreatedAt());
-            isExistingUsersContact.setUpdatedAt(usersContact.getUpdatedAt());
-            return userContactRepo.save(isExistingUsersContact);
-        }
-        return null;
+    public List<UsersContact> findAll() {
+        return userContactRepo.findAll();
     }
 
+    @Override
+    public UsersContact update(Long id, UsersContact usersContact) {
+        try {
+            UsersContact existingUserConatct = userContactRepo.findById(id).orElseThrow(() ->
+                    new ResourceNotFoundException("User Contact Does Not Exist" + id));
+            existingUserConatct.setAddress(usersContact.getAddress());
+            existingUserConatct.setAddress(usersContact.getAddress());
+            existingUserConatct.setCity(usersContact.getCity());
+            existingUserConatct.setLatitude(usersContact.getLatitude());
+            existingUserConatct.setLongitude(usersContact.getLongitude());
+            existingUserConatct.setState(usersContact.getState());
+            existingUserConatct.setPhone(usersContact.getPhone());
+            existingUserConatct.setUpdatedAt(Timestamp.from(Instant.now()));
+            log.info("User Sontact Successfully Updated" + id);
+            return userContactRepo.save(existingUserConatct);
+        } catch (RuntimeException e) {
+            log.error("Internal Server Error", e);
+            e.printStackTrace();
+            throw new RuntimeException("Internal Server Error");
+        }
+    }
+
+    @Override
+    public UsersContact findById(Long id) {
+        return userContactRepo.findByUserId(id);
+    }
 
     @Override
     public void delete(Long id) {
-        userContactRepo.deleteById(id);
+        log.info("User Contact Successfully Deleted");
+    }
+
+    @Override
+    public UsersContact findByUserId(Long userId) {
+        return null;
     }
 }

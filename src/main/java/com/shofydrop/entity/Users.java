@@ -27,8 +27,8 @@ public class Users {
     @Column(name = "kyc_completed", columnDefinition = "CHAR(1) DEFAULT 'N'", nullable = false)
     private char kycCompleted;
 
-    @Column(name = "kyc_isApproved", columnDefinition = "CHAR(1) DEFAULT 'N'", nullable = false)
-    private char kyc_isApproved;
+    @Column(name = "isApproved_kyc", columnDefinition = "CHAR(1) DEFAULT 'N'", nullable = false)
+    private char isApproved_kyc;
 
     @Column(name = "is_verified", columnDefinition = "CHAR(1) DEFAULT 'N'", nullable = false)
     private char isVerified;

@@ -13,11 +13,8 @@ public class UsersContact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "phone",length = 20)
+    @Column(name = "phone", length = 20)
     private String phone;
-
-    @Column(name = "email",length = 100, unique = true)
-    private String email;
 
     @Column(name = "address", columnDefinition = "TEXT")
     private String address;

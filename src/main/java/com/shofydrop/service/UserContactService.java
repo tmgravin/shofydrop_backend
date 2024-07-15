@@ -11,5 +11,9 @@ public interface UserContactService {
 
     UsersContact update(Long id, UsersContact usersContact);
 
-    void findById(Long id);
+    UsersContact findById(Long id);
+
+    void delete(Long id);
+
+    UsersContact findByUserId(Long userId);
 }
