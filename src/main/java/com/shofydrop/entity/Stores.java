@@ -27,6 +27,7 @@ public class Stores {
 
     @Column(name = "is_open", columnDefinition = "CHAR(1) DEFAULT 'Y'", nullable = false)
     private char isOpen;
+
     @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'ACTIVE'")
     private String status;
 
