@@ -1,9 +1,11 @@
 package com.shofydrop.service.impl;
 
 import com.shofydrop.dto.ResponseDto;
+import com.shofydrop.entity.UserDetails;
 import com.shofydrop.entity.Users;
 import com.shofydrop.entity.VendorKyc;
 import com.shofydrop.exception.ResourceNotFoundException;
+import com.shofydrop.repository.UserDetailsRepository;
 import com.shofydrop.repository.UsersRepository;
 import com.shofydrop.repository.VendorKycRepo;
 import com.shofydrop.service.VendorKycService;
@@ -31,6 +33,9 @@ public class VendorKycImpl implements VendorKycService {
     @Autowired
     private FileUtils fileUtils; // Autowire FileUtils component
 
+    @Autowired
+    private UserDetailsRepository userDetailsRepository;
+
     private static final Logger log = LoggerFactory.getLogger(VendorKycImpl.class);
 
     @Override
@@ -39,6 +44,7 @@ public class VendorKycImpl implements VendorKycService {
         try {
             Users user = usersRepository.findById(userId)
                     .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + userId));
+
 
             // Handle file uploads
             if (frontImageFile != null && !frontImageFile.isEmpty()) {
@@ -53,7 +59,16 @@ public class VendorKycImpl implements VendorKycService {
                 fileUtils.saveFile(backImageFile, fileName); // Save back image file
             }
 
+
             vendorKyc.setUsers(user); // Set the user for vendor KYC
+
+            // Retrieve UserDetails and update KYC status
+            UserDetails userDetails = userDetailsRepository.findByUsersId(userId)
+                    .orElseThrow(() -> new IllegalArgumentException("UserDetails not found for user with ID: " + userId));
+            userDetails.setIsKycCompleted('Y');
+            userDetailsRepository.save(userDetails);
+
+//            Save Vendor Kyc
             return vendorKycRepository.save(vendorKyc);
         } catch (IllegalArgumentException e) {
             log.error("User not Found: " + userId);
