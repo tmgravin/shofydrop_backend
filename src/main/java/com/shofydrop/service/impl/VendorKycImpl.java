@@ -1,9 +1,11 @@
 package com.shofydrop.service.impl;
 
 import com.shofydrop.dto.ResponseDto;
+import com.shofydrop.entity.UserDetails;
 import com.shofydrop.entity.Users;
 import com.shofydrop.entity.VendorKyc;
 import com.shofydrop.exception.ResourceNotFoundException;
+import com.shofydrop.repository.UserDetailsRepository;
 import com.shofydrop.repository.UsersRepository;
 import com.shofydrop.repository.VendorKycRepo;
 import com.shofydrop.service.VendorKycService;
@@ -22,26 +24,21 @@ import java.util.List;
 @Service
 public class VendorKycImpl implements VendorKycService {
 
+    private static final Logger log = LoggerFactory.getLogger(VendorKycImpl.class);
     @Autowired
     private VendorKycRepo vendorKycRepository;
-
     @Autowired
     private UsersRepository usersRepository;
-
     @Autowired
     private FileUtils fileUtils; // Autowire FileUtils component
-
     @Autowired
     private UserDetailsRepository userDetailsRepository;
-
-    private static final Logger log = LoggerFactory.getLogger(VendorKycImpl.class);
 
     @Override
     public VendorKyc save(Long userId, VendorKyc vendorKyc, MultipartFile frontImageFile, MultipartFile backImageFile) {
         ResponseDto responseDto = new ResponseDto();
         try {
-            Users user = usersRepository.findById(userId)
-                    .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + userId));
+            Users user = usersRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + userId));
 
 
             // Handle file uploads
@@ -57,12 +54,10 @@ public class VendorKycImpl implements VendorKycService {
                 fileUtils.saveFile(backImageFile, fileName); // Save back image file
             }
 
-
             vendorKyc.setUsers(user); // Set the user for vendor KYC
 
             // Retrieve UserDetails and update KYC status
-            UserDetails userDetails = userDetailsRepository.findByUsersId(userId)
-                    .orElseThrow(() -> new IllegalArgumentException("UserDetails not found for user with ID: " + userId));
+            UserDetails userDetails = userDetailsRepository.findByUsersId(userId).orElseThrow(() -> new IllegalArgumentException("UserDetails not found for user with ID: " + userId));
             userDetails.setIsKycCompleted('Y');
             userDetailsRepository.save(userDetails);
 
@@ -88,8 +83,7 @@ public class VendorKycImpl implements VendorKycService {
     @Override
     public VendorKyc findById(Long id) {
         try {
-            return vendorKycRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Vendor KYC not found with ID: " + id));
+            return vendorKycRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Vendor KYC not found with ID: " + id));
         } catch (ResourceNotFoundException e) {
             log.error("Vendor KYC not found: " + e.getMessage());
             throw e;
@@ -100,11 +94,9 @@ public class VendorKycImpl implements VendorKycService {
     }
 
     @Transactional
-    public VendorKyc update(Long id, VendorKyc updatedVendorKyc,
-                            MultipartFile frontImageFile, MultipartFile backImageFile) {
+    public VendorKyc update(Long id, VendorKyc updatedVendorKyc, MultipartFile frontImageFile, MultipartFile backImageFile) {
         try {
-            VendorKyc existingVendorKyc = vendorKycRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Vendor KYC not found with ID: " + id));
+            VendorKyc existingVendorKyc = vendorKycRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Vendor KYC not found with ID: " + id));
 
             // Delete existing front image file
             if (frontImageFile != null && !frontImageFile.isEmpty()) {
