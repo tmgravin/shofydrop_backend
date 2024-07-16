@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface PasswordResetCodeRepository extends JpaRepository<PasswordResetCode, Long> {
     Optional<PasswordResetCode> findByCode(int code);
 
-    Optional<PasswordResetCode> findByVerified(boolean verified);
+    Optional<PasswordResetCode> findByIsVerified(char isVerified);
 
     void deleteByCode(int code);
 

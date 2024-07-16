@@ -238,6 +238,7 @@ public class UserServiceImpl implements UserService {
 
             PasswordResetCode resetCode = new PasswordResetCode();
             resetCode.setCode(verificationCode);
+            resetCode.setIsVerified('N');
             resetCode.setUser(user);
             resetCode.setExpiredAt(Timestamp.from(Instant.now().plusSeconds(3600)));
 
@@ -266,8 +267,7 @@ public class UserServiceImpl implements UserService {
             if (resetCode.getExpiredAt().toInstant().isBefore(Instant.now())) {
                 throw new IllegalStateException("Password verification code expired.");
             }
-
-            resetCode.setVerified(true);
+            resetCode.setIsVerified('Y');
             passwordResetCodeRepository.save(resetCode);
 
             log.info("Code verified successfully for user: {}", resetCode.getUser().getEmail());
@@ -285,7 +285,7 @@ public class UserServiceImpl implements UserService {
             if (!newPassword.equals(confirmPassword)) {
                 throw new IllegalArgumentException("Password do not match.");
             }
-            PasswordResetCode resetCode = passwordResetCodeRepository.findByVerified(true).orElseThrow(()
+            PasswordResetCode resetCode = passwordResetCodeRepository.findByIsVerified('Y').orElseThrow(()
                     -> new ResourceNotFoundException("No verified password reset code found."));
 
             Users user = resetCode.getUser();

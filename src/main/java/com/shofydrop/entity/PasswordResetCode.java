@@ -17,14 +17,14 @@ public class PasswordResetCode {
     @Column(name = "code", nullable = false)
     private int code;
 
+    @Column(name = "is_verified", columnDefinition = "CHAR(1) DEFAULT 'N'", nullable = false)
+    private char isVerified;
+
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false, insertable = false)
     private Timestamp createdAt;
 
     @Column(name = "expired_at", nullable = false, updatable = false)
     private Timestamp expiredAt;
-
-    @Column(name = "verified", nullable = false)
-    private boolean verified = false;
 
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
