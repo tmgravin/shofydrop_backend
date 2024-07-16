@@ -15,14 +15,14 @@ import java.nio.charset.StandardCharsets;
 
 
 @Service
-public class MailUtils{
+public class MailUtils {
 
     @Autowired
     private JavaMailSender javaMailSender;
 
-//    Mail configuration for forget password code verification
+    //Mail configuration for forget password code verification
     public void forgetPasswordVerificationCode(String toEmail, String recipientName, int verificationCode) throws MessagingException {
-//        MimeMessage for supporting content in various format like text in plain, HTML, and other formats
+        //MimeMessage for supporting content in various format like text in plain, HTML, and other formats
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
@@ -51,7 +51,7 @@ public class MailUtils{
 
     }
 
-//  Mail configuration for user verification token
+    //Mail configuration for user verification token
     public void emailVerificationEmail(String toEmail, String recipientName, String verificationLink) throws MessagingException, IOException {
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
