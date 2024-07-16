@@ -19,7 +19,6 @@ import org.springframework.context.annotation.Configuration;
 public class SecurityConfig {
     @Autowired
     public UserService userService;
-
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 //        return httpSecurity

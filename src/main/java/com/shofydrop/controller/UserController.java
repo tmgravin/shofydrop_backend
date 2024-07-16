@@ -88,9 +88,17 @@ public class UserController {
 
     //Api for login user after verifying email
     @PostMapping("/login")
-    public ResponseEntity<Users> loginUser(@RequestParam String email, @RequestParam String password) {
-        Users loginUSer = userService.loginUser(email, password);
-        return ResponseEntity.ok(loginUSer);
+    public ResponseEntity<String> loginUser(@RequestParam String email, @RequestParam String password) {
+        try {
+            Users loginUSer = userService.loginUser(email, password);
+            return ResponseEntity.status(HttpStatus.OK).body("User login Successfully.");
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }catch (IllegalStateException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //Api for sending password reset code
@@ -98,13 +106,13 @@ public class UserController {
     public ResponseEntity<String> forgetPassword(@RequestParam String email) {
         try {
             userService.forgetPassword(email);
-            return ResponseEntity.ok("Password verification code is send to your email.");
+            return ResponseEntity.status(HttpStatus.OK).body("Password verification code is send to your email.");
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesn't exist with this email.");
         }catch (EmailNotVerifiedException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
         }
     }
 
