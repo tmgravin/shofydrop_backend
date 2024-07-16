@@ -41,13 +41,13 @@ public class VendorKycController {
 
         // Validate inputs
         if (StringUtils.isEmpty(documentType) || StringUtils.isEmpty(documentNumber)) {
-            return ResponseEntity.badRequest().body("Document type and number are required");
+            return ResponseEntity.badRequest().body("Document type and number are required.");
         }
         if (documentImageFront.isEmpty()) {
-            return ResponseEntity.badRequest().body("Document front image is required");
+            return ResponseEntity.badRequest().body("Document front image is required.");
         }
         if (documentImageBack.isEmpty()) {
-            return ResponseEntity.badRequest().body("Document back image is required");
+            return ResponseEntity.badRequest().body("Document back image is required.");
         }
 
         try {
@@ -64,11 +64,11 @@ public class VendorKycController {
 
             vendorKycService.save(userId, vendorKyc, documentImageBack, documentImageFront);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body("Vendor KYC submitted successfully");
+            return ResponseEntity.status(HttpStatus.CREATED).body("Vendor KYC form submitted successfully.");
         } catch (Exception e) {
-            log.error("Error submitting vendor KYC");
+            log.error("Error submitting vendor KYC form.");
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error submitting vendor KYC");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error submitting vendor KYC form.");
         }
     }
 
@@ -88,13 +88,13 @@ public class VendorKycController {
         try {
             // Validate inputs
             if (StringUtils.isEmpty(documentType) || StringUtils.isEmpty(documentNumber)) {
-                return ResponseEntity.badRequest().body("Document type and number are required");
+                return ResponseEntity.badRequest().body("Document type and number are required.");
             }
             if (documentImageFront.isEmpty()) {
-                return ResponseEntity.badRequest().body("Document front image is required");
+                return ResponseEntity.badRequest().body("Document front image is required.");
             }
             if (documentImageBack.isEmpty()) {
-                return ResponseEntity.badRequest().body("Document back image is required");
+                return ResponseEntity.badRequest().body("Document back image is required.");
             }
 
             VendorKyc updatedVendorKyc = new VendorKyc();
@@ -104,13 +104,13 @@ public class VendorKycController {
             // Delegate update operation to service layer
             VendorKyc updatedKyc = vendorKycService.update(id, updatedVendorKyc, documentImageFront, documentImageBack);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body("Vendor KYC Updated Successfully");
+            return ResponseEntity.status(HttpStatus.CREATED).body("Vendor KYC form updated successfully.");
         } catch (ResourceNotFoundException e) {
             log.error("Vendor KYC not found: " + e.getMessage());
             return ResponseEntity.notFound().build();
         } catch (RuntimeException e) {
             log.error("Internal Server Error", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error.");
         }
     }
 
@@ -125,6 +125,6 @@ public class VendorKycController {
     public ResponseEntity<?> deleteKyc(@PathVariable Long id) {
         vendorKycService.delete(id);
         log.info("KYC SuccessFully Deleted");
-        return ResponseEntity.status(HttpStatus.OK).body("KYC Successfully Deleted");
+        return ResponseEntity.status(HttpStatus.OK).body("Vendor KYC form successfully deleted.");
     }
 }

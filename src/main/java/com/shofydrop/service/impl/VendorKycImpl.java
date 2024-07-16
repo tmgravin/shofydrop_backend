@@ -1,9 +1,11 @@
 package com.shofydrop.service.impl;
 
 import com.shofydrop.dto.ResponseDto;
+import com.shofydrop.entity.UserDetails;
 import com.shofydrop.entity.Users;
 import com.shofydrop.entity.VendorKyc;
 import com.shofydrop.exception.ResourceNotFoundException;
+import com.shofydrop.repository.UserDetailsRepository;
 import com.shofydrop.repository.UsersRepository;
 import com.shofydrop.repository.VendorKycRepo;
 import com.shofydrop.service.VendorKycService;
@@ -27,6 +29,9 @@ public class VendorKycImpl implements VendorKycService {
 
     @Autowired
     private UsersRepository usersRepository;
+
+    @Autowired
+    private UserDetailsRepository userDetailsRepository;
 
     @Autowired
     private FileUtils fileUtils; // Autowire FileUtils component
@@ -54,6 +59,12 @@ public class VendorKycImpl implements VendorKycService {
             }
 
             vendorKyc.setUsers(user); // Set the user for vendor KYC
+
+            //Update isKycCompleted field in UserDetails
+            UserDetails userDetails = new UserDetails();
+            userDetails.setIsKycCompleted('Y');
+            userDetailsRepository.save(userDetails);
+
             return vendorKycRepository.save(vendorKyc);
         } catch (IllegalArgumentException e) {
             log.error("User not Found: " + userId);
