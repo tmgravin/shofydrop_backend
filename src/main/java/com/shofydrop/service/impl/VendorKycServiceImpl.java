@@ -4,6 +4,7 @@ import com.shofydrop.dto.ResponseDto;
 import com.shofydrop.entity.UserDetails;
 import com.shofydrop.entity.Users;
 import com.shofydrop.entity.VendorKyc;
+import com.shofydrop.exception.EmailNotVerifiedException;
 import com.shofydrop.exception.ResourceNotFoundException;
 import com.shofydrop.repository.UserDetailsRepository;
 import com.shofydrop.repository.UsersRepository;
@@ -22,7 +23,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
-public class VendorKycImpl implements VendorKycService {
+public class VendorKycServiceImpl implements VendorKycService {
 
     @Autowired
     private VendorKycRepo vendorKycRepository;
@@ -36,15 +37,26 @@ public class VendorKycImpl implements VendorKycService {
     @Autowired
     private UserDetailsRepository userDetailsRepository;
 
-    private static final Logger log = LoggerFactory.getLogger(VendorKycImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(VendorKycServiceImpl.class);
 
     @Override
     public VendorKyc save(Long userId, VendorKyc vendorKyc, MultipartFile frontImageFile, MultipartFile backImageFile) {
         ResponseDto responseDto = new ResponseDto();
         try {
+            // Retrieve UserDetails and update KYC status
+            UserDetails userDetails = userDetailsRepository.findByUsersId(userId)
+                    .orElseThrow(() -> new IllegalArgumentException("UserDetails not found for user with ID: " + userId));
+
+            if (userDetails.getIsEmailVerified() == 'N') {
+                throw new EmailNotVerifiedException("Email is not verified");
+            }
+            userDetails.setIsKycCompleted('Y');
+            userDetailsRepository.save(userDetails);
+
             // Retrieve the user by ID, throw an exception if not found
             Users user = usersRepository.findById(userId)
                     .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + userId));
+
 
             // Handle front image file upload if provided
             if (frontImageFile != null && !frontImageFile.isEmpty()) {
@@ -63,14 +75,12 @@ public class VendorKycImpl implements VendorKycService {
             // Set the user for the VendorKyc entity
             vendorKyc.setUsers(user);
 
-            // Retrieve UserDetails and update KYC status
-            UserDetails userDetails = userDetailsRepository.findByUsersId(userId)
-                    .orElseThrow(() -> new IllegalArgumentException("UserDetails not found for user with ID: " + userId));
-            userDetails.setIsKycCompleted('Y');
-            userDetailsRepository.save(userDetails);
 
             // Save VendorKyc entity
             return vendorKycRepository.save(vendorKyc);
+        } catch (EmailNotVerifiedException e) {
+            log.error("Email Not Verifies", e);
+            throw e;
         } catch (IllegalArgumentException e) {
             log.error("User not Found: " + userId);
             responseDto.setStatus(HttpStatus.NOT_FOUND);
@@ -135,7 +145,6 @@ public class VendorKycImpl implements VendorKycService {
             // Update other fields of VendorKyc entity
             existingVendorKyc.setDocumentType(updatedVendorKyc.getDocumentType());
             existingVendorKyc.setDocumentNumber(updatedVendorKyc.getDocumentNumber());
-            // Add more field updates as needed
 
             // Save the updated VendorKyc entity
             return vendorKycRepository.save(existingVendorKyc);

@@ -13,16 +13,16 @@ public class UsersContact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "phone", length = 20)
+    @Column(name = "phone")
     private String phone;
 
     @Column(name = "address", columnDefinition = "TEXT")
     private String address;
 
-    @Column(name = "city", length = 100)
+    @Column(name = "city")
     private String city;
 
-    @Column(name = "state", length = 100)
+    @Column(name = "state")
     private String state;
 
     @Column(name = "longitude")

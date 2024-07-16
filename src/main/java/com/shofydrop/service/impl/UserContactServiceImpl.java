@@ -22,12 +22,15 @@ public class UserContactServiceImpl implements UserContactService {
 
     @Autowired
     private UserContactRepo userContactRepo;
+
     @Autowired
     private UsersRepository usersRepository;
 
     @Override
     public UsersContact save(Long userId, UsersContact usersContact) {
-        Users users = usersRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Not Found" + userId));
+        Users users = usersRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("The User Does Not Exist" + userId));
+
+        usersContact.setUsers(users);
         return userContactRepo.save(usersContact);
     }
 

@@ -20,11 +20,9 @@ public class UserContactController {
 
     private static final Logger log = LoggerFactory.getLogger(UserContactController.class);
 
-    @PostMapping("/addContact/{id}")
-    public ResponseEntity<UsersContact> addUserContact(@PathVariable Long userId, UsersContact usersContact) {
-        UsersContact usersContact1 = userContactService.save(userId, usersContact);
-        log.info("User Successfully Saved" + usersContact1);
-        return ResponseEntity.status(HttpStatus.CREATED).body(usersContact1);
+    @PostMapping("/addContact/{userId}")
+    public UsersContact addUserContact(@PathVariable Long userId, @RequestBody UsersContact usersContact) {
+        return userContactService.save(userId, usersContact);
     }
 
     @GetMapping("/getAll")
@@ -40,10 +38,10 @@ public class UserContactController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateUserConatct(@PathVariable Long id, UsersContact usersContact) {
+    public ResponseEntity<String> updateUserConatct(@PathVariable Long id, @RequestBody UsersContact usersContact) {
         userContactService.update(id, usersContact);
         log.info("User Contact Updated Succefully:", id);
-        return ResponseEntity.status(HttpStatus.OK).body("User Contact Updated Succefully" + id);
+        return ResponseEntity.status(HttpStatus.OK).body("User Contact Updated Succefully");
     }
 
     @DeleteMapping("/delete/{id}")

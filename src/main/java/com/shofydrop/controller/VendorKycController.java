@@ -1,7 +1,8 @@
 package com.shofydrop.controller;
 
 import com.shofydrop.entity.VendorKyc;
-import com.shofydrop.exception.ResourceNotFoundException;
+import com.shofydrop.exception.CustomRuntimeException;
+import com.shofydrop.exception.EmailNotVerifiedException;
 import com.shofydrop.service.VendorKycService;
 import jakarta.persistence.Transient;
 import org.slf4j.Logger;
@@ -105,12 +106,11 @@ public class VendorKycController {
             VendorKyc updatedKyc = vendorKycService.update(id, updatedVendorKyc, documentImageFront, documentImageBack);
 
             return ResponseEntity.status(HttpStatus.CREATED).body("Vendor KYC Updated Successfully");
-        } catch (ResourceNotFoundException e) {
+        } catch (CustomRuntimeException e) {
             log.error("Vendor KYC not found: " + e.getMessage());
             return ResponseEntity.notFound().build();
-        } catch (RuntimeException e) {
-            log.error("Internal Server Error", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
+        } catch (EmailNotVerifiedException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
