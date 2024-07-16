@@ -1,5 +1,6 @@
 package com.shofydrop.utils;
 
+import com.shofydrop.exception.EmailSendingException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +43,11 @@ public class MailUtils {
 
             javaMailSender.send(mimeMessage);
         } catch (MessagingException e) {
-            throw new RuntimeException("Failed to sent message.", e);
+            throw new EmailSendingException("Failed to sent message.", e);
         } catch (MailException e) {
-            throw new RuntimeException("Failed to sent email.", e);
+            throw new EmailSendingException("Failed to sent email.", e);
         } catch (IOException e) {
-            throw new RuntimeException("Runtime exception.", e);
+            throw new EmailSendingException("Failed to load email templates.", e);
         }
 
     }
@@ -71,12 +72,12 @@ public class MailUtils {
             helper.setText(htmlContent, true);
 
             javaMailSender.send(mimeMessage);
-        } catch (IOException e) {
-            throw new RuntimeException("Runtime exception.", e);
         } catch (MessagingException e) {
-            throw new RuntimeException("Failed to send message.", e);
+            throw new EmailSendingException("Failed to sent message.", e);
         } catch (MailException e) {
-            throw new RuntimeException("Failed to send mail.", e);
+            throw new EmailSendingException("Failed to sent email.", e);
+        } catch (IOException e) {
+            throw new EmailSendingException("Failed to load email templates.", e);
         }
 
     }
