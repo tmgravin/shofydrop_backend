@@ -1,6 +1,7 @@
 package com.shofydrop.controller;
 
 import com.shofydrop.entity.VendorKyc;
+import com.shofydrop.exception.EmailNotVerifiedException;
 import com.shofydrop.exception.ResourceNotFoundException;
 import com.shofydrop.service.VendorKycService;
 import jakarta.persistence.Transient;
@@ -65,6 +66,8 @@ public class VendorKycController {
             vendorKycService.save(userId, vendorKyc, documentImageBack, documentImageFront);
 
             return ResponseEntity.status(HttpStatus.CREATED).body("Vendor KYC form submitted successfully.");
+        }catch (EmailNotVerifiedException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             log.error("Error submitting vendor KYC form.");
             e.printStackTrace();
