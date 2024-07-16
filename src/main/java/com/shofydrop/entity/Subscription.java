@@ -24,9 +24,6 @@ public class Subscription {
     @Column(name = "subscription_status", columnDefinition = "VARCHAR(255) DEFAULT 'NOT_ACTIVE'")
     private SubscriptionStatus subscriptionStatus;
 
-    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'ACTIVE'")
-    private String status;
-
     @Column(nullable = false, columnDefinition = "DECIMAL(10,2)")
     private double amount;
 
