@@ -3,7 +3,7 @@ package com.shofydrop.service.impl;
 import com.shofydrop.entity.Users;
 import com.shofydrop.entity.UsersContact;
 import com.shofydrop.exception.ResourceNotFoundException;
-import com.shofydrop.repository.UserContactRepo;
+import com.shofydrop.repository.UserContactRepository;
 import com.shofydrop.repository.UsersRepository;
 import com.shofydrop.service.UserContactService;
 import org.slf4j.Logger;
@@ -21,27 +21,24 @@ public class UserContactServiceImpl implements UserContactService {
     private static final Logger log = LoggerFactory.getLogger(UserContactServiceImpl.class);
 
     @Autowired
-    private UserContactRepo userContactRepo;
-
+    private UserContactRepository userContactRepository;
     @Autowired
     private UsersRepository usersRepository;
 
     @Override
     public UsersContact save(Long userId, UsersContact usersContact) {
-        Users users = usersRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("The User Does Not Exist" + userId));
-
-        usersContact.setUsers(users);
-        return userContactRepo.save(usersContact);
+        Users users = usersRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Not Found" + userId));
+        return userContactRepository.save(usersContact);
     }
 
     @Override
     public List<UsersContact> findAll() {
-        return userContactRepo.findAll();
+        return userContactRepository.findAll();
     }
 
     @Override
     public UsersContact update(Long id, UsersContact usersContact) {
-        UsersContact existingUserConatct = userContactRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not Found"));
+        UsersContact existingUserConatct = userContactRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not Found"));
         if (existingUserConatct != null) {
             existingUserConatct.setAddress(usersContact.getAddress());
             existingUserConatct.setAddress(usersContact.getAddress());
@@ -53,12 +50,12 @@ public class UserContactServiceImpl implements UserContactService {
             existingUserConatct.setUpdatedAt(Timestamp.from(Instant.now()));
 
         }
-        return userContactRepo.save(existingUserConatct);
+        return userContactRepository.save(existingUserConatct);
     }
 
     @Override
     public Optional<UsersContact> findById(Long id) {
-        return userContactRepo.findById(id);
+        return userContactRepository.findById(id);
     }
 
     @Override

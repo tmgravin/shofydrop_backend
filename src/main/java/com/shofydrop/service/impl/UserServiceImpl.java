@@ -179,7 +179,7 @@ public class UserServiceImpl implements UserService {
             }
 
             UserDetails userDetails = userDetailsRepository.findByUsers(user).orElseThrow(() ->
-                    new ResourceNotFoundException("User Details not found for user: "+ user.getEmail()));
+                    new ResourceNotFoundException("User Details not found for user: " + user.getEmail()));
             userDetails.setIsEmailVerified('Y');
             user.setUpdatedAt(Timestamp.from(Instant.now()));
             userDetails.setUpdatedAt(Timestamp.from(Instant.now()));
@@ -211,6 +211,12 @@ public class UserServiceImpl implements UserService {
             } else {
                 throw new ResourceNotFoundException("Email and password don't match!!");
             }
+        } catch (ResourceNotFoundException e) {
+            log.error("Email or password not matched.", e);
+            throw e;
+        } catch (IllegalStateException e) {
+            log.error("User not verified.", e);
+            throw e;
         } catch (Exception e) {
             log.error("Error during login", e);
             throw new RuntimeException("Internal server Error: " + e.getMessage());
@@ -247,10 +253,10 @@ public class UserServiceImpl implements UserService {
             //Send verification code to user's email
             mailUtils.forgetPasswordVerificationCode(email, user.getName(), verificationCode);
             log.info("Verification code send to a: {}", email);
-        }catch (EmailNotVerifiedException e){
+        } catch (EmailNotVerifiedException e) {
             log.error("Email not verified.", e);
             throw e;
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.error("Error during forget password.", e);
             throw new RuntimeException("Internal server Error: " + e.getMessage());
         }

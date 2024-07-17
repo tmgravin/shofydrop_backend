@@ -13,6 +13,7 @@ public class UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "is_kycCompleted", columnDefinition = "CHAR(1) DEFAULT 'N'", nullable = false)
     private char isKycCompleted;
 

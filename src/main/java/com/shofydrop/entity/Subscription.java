@@ -1,5 +1,6 @@
 package com.shofydrop.entity;
 
+import com.shofydrop.enumerated.SubscriptionStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,22 +14,23 @@ public class Subscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "start_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "start_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private Timestamp startDate;
 
-    @Column(name = "end_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "end_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private Timestamp endDate;
 
-    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'ACTIVE'")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "subscription_status", columnDefinition = "VARCHAR(255) DEFAULT 'NOT_ACTIVE'")
+    private SubscriptionStatus subscriptionStatus;
 
     @Column(nullable = false, columnDefinition = "DECIMAL(10,2)")
     private double amount;
 
-    @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;
 
-    @Column(name = "updated_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private Timestamp updatedAt;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
