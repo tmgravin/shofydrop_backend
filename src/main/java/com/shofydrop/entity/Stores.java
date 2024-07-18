@@ -37,7 +37,7 @@ public class Stores {
     @Column(name = "updated_at", columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updatedAt;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "vendor_id", referencedColumnName = "id", nullable = false, unique = true)
     private Users users;
 }

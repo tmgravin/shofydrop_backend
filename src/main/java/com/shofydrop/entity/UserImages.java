@@ -22,7 +22,7 @@ public class UserImages {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updatedAt;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users users;
 

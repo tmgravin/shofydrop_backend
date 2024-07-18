@@ -29,7 +29,7 @@ public class UserDetails {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updatedAt;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, unique = true)
+    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", unique = true, nullable = false)
     private Users users;
 }

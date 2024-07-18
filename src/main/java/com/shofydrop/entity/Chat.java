@@ -2,10 +2,8 @@ package com.shofydrop.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.TimeZone;
 
 @Data
 @Entity
@@ -28,11 +26,11 @@ public class Chat {
     @JoinColumn(name = "sender_id", referencedColumnName = "id")
     private Users sender;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE, optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "receiver_id", referencedColumnName = "id")
     private Users receiver;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE, optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Orders orders;
 }

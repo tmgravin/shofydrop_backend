@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name="product_images")
+@Table(name = "product_images")
 public class ProductImages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class ProductImages {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updatedAt;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
     private Product product;
 }

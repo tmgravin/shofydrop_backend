@@ -27,15 +27,15 @@ public class Orders {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updateAt;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users users;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "vendor_id", referencedColumnName = "id", unique = true)
     private Users vendors;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "promocode_id", referencedColumnName = "id", unique = true, nullable = false)
     private PromoCode promoCode;
 

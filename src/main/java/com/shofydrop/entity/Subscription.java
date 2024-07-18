@@ -33,7 +33,7 @@ public class Subscription {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private Timestamp updatedAt;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, optional = true)
     @JoinColumn(name = "store_id", referencedColumnName = "id")
     private Stores stores;
 }

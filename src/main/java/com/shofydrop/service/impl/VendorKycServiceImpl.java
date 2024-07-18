@@ -49,7 +49,7 @@ public class VendorKycServiceImpl implements VendorKycService {
             //Check if user's email is verified
             UserDetails userDetails = userDetailsRepository.findByUsersId(userId).orElseThrow(() ->
                     new IllegalArgumentException("UserDetails not found for user with ID: " + userId));
-            if(userDetails.getIsEmailVerified() == 'N'){
+            if (userDetails.getIsEmailVerified() == 'N') {
                 throw new EmailNotVerifiedException("Email not verified. Please verify your email before requesting for vendor kyc form.");
             }
             //Handle file uploads
@@ -77,7 +77,7 @@ public class VendorKycServiceImpl implements VendorKycService {
             log.error("User not Found: " + userId);
             responseDto.setStatus(HttpStatus.NOT_FOUND);
             throw new IllegalArgumentException("User not Found: " + e.getMessage());
-        }catch (EmailNotVerifiedException e){
+        } catch (EmailNotVerifiedException e) {
             log.error("Email not verified.", e);
             throw e;
         } catch (IOException e) {
@@ -105,6 +105,11 @@ public class VendorKycServiceImpl implements VendorKycService {
             log.error("Error finding Vendor KYC: " + e.getMessage());
             throw new RuntimeException("Internal Server Error: " + e.getMessage(), e);
         }
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        vendorKycRepository.deleteById(id);
     }
 
     @Transactional
@@ -149,13 +154,4 @@ public class VendorKycServiceImpl implements VendorKycService {
         }
     }
 
-    @Override
-    public void delete(Long id) {
-        try {
-            vendorKycRepository.deleteById(id);
-        } catch (RuntimeException e) {
-            log.error("Error deleting Vendor KYC: " + e.getMessage());
-            throw new RuntimeException("Internal Server Error: " + e.getMessage(), e);
-        }
-    }
 }

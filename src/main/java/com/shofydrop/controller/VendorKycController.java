@@ -66,7 +66,7 @@ public class VendorKycController {
             vendorKycService.save(userId, vendorKyc, documentImageBack, documentImageFront);
 
             return ResponseEntity.status(HttpStatus.CREATED).body("Vendor KYC form submitted successfully.");
-        }catch (EmailNotVerifiedException e){
+        } catch (EmailNotVerifiedException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             log.error("Error submitting vendor KYC form.");
@@ -125,9 +125,13 @@ public class VendorKycController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteKyc(@PathVariable Long id) {
-        vendorKycService.delete(id);
-        log.info("KYC SuccessFully Deleted");
-        return ResponseEntity.status(HttpStatus.OK).body("Vendor KYC form successfully deleted.");
+    public ResponseEntity<String> deleteVendorKyc(@PathVariable Long id) {
+        try {
+            vendorKycService.deleteById(id);
+            return ResponseEntity.ok("Vendor KYC with id " + id + " deleted successfully.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to delete Vendor KYC: " + e.getMessage());
+        }
     }
 }

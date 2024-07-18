@@ -22,7 +22,7 @@ public class Product {
     @Column(name = "price", columnDefinition = "DECIMAL(10,2)", nullable = false)
     private double price;
 
-    @Column(name="stock")
+    @Column(name = "stock")
     private int stock;
 
     @Column(name = "discounted_price", columnDefinition = "DECIMAL(10,2)")
@@ -38,14 +38,13 @@ public class Product {
     @JoinColumn(name = "store_id", referencedColumnName = "id", nullable = false, unique = true)
     private Stores stores;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
     private Category category;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "subcategory_id", referencedColumnName = "id")
     private SubCategory subCategory;
-
 
 
 }
