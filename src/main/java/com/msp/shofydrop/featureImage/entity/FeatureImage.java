@@ -1,4 +1,4 @@
-package com.msp.shofydrop.entity;
+package com.msp.shofydrop.featureImage.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 @Data
 @Entity
 @Table(name = "hero_section_image")
-public class HeroSectionImage {
+public class FeatureImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -22,7 +22,7 @@ public class HeroSectionImage {
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;
 
-    @Column(name="updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updatedAt;
 
 }
