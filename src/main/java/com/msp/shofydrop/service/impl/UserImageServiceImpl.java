@@ -5,7 +5,6 @@ import com.msp.shofydrop.entity.Users;
 import com.msp.shofydrop.exception.ResourceNotFoundException;
 import com.msp.shofydrop.repository.UserImageRepogitory;
 import com.msp.shofydrop.repository.UsersRepository;
-import com.msp.shofydrop.service.UserImageService;
 import com.msp.shofydrop.utils.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

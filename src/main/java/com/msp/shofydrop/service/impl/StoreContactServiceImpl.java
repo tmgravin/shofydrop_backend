@@ -1,9 +1,7 @@
 package com.msp.shofydrop.service.impl;
 
 import com.msp.shofydrop.entity.StoreContact;
-import com.msp.shofydrop.repository.StoreContactRepository;
 import com.msp.shofydrop.exception.ResourceNotFoundException;
-import com.msp.shofydrop.service.StoreContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
