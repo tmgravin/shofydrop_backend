@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("/vendor/kyc/api")
 public class VendorKycController {
 
-    @Autowired(required = true)
+    @Autowired
     private VendorKycService vendorKycService;
 
     @Transient
@@ -39,6 +39,7 @@ public class VendorKycController {
             @RequestParam("documentNumber") String documentNumber,
             @RequestParam("documentImageBack") MultipartFile documentImageBack,
             @RequestParam("documentImageFront") MultipartFile documentImageFront) {
+        log.info("Inside addVendorKyc method of VendorKycController (authentication package)");
 
         // Validate inputs
         if (StringUtils.isEmpty(documentType) || StringUtils.isEmpty(documentNumber)) {
@@ -69,15 +70,16 @@ public class VendorKycController {
         } catch (EmailNotVerifiedException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
-            log.error("Error submitting vendor KYC form.");
-            e.printStackTrace();
+            log.error("Error submitting vendor KYC form: ", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error submitting vendor KYC form.");
         }
     }
 
     @GetMapping("/getAllVendorKyc")
-    public List<VendorKyc> getAllKyc() {
-        return vendorKycService.findAll();
+    public ResponseEntity<List<VendorKyc>> getAllKyc() {
+        log.info("Inside getAllKyc method of VendorKycController (authentication package)");
+        List<VendorKyc> kycList = vendorKycService.findAll();
+        return ResponseEntity.ok(kycList);
     }
 
     @PutMapping(value = "/update/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -87,6 +89,7 @@ public class VendorKycController {
             @RequestParam("documentNumber") String documentNumber,
             @RequestParam("documentImageBack") MultipartFile documentImageBack,
             @RequestParam("documentImageFront") MultipartFile documentImageFront) {
+        log.info("Inside updateKyc method of VendorKycController (authentication package)");
 
         try {
             // Validate inputs
@@ -112,24 +115,29 @@ public class VendorKycController {
             log.error("Vendor KYC not found: " + e.getMessage());
             return ResponseEntity.notFound().build();
         } catch (RuntimeException e) {
-            log.error("Internal Server Error", e);
+            log.error("Internal Server Error: ", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error.");
         }
     }
 
     @GetMapping("/vendorKyc/{id}")
     public ResponseEntity<VendorKyc> vendorKyc(@PathVariable Long id) {
+        log.info("Inside vendorKyc method of VendorKycController (authentication package)");
+
         VendorKyc vendorKyc = vendorKycService.findById(id);
-        log.info("Get VendorKyc: {}", vendorKyc.toString());
+        log.info("Get VendorKyc: {}", vendorKyc);
         return ResponseEntity.status(HttpStatus.OK).body(vendorKyc);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteVendorKyc(@PathVariable Long id) {
+        log.info("Inside deleteVendorKyc method of VendorKycController (authentication package)");
+
         try {
             vendorKycService.deleteById(id);
             return ResponseEntity.ok("Vendor KYC with id " + id + " deleted successfully.");
         } catch (RuntimeException e) {
+            log.error("Failed to delete Vendor KYC: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to delete Vendor KYC: " + e.getMessage());
         }

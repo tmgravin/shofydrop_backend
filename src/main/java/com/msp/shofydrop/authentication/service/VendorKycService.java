@@ -9,6 +9,7 @@ import java.util.List;
 public interface VendorKycService {
     VendorKyc save(Long userId, VendorKyc vendorKyc, MultipartFile frontImageFile, MultipartFile backImageFile);
 
+
     List<VendorKyc> findAll();
 
     VendorKyc findById(Long id);

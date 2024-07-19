@@ -41,18 +41,21 @@ public class VendorKycServiceImpl implements VendorKycService {
 
     @Override
     public VendorKyc save(Long userId, VendorKyc vendorKyc, MultipartFile frontImageFile, MultipartFile backImageFile) {
+        log.info("Inside save method of VendorKycServiceImpl (authentication package)");
+
         ResponseDto responseDto = new ResponseDto();
         try {
             Users user = usersRepository.findById(userId).orElseThrow(() ->
                     new IllegalArgumentException("User not found with ID: " + userId));
 
-            //Check if user's email is verified
+            // Check if user's email is verified
             UserDetails userDetails = userDetailsRepository.findByUsersId(userId).orElseThrow(() ->
                     new IllegalArgumentException("UserDetails not found for user with ID: " + userId));
             if (userDetails.getIsEmailVerified() == 'N') {
-                throw new EmailNotVerifiedException("Email not verified. Please verify your email before requesting for vendor kyc form.");
+                throw new EmailNotVerifiedException("Email not verified. Please verify your email before requesting for vendor KYC form.");
             }
-            //Handle file uploads
+
+            // Handle file uploads
             if (frontImageFile != null && !frontImageFile.isEmpty()) {
                 String fileName = fileUtils.generateFileName(frontImageFile); // Generate unique filename
                 vendorKyc.setDocumentImageFront(fileName);
@@ -67,21 +70,21 @@ public class VendorKycServiceImpl implements VendorKycService {
 
             vendorKyc.setUsers(user); // Set the user for vendor KYC
 
-            //Retrieve UserDetails and update KYC status
+            // Retrieve UserDetails and update KYC status
             userDetails.setIsKycCompleted('Y');
             userDetailsRepository.save(userDetails);
 
-            //Save Vendor Kyc
+            // Save Vendor KYC
             return vendorKycRepository.save(vendorKyc);
         } catch (IllegalArgumentException e) {
-            log.error("User not Found: " + userId);
+            log.error("User not Found: " + userId, e);
             responseDto.setStatus(HttpStatus.NOT_FOUND);
-            throw new IllegalArgumentException("User not Found: " + e.getMessage());
+            throw new IllegalArgumentException("User not Found: " + e.getMessage(), e);
         } catch (EmailNotVerifiedException e) {
             log.error("Email not verified.", e);
             throw e;
         } catch (IOException e) {
-            log.error("File IO Error: " + e);
+            log.error("File IO Error: ", e);
             responseDto.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             responseDto.setMessage("File IO Error: " + e.getMessage());
             throw new RuntimeException("Internal Server Error: " + e.getMessage(), e);
@@ -90,30 +93,35 @@ public class VendorKycServiceImpl implements VendorKycService {
 
     @Override
     public List<VendorKyc> findAll() {
+        log.info("Inside findAll method of VendorKycServiceImpl (authentication package)");
         return vendorKycRepository.findAll();
     }
 
     @Override
     public VendorKyc findById(Long id) {
+        log.info("Inside findById method of VendorKycServiceImpl (authentication package)");
         try {
             return vendorKycRepository.findById(id).orElseThrow(() ->
                     new ResourceNotFoundException("Vendor KYC not found with ID: " + id));
         } catch (ResourceNotFoundException e) {
-            log.error("Vendor KYC not found: " + e.getMessage());
+            log.error("Vendor KYC not found: " + e.getMessage(), e);
             throw e;
         } catch (RuntimeException e) {
-            log.error("Error finding Vendor KYC: " + e.getMessage());
+            log.error("Error finding Vendor KYC: " + e.getMessage(), e);
             throw new RuntimeException("Internal Server Error: " + e.getMessage(), e);
         }
     }
 
     @Override
     public void deleteById(Long id) {
+        log.info("Inside deleteById method of VendorKycServiceImpl (authentication package)");
         vendorKycRepository.deleteById(id);
     }
 
     @Transactional
     public VendorKyc update(Long id, VendorKyc updatedVendorKyc, MultipartFile frontImageFile, MultipartFile backImageFile) {
+        log.info("Inside update method of VendorKycServiceImpl (authentication package)");
+
         try {
             VendorKyc existingVendorKyc = vendorKycRepository.findById(id).orElseThrow(() ->
                     new ResourceNotFoundException("Vendor KYC not found with ID: " + id));
@@ -146,12 +154,14 @@ public class VendorKycServiceImpl implements VendorKycService {
             // Save the updated VendorKyc object
             return vendorKycRepository.save(existingVendorKyc);
         } catch (ResourceNotFoundException e) {
+            log.error("Vendor KYC not found: " + e.getMessage(), e);
             throw e;
         } catch (IOException e) {
+            log.error("Failed to perform file operation: " + e.getMessage(), e);
             throw new RuntimeException("Failed to perform file operation: " + e.getMessage(), e);
         } catch (Exception e) {
+            log.error("Error updating Vendor KYC: " + e.getMessage(), e);
             throw new RuntimeException("Error updating Vendor KYC: " + e.getMessage(), e);
         }
     }
-
 }
