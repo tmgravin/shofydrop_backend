@@ -2,6 +2,8 @@ package com.msp.shofydrop.service.impl;
 
 import com.msp.shofydrop.entity.StoreContact;
 import com.msp.shofydrop.exception.ResourceNotFoundException;
+import com.msp.shofydrop.repository.StoreContactRepository;
+import com.msp.shofydrop.service.StoreContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,18 +14,13 @@ public class StoreContactServiceImpl implements StoreContactService {
     @Autowired
     private StoreContactRepository storeContactRepository;
 
-    /**
-     * @return
-     */
+   
     @Override
     public List<StoreContact> findAll() {
         return storeContactRepository.findAll();
     }
 
-    /**
-     * @param id
-     * @return
-     */
+
     @Override
     public StoreContact findById(Long id) {
         return storeContactRepository.findById(id).orElseThrow(
@@ -33,20 +30,13 @@ public class StoreContactServiceImpl implements StoreContactService {
         );
     }
 
-    /**
-     * @param storeContact
-     * @return
-     */
+
     @Override
     public StoreContact save(StoreContact storeContact) {
         return storeContactRepository.save(storeContact);
     }
 
-    /**
-     * @param storeContact
-     * @param id
-     * @return
-     */
+
     @Override
     public StoreContact update(StoreContact storeContact, Long id) {
         boolean isExist = storeContactRepository.existsById(id);
