@@ -1,7 +1,6 @@
 package com.msp.shofydrop.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,11 +12,10 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 @Component
+@Slf4j
 public class FileUtils {
 
     // Logger instance for logging information and errors
-    private static final Logger log = LoggerFactory.getLogger(FileUtils.class);
-
     // Directory where documents will be stored
     private static final String DOCUMENTS = "./src/main/resources/static/documents";
 

@@ -31,7 +31,7 @@ public class VendorKyc {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
     private Timestamp updatedAt;
 
-    @OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "vendor_id", referencedColumnName = "id", nullable = false, unique = true)
     private Users users;
 }
