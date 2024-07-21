@@ -1,7 +1,6 @@
 package com.shofydrop.service;
 
 import com.shofydrop.entity.PromoCode;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

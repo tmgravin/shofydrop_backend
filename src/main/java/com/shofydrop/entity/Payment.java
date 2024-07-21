@@ -1,7 +1,7 @@
 package com.shofydrop.entity;
 
 import com.shofydrop.enumerated.PaymentMethod;
-import com.shofydrop.enumerated.Status;
+import com.shofydrop.enumerated.DeliveryStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,14 +19,15 @@ public class Payment {
     private double amount;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "paymentMethod", columnDefinition = "VARCHAR(255) DEFAULT 'CASH_ON_DELIVERY'")
+    @Column(name = "payment_method", columnDefinition = "VARCHAR(255) DEFAULT 'CASH_ON_DELIVERY'", nullable = false)
     private PaymentMethod paymentMethod;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'", nullable = false)
-    private Status status;
+    @Column(name = "delivery_status", columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'", nullable = false)
+    private DeliveryStatus deliveryStatus;
 
-    @Column(name = "payment_type", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'ONLINE'")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_type", columnDefinition = "VARCHAR(255) DEFAULT 'ONLINE'", nullable = false)
     private String paymentType;
     
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
@@ -38,4 +39,5 @@ public class Payment {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false, unique = true)
     private Orders orders;
+
 }

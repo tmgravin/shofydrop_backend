@@ -23,7 +23,7 @@ public class EmailVerificationToken {
     @Column(name = "expired_at", nullable = false, updatable = false, unique = true)
     private Timestamp expiredAt;
 
-    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private Users user;
 }

@@ -2,7 +2,6 @@ package com.shofydrop.service;
 
 import com.shofydrop.entity.Delivery;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 

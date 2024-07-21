@@ -27,7 +27,8 @@ public class UserContactServiceImpl implements UserContactService {
 
     @Override
     public UsersContact save(Long userId, UsersContact usersContact) {
-        Users users = usersRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Not Found" + userId));
+        Users users = usersRepository.findById(userId).orElseThrow(() -> 
+        new ResourceNotFoundException("Not Found" + userId));
         return userContactRepository.save(usersContact);
     }
 

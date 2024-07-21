@@ -1,6 +1,5 @@
 package com.shofydrop.controller;
 
-import com.shofydrop.dto.ResponseDto;
 import com.shofydrop.entity.Orders;
 import com.shofydrop.service.OrderService;
 import org.slf4j.Logger;
@@ -25,7 +24,6 @@ public class OrderController {
 
     @GetMapping("/getOrder/{id}")
     public ResponseEntity<?> getOrder(@PathVariable("id") Long id) {
-        ResponseDto response = new ResponseDto();
         log.info("Getting Order: " + id);
         return ResponseEntity.status(HttpStatus.OK).body(orderService.findById(id));
     }

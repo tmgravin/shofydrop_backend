@@ -297,7 +297,6 @@ public class UserServiceImpl implements UserService {
             Users user = resetCode.getUser();
             user.setPassword(DigestUtils.md5DigestAsHex(newPassword.getBytes()));
             usersRepository.save(user);
-
             log.info("Password reset for user: {}", user.getEmail());
             passwordResetCodeRepository.deleteByCode(resetCode.getCode());
         } catch (Exception e) {

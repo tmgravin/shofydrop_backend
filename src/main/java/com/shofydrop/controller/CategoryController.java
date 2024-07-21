@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/category/api")
@@ -26,7 +25,7 @@ public class CategoryController {
     private ResponseEntity<?> findAll() {
         ResponseDto responseDto = new ResponseDto();
         try {
-            List<Category> categoryList = categoryService.findAll();
+//            List<Category> categoryList = categoryService.findAll();
             responseDto.setMessage("successfully data of category is fetched");
             responseDto.setStatus(HttpStatus.ACCEPTED);
             responseDto.setData(categoryService.findAll());

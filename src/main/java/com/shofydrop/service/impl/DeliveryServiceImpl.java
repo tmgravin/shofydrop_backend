@@ -39,7 +39,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         boolean isExist = deliveryRepository.existsById(id);
         if (isExist) {
             Delivery isExistingDelivery = deliveryRepository.findById(id).get();
-            isExistingDelivery.setStatus(delivery.getStatus());
+            isExistingDelivery.setDeliveryStatus(delivery.getDeliveryStatus());
             isExistingDelivery.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
             return deliveryRepository.save(isExistingDelivery);
         }

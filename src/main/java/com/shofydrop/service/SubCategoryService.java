@@ -1,10 +1,8 @@
 package com.shofydrop.service;
 
 import com.shofydrop.entity.SubCategory;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 
 public interface SubCategoryService {
     List<SubCategory> findAll();

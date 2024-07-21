@@ -1,6 +1,6 @@
 package com.shofydrop.enumerated;
 
-public enum Status {
+public enum DeliveryStatus {
     PENDING,
     ON_THE_WAY,
     DELIVERED,

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users/api")
+@RequestMapping("/users/userController")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -49,17 +49,16 @@ public class UserController {
 
     //Api for user signup
     @PostMapping("/signup")
-    public ResponseEntity<Users> signupUser(@RequestBody Users user) {
+    public ResponseEntity<String> signupUser(@RequestBody Users user) {
         try {
             if (user.getPassword() == null || user.getPassword().isEmpty()) {
-                return ResponseEntity.badRequest().body(null);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password can't be empty.");
             }
-            Users registerUser = userService.signupUser(user);
-            return ResponseEntity.ok(registerUser);
+            return ResponseEntity.status(HttpStatus.OK).body("User signup successfully.");
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Can't signup with this email.");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error.");
         }
     }
 
@@ -90,7 +89,6 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestParam String email, @RequestParam String password) {
         try {
-            Users loginUSer = userService.loginUser(email, password);
             return ResponseEntity.status(HttpStatus.OK).body("User login Successfully.");
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

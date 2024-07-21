@@ -1,6 +1,6 @@
 package com.shofydrop.entity;
 
-import com.shofydrop.enumerated.Status;
+import com.shofydrop.enumerated.DeliveryStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,8 +15,8 @@ public class Delivery {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'", nullable = false)
-    private Status status;
+    @Column(name = "delivery_status", columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'", nullable = false)
+    private DeliveryStatus deliveryStatus;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private Timestamp createdAt;

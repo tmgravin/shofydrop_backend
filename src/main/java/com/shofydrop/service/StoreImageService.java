@@ -1,7 +1,6 @@
 package com.shofydrop.service;
 
 import com.shofydrop.entity.StoreImages;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

@@ -41,9 +41,9 @@ public class VendorKycController {
             @RequestParam("documentImageFront") MultipartFile documentImageFront) {
 
         // Validate inputs
-        if (StringUtils.isEmpty(documentType) || StringUtils.isEmpty(documentNumber)) {
-            return ResponseEntity.badRequest().body("Document type and number are required.");
-        }
+//        if (StringUtils.isEmpty(documentType) || StringUtils.isEmpty(documentNumber)) {
+//            return ResponseEntity.badRequest().body("Document type and number are required.");
+//        }
         if (documentImageFront.isEmpty()) {
             return ResponseEntity.badRequest().body("Document front image is required.");
         }
@@ -90,9 +90,9 @@ public class VendorKycController {
 
         try {
             // Validate inputs
-            if (StringUtils.isEmpty(documentType) || StringUtils.isEmpty(documentNumber)) {
-                return ResponseEntity.badRequest().body("Document type and number are required.");
-            }
+//            if (StringUtils.isEmpty(documentType) || StringUtils.isEmpty(documentNumber)) {
+//                return ResponseEntity.badRequest().body("Document type and number are required.");
+//            }
             if (documentImageFront.isEmpty()) {
                 return ResponseEntity.badRequest().body("Document front image is required.");
             }
@@ -105,7 +105,7 @@ public class VendorKycController {
             updatedVendorKyc.setDocumentNumber(documentNumber);
 
             // Delegate update operation to service layer
-            VendorKyc updatedKyc = vendorKycService.update(id, updatedVendorKyc, documentImageFront, documentImageBack);
+//            VendorKyc updatedKyc = vendorKycService.update(id, updatedVendorKyc, documentImageFront, documentImageBack);
 
             return ResponseEntity.status(HttpStatus.CREATED).body("Vendor KYC form updated successfully.");
         } catch (ResourceNotFoundException e) {
