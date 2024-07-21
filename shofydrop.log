@@ -1,8 +1,8 @@
 2024-07-08T00:17:01.456+05:45  INFO 17960 --- [ShofyDrop] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-07-08T00:17:01.498+05:45  INFO 17960 --- [ShofyDrop] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
 2024-07-08T00:17:01.543+05:45  INFO 17960 --- [ShofyDrop] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
-2024-07-08T00:17:18.474+05:45  INFO 18380 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 18380 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
-2024-07-08T00:17:18.479+05:45  INFO 18380 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-08T00:17:18.474+05:45  INFO 18380 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 18380 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
+2024-07-08T00:17:18.479+05:45  INFO 18380 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
 2024-07-08T00:17:18.637+05:45  INFO 18380 --- [ShofyDrop] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\user\.m2\repository\io\github\cdimascio\java-dotenv\5.2.2\java-dotenv-5.2.2.jar referenced one or more files that do not exist: file:/C:/Users/user/.m2/repository/io/github/cdimascio/java-dotenv/5.2.2/kotlin-stdlib-1.4.0.jar,file:/C:/Users/user/.m2/repository/io/github/cdimascio/java-dotenv/5.2.2/kotlin-stdlib-common-1.4.0.jar,file:/C:/Users/user/.m2/repository/io/github/cdimascio/java-dotenv/5.2.2/annotations-13.0.jar
 2024-07-08T00:17:18.638+05:45  INFO 18380 --- [ShofyDrop] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
 2024-07-08T00:17:18.640+05:45  INFO 18380 --- [ShofyDrop] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
@@ -64,7 +64,7 @@ org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "a
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.1.jar:3.3.1]
-	at com.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
+	at com.msp.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.1.jar:3.3.1]
@@ -126,7 +126,7 @@ org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "a
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.1.jar:3.3.1]
-	at com.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
+	at com.msp.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.1.jar:3.3.1]
@@ -151,12 +151,12 @@ Caused by: org.postgresql.util.PSQLException: ERROR: column "updated_at" cannot 
 2024-07-08T00:17:31.326+05:45  INFO 18380 --- [ShofyDrop] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
 2024-07-08T00:17:32.641+05:45  INFO 18380 --- [ShofyDrop] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
 2024-07-08T00:17:32.789+05:45  INFO 18380 --- [ShofyDrop] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2024-07-08T00:17:32.835+05:45  INFO 18380 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Started ShofyDropApplication in 15.608 seconds (process running for 16.857)
+2024-07-08T00:17:32.835+05:45  INFO 18380 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : Started ShofyDropApplication in 15.608 seconds (process running for 16.857)
 2024-07-08T00:27:49.457+05:45  INFO 18380 --- [ShofyDrop] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-07-08T00:27:49.463+05:45  INFO 18380 --- [ShofyDrop] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2024-07-08T00:27:49.495+05:45  INFO 18380 --- [ShofyDrop] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-07-08T10:33:03.003+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 9640 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
-2024-07-08T10:33:03.007+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-08T10:33:03.003+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 9640 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
+2024-07-08T10:33:03.007+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
 2024-07-08T10:33:03.122+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in C:\Users\user\.m2\repository\io\github\cdimascio\java-dotenv\5.2.2\java-dotenv-5.2.2.jar referenced one or more files that do not exist: file:/C:/Users/user/.m2/repository/io/github/cdimascio/java-dotenv/5.2.2/kotlin-stdlib-1.4.0.jar,file:/C:/Users/user/.m2/repository/io/github/cdimascio/java-dotenv/5.2.2/kotlin-stdlib-common-1.4.0.jar,file:/C:/Users/user/.m2/repository/io/github/cdimascio/java-dotenv/5.2.2/annotations-13.0.jar
 2024-07-08T10:33:03.123+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
 2024-07-08T10:33:03.123+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
@@ -218,7 +218,7 @@ org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "a
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.1.jar:3.3.1]
-	at com.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
+	at com.msp.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.1.jar:3.3.1]
@@ -280,7 +280,7 @@ org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "a
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.1.jar:3.3.1]
-	at com.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
+	at com.msp.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.1.jar:3.3.1]
@@ -305,21 +305,21 @@ Caused by: org.postgresql.util.PSQLException: ERROR: column "updated_at" cannot 
 2024-07-08T10:33:14.404+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
 2024-07-08T10:33:15.818+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
 2024-07-08T10:33:15.900+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2024-07-08T10:33:15.940+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Started ShofyDropApplication in 13.954 seconds (process running for 15.385)
+2024-07-08T10:33:15.940+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : Started ShofyDropApplication in 13.954 seconds (process running for 15.385)
 2024-07-08T10:34:32.608+05:45  INFO 9640 --- [ShofyDrop] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
 2024-07-08T10:34:32.662+05:45  INFO 9640 --- [ShofyDrop] [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-07-08T10:34:32.670+05:45  INFO 9640 --- [ShofyDrop] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2024-07-08T10:34:32.919+05:45  INFO 9640 --- [ShofyDrop] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-07-08T10:34:33.639+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 9640 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
-2024-07-08T10:34:33.640+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-08T10:34:33.639+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 9640 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
+2024-07-08T10:34:33.640+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
 2024-07-08T10:34:35.076+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-07-08T10:34:35.203+05:45  WARN 9640 --- [ShofyDrop] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: java.lang.TypeNotPresentException: Type com.shofydrop.entity.Category not present
+2024-07-08T10:34:35.203+05:45  WARN 9640 --- [ShofyDrop] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: java.lang.TypeNotPresentException: Type entity.com.msp.shofydrop.Category not present
 2024-07-08T10:34:35.244+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2024-07-08T10:34:35.333+05:45 ERROR 9640 --- [ShofyDrop] [restartedMain] o.s.boot.SpringApplication               : Application run failed
 
-java.lang.TypeNotPresentException: Type com.shofydrop.entity.Category not present
+java.lang.TypeNotPresentException: Type entity.com.msp.shofydrop.Category not present
 	at java.base/sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:116) ~[na:na]
 	at java.base/sun.reflect.generics.visitor.Reifier.visitClassTypeSignature(Reifier.java:125) ~[na:na]
 	at java.base/sun.reflect.generics.tree.ClassTypeSignature.accept(ClassTypeSignature.java:49) ~[na:na]
@@ -356,11 +356,11 @@ java.lang.TypeNotPresentException: Type com.shofydrop.entity.Category not presen
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.1.jar:3.3.1]
-	at com.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
+	at com.msp.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.1.jar:3.3.1]
-Caused by: java.lang.ClassNotFoundException: com.shofydrop.entity.Category
+Caused by: java.lang.ClassNotFoundException: entity.com.msp.shofydrop.Category
 	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641) ~[na:na]
 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[na:na]
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[na:na]
@@ -375,16 +375,16 @@ Caused by: java.lang.ClassNotFoundException: com.shofydrop.entity.Category
 	at java.base/sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:113) ~[na:na]
 	... 39 common frames omitted
 
-2024-07-08T10:39:56.179+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 9640 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
-2024-07-08T10:39:56.183+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-08T10:39:56.179+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 9640 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
+2024-07-08T10:39:56.183+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
 2024-07-08T10:39:56.626+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-07-08T10:39:56.639+05:45  WARN 9640 --- [ShofyDrop] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: java.lang.TypeNotPresentException: Type com.shofydrop.entity.Category not present
+2024-07-08T10:39:56.639+05:45  WARN 9640 --- [ShofyDrop] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: java.lang.TypeNotPresentException: Type entity.com.msp.shofydrop.Category not present
 2024-07-08T10:39:56.643+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2024-07-08T10:39:56.652+05:45 ERROR 9640 --- [ShofyDrop] [restartedMain] o.s.boot.SpringApplication               : Application run failed
 
-java.lang.TypeNotPresentException: Type com.shofydrop.entity.Category not present
+java.lang.TypeNotPresentException: Type entity.com.msp.shofydrop.Category not present
 	at java.base/sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:116) ~[na:na]
 	at java.base/sun.reflect.generics.visitor.Reifier.visitClassTypeSignature(Reifier.java:125) ~[na:na]
 	at java.base/sun.reflect.generics.tree.ClassTypeSignature.accept(ClassTypeSignature.java:49) ~[na:na]
@@ -421,11 +421,11 @@ java.lang.TypeNotPresentException: Type com.shofydrop.entity.Category not presen
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.1.jar:3.3.1]
-	at com.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
+	at com.msp.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.1.jar:3.3.1]
-Caused by: java.lang.ClassNotFoundException: com.shofydrop.entity.Category
+Caused by: java.lang.ClassNotFoundException: entity.com.msp.shofydrop.Category
 	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641) ~[na:na]
 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[na:na]
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[na:na]
@@ -440,16 +440,16 @@ Caused by: java.lang.ClassNotFoundException: com.shofydrop.entity.Category
 	at java.base/sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:113) ~[na:na]
 	... 39 common frames omitted
 
-2024-07-08T10:47:33.638+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 9640 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
-2024-07-08T10:47:33.639+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-08T10:47:33.638+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 9640 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
+2024-07-08T10:47:33.639+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
 2024-07-08T10:47:34.425+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-07-08T10:47:34.445+05:45  WARN 9640 --- [ShofyDrop] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: java.lang.TypeNotPresentException: Type com.shofydrop.entity.Category not present
+2024-07-08T10:47:34.445+05:45  WARN 9640 --- [ShofyDrop] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: java.lang.TypeNotPresentException: Type entity.com.msp.shofydrop.Category not present
 2024-07-08T10:47:34.458+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2024-07-08T10:47:34.479+05:45 ERROR 9640 --- [ShofyDrop] [restartedMain] o.s.boot.SpringApplication               : Application run failed
 
-java.lang.TypeNotPresentException: Type com.shofydrop.entity.Category not present
+java.lang.TypeNotPresentException: Type entity.com.msp.shofydrop.Category not present
 	at java.base/sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:116) ~[na:na]
 	at java.base/sun.reflect.generics.visitor.Reifier.visitClassTypeSignature(Reifier.java:125) ~[na:na]
 	at java.base/sun.reflect.generics.tree.ClassTypeSignature.accept(ClassTypeSignature.java:49) ~[na:na]
@@ -486,11 +486,11 @@ java.lang.TypeNotPresentException: Type com.shofydrop.entity.Category not presen
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.1.jar:3.3.1]
-	at com.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
+	at com.msp.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.1.jar:3.3.1]
-Caused by: java.lang.ClassNotFoundException: com.shofydrop.entity.Category
+Caused by: java.lang.ClassNotFoundException: entity.com.msp.shofydrop.Category
 	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641) ~[na:na]
 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[na:na]
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[na:na]
@@ -505,16 +505,16 @@ Caused by: java.lang.ClassNotFoundException: com.shofydrop.entity.Category
 	at java.base/sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:113) ~[na:na]
 	... 39 common frames omitted
 
-2024-07-08T10:47:55.540+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 9640 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
-2024-07-08T10:47:55.540+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-08T10:47:55.540+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 9640 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
+2024-07-08T10:47:55.540+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
 2024-07-08T10:47:55.902+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-07-08T10:47:55.921+05:45  WARN 9640 --- [ShofyDrop] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: java.lang.TypeNotPresentException: Type com.shofydrop.entity.Product not present
+2024-07-08T10:47:55.921+05:45  WARN 9640 --- [ShofyDrop] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: java.lang.TypeNotPresentException: Type entity.com.msp.shofydrop.Product not present
 2024-07-08T10:47:55.925+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2024-07-08T10:47:55.930+05:45 ERROR 9640 --- [ShofyDrop] [restartedMain] o.s.boot.SpringApplication               : Application run failed
 
-java.lang.TypeNotPresentException: Type com.shofydrop.entity.Product not present
+java.lang.TypeNotPresentException: Type entity.com.msp.shofydrop.Product not present
 	at java.base/sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:116) ~[na:na]
 	at java.base/sun.reflect.generics.visitor.Reifier.visitClassTypeSignature(Reifier.java:125) ~[na:na]
 	at java.base/sun.reflect.generics.tree.ClassTypeSignature.accept(ClassTypeSignature.java:49) ~[na:na]
@@ -551,11 +551,11 @@ java.lang.TypeNotPresentException: Type com.shofydrop.entity.Product not present
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.1.jar:3.3.1]
-	at com.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
+	at com.msp.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.1.jar:3.3.1]
-Caused by: java.lang.ClassNotFoundException: com.shofydrop.entity.Product
+Caused by: java.lang.ClassNotFoundException: entity.com.msp.shofydrop.Product
 	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641) ~[na:na]
 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[na:na]
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[na:na]
@@ -570,16 +570,16 @@ Caused by: java.lang.ClassNotFoundException: com.shofydrop.entity.Product
 	at java.base/sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:113) ~[na:na]
 	... 39 common frames omitted
 
-2024-07-08T10:49:08.622+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 9640 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
-2024-07-08T10:49:08.622+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-08T10:49:08.622+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 9640 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
+2024-07-08T10:49:08.622+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
 2024-07-08T10:49:09.061+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-07-08T10:49:09.076+05:45  WARN 9640 --- [ShofyDrop] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: java.lang.TypeNotPresentException: Type com.shofydrop.entity.ProductReview not present
+2024-07-08T10:49:09.076+05:45  WARN 9640 --- [ShofyDrop] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: java.lang.TypeNotPresentException: Type entity.com.msp.shofydrop.ProductReview not present
 2024-07-08T10:49:09.079+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
 2024-07-08T10:49:09.083+05:45 ERROR 9640 --- [ShofyDrop] [restartedMain] o.s.boot.SpringApplication               : Application run failed
 
-java.lang.TypeNotPresentException: Type com.shofydrop.entity.ProductReview not present
+java.lang.TypeNotPresentException: Type entity.com.msp.shofydrop.ProductReview not present
 	at java.base/sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:116) ~[na:na]
 	at java.base/sun.reflect.generics.visitor.Reifier.visitClassTypeSignature(Reifier.java:125) ~[na:na]
 	at java.base/sun.reflect.generics.tree.ClassTypeSignature.accept(ClassTypeSignature.java:49) ~[na:na]
@@ -616,11 +616,11 @@ java.lang.TypeNotPresentException: Type com.shofydrop.entity.ProductReview not p
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.1.jar:3.3.1]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.1.jar:3.3.1]
-	at com.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
+	at com.msp.shofydrop.ShofyDropApplication.main(ShofyDropApplication.java:12) ~[classes/:na]
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.1.jar:3.3.1]
-Caused by: java.lang.ClassNotFoundException: com.shofydrop.entity.ProductReview
+Caused by: java.lang.ClassNotFoundException: entity.com.msp.shofydrop.ProductReview
 	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641) ~[na:na]
 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[na:na]
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[na:na]
@@ -635,8 +635,8 @@ Caused by: java.lang.ClassNotFoundException: com.shofydrop.entity.ProductReview
 	at java.base/sun.reflect.generics.factory.CoreReflectionFactory.makeNamedType(CoreReflectionFactory.java:113) ~[na:na]
 	... 39 common frames omitted
 
-2024-07-08T10:49:49.738+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 9640 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
-2024-07-08T10:49:49.739+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-08T10:49:49.738+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : Starting ShofyDropApplication using Java 22 with PID 9640 (E:\ShofyDrop\target\classes started by user in E:\ShofyDrop)
+2024-07-08T10:49:49.739+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : No active profile set, falling back to 1 default profile: "default"
 2024-07-08T10:49:50.381+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
 2024-07-08T10:49:50.479+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 97 ms. Found 8 JPA repository interfaces.
 2024-07-08T10:49:50.896+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
@@ -657,5 +657,5 @@ Caused by: java.lang.ClassNotFoundException: com.shofydrop.entity.ProductReview
 2024-07-08T10:49:53.040+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
 2024-07-08T10:49:53.285+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
 2024-07-08T10:49:53.304+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2024-07-08T10:49:53.309+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.shofydrop.ShofyDropApplication       : Started ShofyDropApplication in 3.602 seconds (process running for 1012.754)
+2024-07-08T10:49:53.309+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] com.msp.shofydrop.ShofyDropApplication       : Started ShofyDropApplication in 3.602 seconds (process running for 1012.754)
 2024-07-08T10:49:53.312+05:45  INFO 9640 --- [ShofyDrop] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
