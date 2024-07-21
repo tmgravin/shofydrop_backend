@@ -4,5 +4,5 @@ public enum LoginType {
     GOOGLE,
     FACEBOOK,
     INSTAGRAM,
-    EMAIL,
+    EMAIL
 }

@@ -1,6 +1,6 @@
 package com.msp.shofydrop.enumerated;
 
-public enum DeliveryStatus {
+public enum Status {
     PENDING,
     ON_THE_WAY,
     DELIVERED,

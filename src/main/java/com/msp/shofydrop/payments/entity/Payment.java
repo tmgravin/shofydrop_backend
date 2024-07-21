@@ -23,9 +23,9 @@ public class Payment {
     @Column(name = "paymentMethod", columnDefinition = "VARCHAR(255) DEFAULT 'CASH_ON_DELIVERY'")
     private PaymentMethod paymentMethod;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'", nullable = false)
-    private Status status;
+//    @Enumerated(EnumType.STRING)
+//    @Column(name = "status", columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'", nullable = false)
+//    private Status status;
 
     @Column(name = "payment_type", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'ONLINE'")
     private String paymentType;
