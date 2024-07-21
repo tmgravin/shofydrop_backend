@@ -1,40 +1,76 @@
 package com.shofydrop.entity;
 
-import com.shofydrop.enumerated.LoginType;
-import com.shofydrop.enumerated.UserType;
-import jakarta.persistence.*;
-import lombok.Data;
-
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-@Data
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import lombok.Data;
+
 @Entity
-@Table(name = "users")
-public class Users {
+@Data
+//@Table(name = "users")
+public class Users
+{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(255)")
+    private BigDecimal id;
+    
     private String name;
-
-    @Column(name = "email", unique = true, columnDefinition = "VARCHAR(255)", nullable = false)
     private String email;
-
-    @Column(name = "password", nullable = false, columnDefinition = "VARCHAR(255)")
     private String password;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "user_type", columnDefinition = "VARCHAR(255) DEFAULT 'USER'", nullable = false)
-    private UserType userType;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "login_type", columnDefinition = "VARCHAR(255) DEFAULT 'EMAIL'", nullable = false)
-    private LoginType loginType;
-
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
-    private Timestamp createdAt;
-
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false)
-    private Timestamp updatedAt;
+    private String userType;
+    private String loginType;
+    private String createdAt;
+    private String updatedAt;
+    
+	public BigDecimal getId() {
+		return id;
+	}
+	
+	public void setId(BigDecimal id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+	public String getLoginType() {
+		return loginType;
+	}
+	public void setLoginType(String loginType) {
+		this.loginType = loginType;
+	}
+	public String getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
+	}
+	public String getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedAt(String updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 }
