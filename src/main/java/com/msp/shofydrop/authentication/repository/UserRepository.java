@@ -1,11 +1,11 @@
 package com.msp.shofydrop.authentication.repository;
 
-import java.util.List;
-
 import com.msp.shofydrop.authentication.entity.Users;
 
-public interface UserRepository
-{
-	List<Users> getUsers(Integer id);
-	Integer saveUser(Users user);
+import java.util.List;
+
+public interface UserRepository {
+    List<Users> getUsers(Long id);
+
+    String saveUser(Users user);
 }
