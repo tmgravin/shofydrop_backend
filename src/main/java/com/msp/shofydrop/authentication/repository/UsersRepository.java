@@ -13,6 +13,6 @@ public interface UsersRepository {
 //
 //    Users findByName(String name);
 
-    List<Users> find(Integer Id);
+    List<Users> find(Long id);
 
 }

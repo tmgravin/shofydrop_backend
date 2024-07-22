@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public interface UserService {
-    List<Users> getUsers(Integer id);
+    List<Users> getUsers(Long id);
 
 //    List<Users> findAll();
 //

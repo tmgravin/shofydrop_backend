@@ -1,31 +1,13 @@
 package com.msp.shofydrop.authentication.serviceImpl;
 
-import com.msp.shofydrop.authentication.entity.EmailVerificationToken;
-import com.msp.shofydrop.authentication.entity.PasswordResetCode;
-import com.msp.shofydrop.authentication.entity.UserDetails;
 import com.msp.shofydrop.authentication.entity.Users;
-import com.msp.shofydrop.authentication.repository.PasswordResetCodeRepository;
-import com.msp.shofydrop.authentication.repository.UserDetailsRepository;
 import com.msp.shofydrop.authentication.repository.UsersRepository;
-import com.msp.shofydrop.authentication.repository.VerificationTokenRepository;
 import com.msp.shofydrop.authentication.service.UserService;
-import com.msp.shofydrop.enumerated.LoginType;
-import com.msp.shofydrop.enumerated.UserType;
-import com.msp.shofydrop.exception.EmailNotVerifiedException;
-import com.msp.shofydrop.exception.ResourceNotFoundException;
-import com.msp.shofydrop.utils.MailUtils;
-import jakarta.persistence.Id;
 import jakarta.transaction.Transactional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,7 +16,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public List<Users> getUsers(Integer id) {
+    public List<Users> getUsers(Long id) {
         return usersRepository.find(id);
     }
 
