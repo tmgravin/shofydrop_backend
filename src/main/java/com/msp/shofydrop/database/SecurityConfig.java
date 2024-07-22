@@ -1,4 +1,4 @@
-package com.shofydrop.database;
+package com.msp.shofydrop.database;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

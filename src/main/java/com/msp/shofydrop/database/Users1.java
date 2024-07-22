@@ -1,4 +1,4 @@
-package com.shofydrop.entity;
+package com.msp.shofydrop.database;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -11,7 +11,7 @@ import lombok.Data;
 @Entity
 @Data
 //@Table(name = "users")
-public class Users
+public class Users1
 {
     @Id
     private BigDecimal id;

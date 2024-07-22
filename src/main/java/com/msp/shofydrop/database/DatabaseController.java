@@ -1,6 +1,5 @@
-package com.shofydrop.database;
+package com.msp.shofydrop.database;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shofydrop.entity.Users;
-
 @RestController
 @RequestMapping("/api/database")
 public class DatabaseController
@@ -22,12 +19,12 @@ public class DatabaseController
 	private ProcedureService procedureService;
 
     @GetMapping(value = "/")
-    public ResponseEntity<?> findAll(@RequestParam(name="id", required=false) BigDecimal id)
+    public ResponseEntity<?> findAll(@RequestParam(name="id", required=false) Integer id)
     {
     	System.out.println("findAll ");
         try
         {
-        	List<Users> u = procedureService.getUsers(id);
+        	List<Users1> u = procedureService.getUsers(id);
             return ResponseEntity.ok().body(u);
         }
         catch (Exception ex)
@@ -38,7 +35,7 @@ public class DatabaseController
     }
     
     @PostMapping(value = "/")
-    public ResponseEntity<?> save(@RequestBody Users user)
+    public ResponseEntity<?> save(@RequestBody Users1 user)
     {
     	System.out.println("save");
         try

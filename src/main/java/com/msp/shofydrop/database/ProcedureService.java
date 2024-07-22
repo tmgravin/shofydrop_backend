@@ -1,4 +1,4 @@
-package com.shofydrop.database;
+package com.msp.shofydrop.database;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -6,27 +6,25 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shofydrop.entity.Users;
-
 import javax.transaction.Transactional;
 
 @Service
 public class ProcedureService
 {
 	@Autowired
-	private DefaultProcedureDao procedure;
+	private DefaultProcedureRepo procedure;
 	
 	@Transactional
-	public List<Users> getUsers(BigDecimal id)
+	public List<Users1> getUsers(Integer id)
 	{
-		List<Users> u = procedure.getWithType("public.cfn_get_users", new Object[][] {
-			{ BigDecimal.class, id, "p_id" },
-		}, Users.class);
+		List<Users1> u = procedure.getWithType("public.cfn_get_users", new Object[][] {
+			{ Integer.class, id, "p_id" },
+		}, Users1.class);
 		return u;
 	}
 	
 	@Transactional
-	public String saveUser(Users user)
+	public String saveUser(Users1 user)
 	{
 		Object id[] = procedure.executeWithType("public.cfn_add_edit_users", new Object[][] {
 			{ BigDecimal.class, user.getId(), "p_id" },

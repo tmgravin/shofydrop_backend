@@ -1,4 +1,4 @@
-package com.shofydrop.database;
+package com.msp.shofydrop.database;
 
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 
 @Service
-public class DefaultProcedureDaoImpl implements DefaultProcedureDao
+public class DefaultProcedureRepoImpl implements DefaultProcedureRepo
 {
 	@PersistenceContext
     private EntityManager entityManager;
