@@ -1,21 +1,20 @@
-package com.msp.shofydrop.authentication.entity;
+package com.msp.shofydrop.database;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Data
+import lombok.Data;
+
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 //@Table(name = "users")
-public class Users
+public class Users1
 {
     @Id
-    private Long id;
+    private BigDecimal id;
     
     private String name;
     private String email;
@@ -24,10 +23,12 @@ public class Users
     private String loginType;
     private String createdAt;
     private String updatedAt;
-	public Long getId() {
+    
+	public BigDecimal getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	
+	public void setId(BigDecimal id) {
 		this.id = id;
 	}
 	public String getName() {
