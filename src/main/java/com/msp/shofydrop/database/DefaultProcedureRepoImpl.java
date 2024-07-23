@@ -111,28 +111,4 @@ public class DefaultProcedureRepoImpl implements DefaultProcedureRepo
     public Object[] executeWithType(String pname, Object[][] params) {
         return executeProcedureCallForArray(defineAndCreateProcedureCall(pname,params));
     }
-
-//    @Override
-//    public<T> List<T> getWithType(String pname, Object[][] params, Class<T> type)
-//    {
-//    	int i=0;
-//    	String queryString = "call " + pname + "(";
-//    	
-//    	for (i = 0; i < params.length; i++)
-//    	{
-//    		queryString = queryString + ":" + params[i].toString() + ",";
-//    	}
-//    	
-//    	queryString = queryString + ")";
-//    	Query query = entityManager.createNativeQuery(queryString, type);
-//    	
-//    	for (i = 0; i < params.length; i++)
-//    	{
-//    		query.setParameter(params[i].toString(), params[i].toString());
-//    	}
-//    	
-//        Query storedProcedure = entityManager.createNativeQuery(queryString);
-//        
-//        return storedProcedure.getResultList();
-//    }
 }
