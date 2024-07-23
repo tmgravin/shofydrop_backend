@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/users")
+@RequestMapping("/api/auth/users")
 public class UserController {
     @Autowired
     private UsersService userService;
@@ -28,7 +28,7 @@ public class UserController {
         }
     }
 
-    @PostMapping(value = "/")
+    @PostMapping("/")
     public ResponseEntity<?> save(@RequestBody Users user) {
         log.info("Inside save method of UserController (authentication)");
         try {
