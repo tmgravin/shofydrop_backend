@@ -1,6 +1,5 @@
 package com.msp.shofydrop.database;
 
-import jakarta.persistence.*;
 import org.springframework.stereotype.Service;
 
 import org.hibernate.procedure.ProcedureOutputs;
@@ -9,12 +8,16 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.List;
 
-
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.ParameterMode;
+import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 
 @Service
 public class DefaultProcedureRepoImpl implements DefaultProcedureRepo
 {
-    @PersistenceContext
+	@PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
@@ -114,22 +117,22 @@ public class DefaultProcedureRepoImpl implements DefaultProcedureRepo
 //    {
 //    	int i=0;
 //    	String queryString = "call " + pname + "(";
-//
+//    	
 //    	for (i = 0; i < params.length; i++)
 //    	{
 //    		queryString = queryString + ":" + params[i].toString() + ",";
 //    	}
-//
+//    	
 //    	queryString = queryString + ")";
 //    	Query query = entityManager.createNativeQuery(queryString, type);
-//
+//    	
 //    	for (i = 0; i < params.length; i++)
 //    	{
 //    		query.setParameter(params[i].toString(), params[i].toString());
 //    	}
-//
+//    	
 //        Query storedProcedure = entityManager.createNativeQuery(queryString);
-//
+//        
 //        return storedProcedure.getResultList();
 //    }
 }
