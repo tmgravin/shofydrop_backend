@@ -3,11 +3,11 @@ package com.msp.shofydrop.authentication.serviceImpl;
 import com.msp.shofydrop.authentication.entity.Users;
 import com.msp.shofydrop.authentication.repository.UserRepository;
 import com.msp.shofydrop.authentication.service.UsersService;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
