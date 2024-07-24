@@ -12,4 +12,10 @@ public interface UsersService {
 
     //Service for user login
     Users loginUser(String email, String password);
+
+    //Service for sending email verification token
+    void sendVerificationEmail(String email);
+
+    //Service for verifying email with token
+    void verifyEmailToken(String token);
 }
