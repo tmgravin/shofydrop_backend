@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -31,5 +32,18 @@ public class UserRepositoryImpl implements UserRepository {
                 {String.class, user.getLoginType(), "p_login_type"},
         });
         return (String) id[0].toString();
+    }
+
+    @Override
+    public Optional<Users> findByEmail(String email) {
+        List<Users> usersList = defaultProcedureRepo.getWithType("authentication.cfn_get_users_by_email", new Object[][]{
+                {String.class, email,"p_email"}
+        }, Users.class);
+
+        if (usersList.isEmpty()){
+            return Optional.empty();
+        }else {
+            return Optional.of(usersList.get(0));
+        }
     }
 }

@@ -7,5 +7,9 @@ import java.util.List;
 public interface UsersService {
     List<Users> get(Long id);
 
-    String saveUsers(Users user);
+    //Service for user signup
+    String signupUser(Users users);
+
+    //Service for user login
+    Users loginUser(String email, String password);
 }
