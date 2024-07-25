@@ -1,8 +1,11 @@
 package com.msp.shofydrop.authentication.serviceImpl;
 
 import com.msp.shofydrop.authentication.entity.EmailVerificationToken;
+import com.msp.shofydrop.authentication.entity.UserDetails;
 import com.msp.shofydrop.authentication.entity.Users;
+import com.msp.shofydrop.authentication.repository.UserDetailsRepo;
 import com.msp.shofydrop.authentication.repository.UserRepo;
+import com.msp.shofydrop.authentication.repository.VerificationTokenRepo;
 import com.msp.shofydrop.authentication.service.UsersService;
 import com.msp.shofydrop.utils.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +23,13 @@ import java.util.UUID;
 public class UsersServiceImpl implements UsersService {
 
     @Autowired
-    private UserRepo userRepository;
+    private UserRepo userRepo;
+
+    @Autowired
+    private VerificationTokenRepo verificationTokenRepo;
+
+    @Autowired
+    private UserDetailsRepo userDetailsRepo;
 
     @Autowired
     private MailUtils mailUtils;
@@ -28,7 +37,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     @Transactional
     public List<Users> get(Long id) {
-        return userRepository.getUsers(id);
+        return userRepo.getUsers(id);
     }
 
     //Implementation for user signup
@@ -40,8 +49,10 @@ public class UsersServiceImpl implements UsersService {
                 throw new IllegalArgumentException("Password cannot be empty.");
             }
             users.setPassword(DigestUtils.md5DigestAsHex(users.getPassword().getBytes()));
+            String savedUser = userRepo.saveUser(users);
+
             sendVerificationEmail(users.getEmail());
-            return userRepository.saveUser(users);
+            return savedUser;
         } catch (IllegalArgumentException e) {
             throw new RuntimeException(e);
         }
@@ -52,9 +63,13 @@ public class UsersServiceImpl implements UsersService {
     @Transactional
     public Users loginUser(String email, String password) {
         try {
-            Users user = userRepository.findByEmail(email).orElseThrow(() ->
+            Users user = userRepo.findByEmail(email).orElseThrow(() ->
                     new ResourceNotFoundException("Email don't match."));
             if (user.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes()))) {
+                UserDetails userDetails = new UserDetails();
+                if (userDetails.getIsEmailVerified() == "N") {
+                    throw new IllegalStateException("User is not verified, please verify your email first for login.");
+                }
                 return user;
             } else {
                 throw new ResourceNotFoundException("Password don't match.");
@@ -71,7 +86,7 @@ public class UsersServiceImpl implements UsersService {
     @Transactional
     public void sendVerificationEmail(String email) {
         try {
-            Users user = userRepository.findByEmail(email).orElseThrow(() ->
+            Users user = userRepo.findByEmail(email).orElseThrow(() ->
                     new ResourceNotFoundException("User doesn't exist with this email: " + email));
 
             String verificationToken = UUID.randomUUID().toString();
@@ -82,7 +97,10 @@ public class UsersServiceImpl implements UsersService {
             tokenEntity.setExpiredAt(Timestamp.from(Instant.now().plusSeconds(21600)));
             tokenEntity.setUserId(user.getId());
 
+            verificationTokenRepo.saveToken(tokenEntity);
+
             mailUtils.emailVerificationToken(email, user.getName(), verificationLink);
+
         } catch (Exception e) {
             throw new RuntimeException("Internal server error: " + e.getMessage());
         }
@@ -90,7 +108,34 @@ public class UsersServiceImpl implements UsersService {
 
     //Implementation for verifying email with token
     @Override
+    @Transactional
     public void verifyEmailToken(String token) {
+        try {
+            EmailVerificationToken emailVerificationToken = verificationTokenRepo.findByToken(token).orElseThrow(() ->
+                    new IllegalStateException("Invalid verification token."));
+            if (emailVerificationToken.getExpiredAt().toInstant().isBefore(Instant.now())) {
+                throw new IllegalStateException("Verification token expired.");
+            }
+            Users user = userRepo.getUsers(emailVerificationToken.getUserId()).get(0);
+            if (user == null) {
+                throw new ResourceNotFoundException("User doesn't exist with this email: " + emailVerificationToken.getUserId());
+            }
+            UserDetails userDetails = userDetailsRepo.findByUserId(emailVerificationToken.getUserId()).orElseThrow(() ->
+                    new ResourceNotFoundException("User details not found for user Id: " + emailVerificationToken.getUserId()));
 
+            userDetails.setIsEmailVerified("Y");
+            user.setUpdatedAt(String.valueOf(Timestamp.from(Instant.now())));
+            userDetails.setUpdatedAt(String.valueOf(Timestamp.from(Instant.now())));
+
+            userRepo.saveUser(user);
+            userDetailsRepo.saveUserDetails(userDetails);
+
+        } catch (IllegalStateException e) {
+            throw e;
+        } catch (ResourceNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Internal server error:" + e.getMessage());
+        }
     }
 }

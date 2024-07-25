@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VendorKycServiceImpl implements VendorKycService {
@@ -79,10 +80,10 @@ public class VendorKycServiceImpl implements VendorKycService {
             String result = vndorKycRepo.saveKyc(kyc);
 
             // Update UserDetails to mark KYC as completed
-//            log.info("Updating UserDetails to mark KYC as completed for vendorId: {}", kyc.getVendorId());
-            List<UserDetails> userDetailsList = userDetailsRepo.get(kyc.getVendorId());
-            if (!userDetailsList.isEmpty()) {
-                UserDetails userDetails = userDetailsList.get(0);
+            log.info("Updating UserDetails to mark KYC as completed for vendorId: {}", kyc.getVendorId());
+            Optional<UserDetails> optionalUserDetails = userDetailsRepo.findByUserId(kyc.getVendorId());
+            if (optionalUserDetails.isPresent()) {
+                UserDetails userDetails = optionalUserDetails.get();
                 userDetails.setIsKycCompleted("Y");
                 userDetailsRepo.saveUserDetails(userDetails);
             }

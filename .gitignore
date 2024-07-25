@@ -31,12 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
-<<<<<<< HEAD
-src/main/resources/application.properties
-=======
 
 # Ignore Application.properties from adding
 src/main/resources/application.properties
 
-application.properties
->>>>>>> c24224ba947faebef11b2095a462323b7d332f1e

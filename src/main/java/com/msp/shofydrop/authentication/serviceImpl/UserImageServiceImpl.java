@@ -17,10 +17,10 @@ import java.io.IOException;
 @Service
 public class UserImageServiceImpl implements UserImageService {
     @Autowired
-    private UserImageRepo userImageRepogitory;
+    private UserImageRepo userImageRepo;
 
     @Autowired
-    private UserRepo usersRepository;
+    private UserRepo userRepo;
 
     @Autowired
     private FileUtils fileUtils;
