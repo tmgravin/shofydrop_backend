@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface VendorKycService {
 
-    List<VendorKyc> get(Long id);
+    List<VendorKyc> get(Long vendorId);
 
-    String saveKyc(VendorKyc kyc, MultipartFile documentImageFront, MultipartFile documentImageBack) throws Exception;
+    String saveKyc(VendorKyc kyc, MultipartFile documentImageFront, MultipartFile documentImageBack);
 }

@@ -15,21 +15,21 @@ public class VendorKycRepoImpl implements VndorKycRepo {
 
 
     @Override
-    public List<VendorKyc> getKyc(Long id) {
-        return defaultProcedureRepo.getWithType("authentication.cfn_add_edit_vendor_kyc", new Object[][]{
-                {Long.class, id, "p_id"},
+    public List<VendorKyc> getKyc(Long vendorId) {
+        return defaultProcedureRepo.getWithType("authentication.cfn_get_vendor_kyc", new Object[][]{
+                {Long.class, vendorId, "p_vendor_id"},
         }, VendorKyc.class);
     }
 
     @Override
     public String saveKyc(VendorKyc kyc) {
-        Object id[] = defaultProcedureRepo.executeWithType("authentication.cfn_add_edit_vendor_kyc", new Object[][]{
+        Object[] vendorId = defaultProcedureRepo.executeWithType("authentication.cfn_add_edit_vendor_kyc", new Object[][]{
                 {Long.class, kyc.getVendorId(), "p_vendor_id"},
                 {String.class, kyc.getDocumentType(), "p_document_type"},
                 {String.class, kyc.getDocumentNumber(), "p_document_number"},
                 {String.class, kyc.getDocumentImageFront(), "p_document_image_front"},
                 {String.class, kyc.getDocumentImageBack(), "p_document_image_back"}
         });
-        return (String) id[0].toString();
+        return (String) vendorId[0].toString();
     }
 }

@@ -16,7 +16,7 @@ public class UserdetailsRepoImpl implements UserDetailsRepo {
 
     @Override
     public List<UserDetails> get(Long userId) {
-        return defaultProcedureRepo.getWithType("authentication.cfn_add_edit_user_details", new Object[][]{
+        return defaultProcedureRepo.getWithType("authentication.cfn_get_user_details", new Object[][]{
                 {Long.class, userId, "p_user_id"}
         }, UserDetails.class);
 
@@ -25,11 +25,11 @@ public class UserdetailsRepoImpl implements UserDetailsRepo {
 
     @Override
     public String saveUserDetails(UserDetails userDetails) {
-        Object userId[] = defaultProcedureRepo.executeWithType("authentication.cfn_add_edit_user_details", new Object[][]{
-                {Long.class, userDetails.getUserId(), "p_user_id"},
+        Object[] userId = defaultProcedureRepo.executeWithType("authentication.cfn_add_edit_user_details", new Object[][]{
                 {String.class, userDetails.getIsEmailVerified(), "p_is_email_verified"},
                 {String.class, userDetails.getIsKycApproved(), "p_is_kyc_approved"},
-                {String.class, userDetails.getIsKycCompleted(), "p_is_kyc_completed"}
+                {String.class, userDetails.getIsKycCompleted(), "p_is_kyc_completed"},
+                {Long.class, userDetails.getUserId(), "p_user_id"}
         });
         return (String) userId[0].toString();
     }

@@ -10,9 +10,8 @@ import javax.persistence.Id;
 public class UserDetails {
     @Id
     private Long userId;
-    private char isEmailVerified;
-    private char isKycApproved;
-    private char isKycCompleted;
-    private String createdAt;
-    private String updatedAt;
+    private String isEmailVerified;
+    private String isKycApproved;
+    private String isKycCompleted;
+//    private String updatedAt;
 }

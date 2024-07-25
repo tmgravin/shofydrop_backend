@@ -2,20 +2,15 @@ package com.msp.shofydrop.authentication.serviceImpl;
 
 import com.msp.shofydrop.authentication.entity.EmailVerificationToken;
 import com.msp.shofydrop.authentication.entity.Users;
-import com.msp.shofydrop.authentication.repository.UserRepository;
+import com.msp.shofydrop.authentication.repository.UserRepo;
 import com.msp.shofydrop.authentication.service.UsersService;
 import com.msp.shofydrop.utils.MailUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import javax.mail.MessagingException;
 import javax.transaction.Transactional;
-import java.io.IOException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
@@ -25,7 +20,7 @@ import java.util.UUID;
 public class UsersServiceImpl implements UsersService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepo userRepository;
 
     @Autowired
     private MailUtils mailUtils;
@@ -35,12 +30,13 @@ public class UsersServiceImpl implements UsersService {
     public List<Users> get(Long id) {
         return userRepository.getUsers(id);
     }
+
     //Implementation for user signup
     @Override
     @Transactional
     public String signupUser(Users users) {
         try {
-            if(users.getPassword() == null || users.getPassword().isEmpty()){
+            if (users.getPassword() == null || users.getPassword().isEmpty()) {
                 throw new IllegalArgumentException("Password cannot be empty.");
             }
             users.setPassword(DigestUtils.md5DigestAsHex(users.getPassword().getBytes()));
@@ -58,17 +54,18 @@ public class UsersServiceImpl implements UsersService {
         try {
             Users user = userRepository.findByEmail(email).orElseThrow(() ->
                     new ResourceNotFoundException("Email don't match."));
-            if(user.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes()))){
+            if (user.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes()))) {
                 return user;
-            }else {
+            } else {
                 throw new ResourceNotFoundException("Password don't match.");
             }
         } catch (ResourceNotFoundException e) {
             throw e;
-        }catch (Exception e){
-            throw new RuntimeException("Internal server error:" +e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException("Internal server error:" + e.getMessage());
         }
     }
+
     //Implementation for sending email verification token
     @Override
     @Transactional
@@ -78,7 +75,7 @@ public class UsersServiceImpl implements UsersService {
                     new ResourceNotFoundException("User doesn't exist with this email: " + email));
 
             String verificationToken = UUID.randomUUID().toString();
-            String verificationLink = "http://localhost:8080/api/auth/users/verifyEmail?token=" +verificationToken;
+            String verificationLink = "http://localhost:8080/api/auth/users/verifyEmail?token=" + verificationToken;
 
             EmailVerificationToken tokenEntity = new EmailVerificationToken();
             tokenEntity.setToken(verificationToken);
@@ -87,7 +84,7 @@ public class UsersServiceImpl implements UsersService {
 
             mailUtils.emailVerificationToken(email, user.getName(), verificationLink);
         } catch (Exception e) {
-            throw new RuntimeException("Internal server error: "+ e.getMessage());
+            throw new RuntimeException("Internal server error: " + e.getMessage());
         }
     }
 

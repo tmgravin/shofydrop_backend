@@ -1,7 +1,7 @@
 package com.msp.shofydrop.authentication.repositoryImpl;
 
 import com.msp.shofydrop.authentication.entity.Users;
-import com.msp.shofydrop.authentication.repository.UserRepository;
+import com.msp.shofydrop.authentication.repository.UserRepo;
 import com.msp.shofydrop.database.DefaultProcedureRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserRepositoryImpl implements UserRepository {
+public class UserRepoImpl implements UserRepo {
     @Autowired
     private DefaultProcedureRepo defaultProcedureRepo;
 
@@ -37,12 +37,12 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Optional<Users> findByEmail(String email) {
         List<Users> usersList = defaultProcedureRepo.getWithType("authentication.cfn_get_users_by_email", new Object[][]{
-                {String.class, email,"p_email"}
+                {String.class, email, "p_email"}
         }, Users.class);
 
-        if (usersList.isEmpty()){
+        if (usersList.isEmpty()) {
             return Optional.empty();
-        }else {
+        } else {
             return Optional.of(usersList.get(0));
         }
     }
