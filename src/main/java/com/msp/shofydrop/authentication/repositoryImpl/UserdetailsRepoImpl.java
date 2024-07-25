@@ -4,14 +4,11 @@ import com.msp.shofydrop.authentication.entity.UserDetails;
 import com.msp.shofydrop.authentication.repository.UserDetailsRepo;
 import com.msp.shofydrop.database.DefaultProcedureRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
-public class UserdetailsRepoImpl implements UserDetailsRepo {
-
+public class UserDetailsRepoImpl implements UserDetailsRepo {
     @Autowired
     private DefaultProcedureRepo defaultProcedureRepo;
 
@@ -29,12 +26,9 @@ public class UserdetailsRepoImpl implements UserDetailsRepo {
 
     @Override
     public String saveUserDetails(UserDetails userDetails) {
-        Object userId[] = defaultProcedureRepo.executeWithType("authentication.cfn_add_edit_user_details", new Object[][]{
-                {Long.class, userDetails.getUserId(), "p_user_id"},
-                {String.class, userDetails.getIsEmailVerified(), "p_is_email_verified"},
-                {String.class, userDetails.getIsKycApproved(), "p_is_kyc_approved"},
-                {String.class, userDetails.getIsKycCompleted(), "p_is_kyc_completed"}
-        });
-        return (String) userId[0].toString();
+        Object id[] = defaultProcedureRepo.executeWithType("authentication.cfn_add_edit_user_details", new Object[][]{
+                {String.class, userDetails.getIsEmailVerified(), "p_is_emaolverified"}
+        })
+        return "";
     }
 }
