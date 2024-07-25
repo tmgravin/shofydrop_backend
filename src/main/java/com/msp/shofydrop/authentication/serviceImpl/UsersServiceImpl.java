@@ -53,8 +53,10 @@ public class UsersServiceImpl implements UsersService {
                 throw new IllegalArgumentException("Password cannot be empty.");
             }
             users.setPassword(DigestUtils.md5DigestAsHex(users.getPassword().getBytes()));
+            String savedUser = userRepository.saveUser(users);
+
             sendVerificationEmail(users.getEmail());
-            return userRepository.saveUser(users);
+            return savedUser;
         } catch (IllegalArgumentException e) {
             throw new RuntimeException(e);
         }
@@ -68,6 +70,10 @@ public class UsersServiceImpl implements UsersService {
             Users user = userRepository.findByEmail(email).orElseThrow(()->
                     new ResourceNotFoundException("Email don't match."));
             if(user.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes()))){
+                UserDetails userDetails = new UserDetails();
+                if(userDetails.getIsEmailVerified() == 'N'){
+                    throw new IllegalStateException("User is not verified, please verify your email first for login.");
+                }
                 return user;
             }else {
                 throw new ResourceNotFoundException("Password don't match.");
@@ -87,14 +93,17 @@ public class UsersServiceImpl implements UsersService {
                     new ResourceNotFoundException("User doesn't exist with this email: " + email));
 
             String verificationToken = UUID.randomUUID().toString();
-            String verificationLink = "http://localhost:8080/api/auth/users/verifyEmail?token=" +verificationToken;
+            String verificationLink = "http://localhost:8080/api/auth/users/verifyEmail?token=" + verificationToken;
 
             EmailVerificationToken tokenEntity = new EmailVerificationToken();
             tokenEntity.setToken(verificationToken);
             tokenEntity.setExpiredAt(Timestamp.from(Instant.now().plusSeconds(21600)));
             tokenEntity.setUserId(user.getId());
 
+            verificationTokenRepo.saveToken(tokenEntity);
+
             mailUtils.emailVerificationToken(email, user.getName(), verificationLink);
+
         } catch (Exception e) {
             throw new RuntimeException("Internal server error: "+ e.getMessage());
         }
@@ -104,23 +113,32 @@ public class UsersServiceImpl implements UsersService {
     @Override
     @Transactional
     public void verifyEmailToken(String token) {
-        EmailVerificationToken emailVerificationToken = verificationTokenRepo.findByToken(token).orElseThrow(()->
-                new IllegalStateException("Invalid verification token."));
-        if (emailVerificationToken.getExpiredAt().toInstant().isBefore(Instant.now())){
-            throw new IllegalStateException("Verification token expired.");
+        try {
+            EmailVerificationToken emailVerificationToken = verificationTokenRepo.findByToken(token).orElseThrow(()->
+                    new IllegalStateException("Invalid verification token."));
+            if (emailVerificationToken.getExpiredAt().toInstant().isBefore(Instant.now())){
+                throw new IllegalStateException("Verification token expired.");
+            }
+            Users user = userRepository.getUsers(emailVerificationToken.getUserId()).get(0);
+            if(user == null){
+                throw new ResourceNotFoundException("User doesn't exist with this email: " + emailVerificationToken.getUserId());
+            }
+            UserDetails userDetails = userDetailsRepo.findByUserId(emailVerificationToken.getUserId()).orElseThrow(()->
+                    new ResourceNotFoundException("User details not found for user Id: " + emailVerificationToken.getUserId()));
+
+            userDetails.setIsEmailVerified('Y');
+            user.setUpdatedAt(String.valueOf(Timestamp.from(Instant.now())));
+            userDetails.setUpdatedAt(String.valueOf(Timestamp.from(Instant.now())));
+
+            userRepository.saveUser(user);
+            userDetailsRepo.saveUserDetails(userDetails);
+
+        } catch (IllegalStateException e) {
+            throw e;
+        } catch (ResourceNotFoundException e) {
+            throw e;
+        }catch (Exception e){
+            throw new RuntimeException("Internal server error:" + e.getMessage());
         }
-        Users user = userRepository.getUsers(emailVerificationToken.getUserId()).get(0);
-        if(user == null){
-            throw new ResourceNotFoundException("User doesn't exist with this email: " + emailVerificationToken.getUserId());
-        }
-        UserDetails userDetails = userDetailsRepo.findByUserId(emailVerificationToken.getUserId()).orElseThrow(()->
-                new ResourceNotFoundException("User details not found for user Id: " + emailVerificationToken.getUserId()));
-
-        userDetails.setIsEmailVerified('Y');
-        userDetails.setUpdatedAt(String.valueOf(Timestamp.from(Instant.now())));
-
-        userRepository.saveUser(user);
-        userDetailsRepo.save
-
     }
 }
