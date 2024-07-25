@@ -17,9 +17,9 @@ public class UserDetailsRepoImpl implements UserDetailsRepo {
         List<UserDetails> userDetails = defaultProcedureRepo.getWithType("authentication.cfn_get_user_details", new Object[][]{
                 {Long.class, userId, "p_id"},
         }, UserDetails.class);
-        if (userDetails.isEmpty()) {
+        if(userDetails.isEmpty()){
             return Optional.empty();
-        } else {
+        }else{
             return Optional.of(userDetails.get(0));
         }
     }
@@ -28,7 +28,7 @@ public class UserDetailsRepoImpl implements UserDetailsRepo {
     public String saveUserDetails(UserDetails userDetails) {
         Object id[] = defaultProcedureRepo.executeWithType("authentication.cfn_add_edit_user_details", new Object[][]{
                 {String.class, userDetails.getIsEmailVerified(), "p_is_emaolverified"}
-        });
+        })
         return "";
     }
 }
