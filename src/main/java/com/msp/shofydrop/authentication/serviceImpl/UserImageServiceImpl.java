@@ -2,7 +2,7 @@ package com.msp.shofydrop.authentication.serviceImpl;
 
 
 import com.msp.shofydrop.authentication.entity.UserImages;
-import com.msp.shofydrop.authentication.repository.UserImageRepogitory;
+import com.msp.shofydrop.authentication.repository.UserImageRepo;
 import com.msp.shofydrop.authentication.repository.UserRepository;
 import com.msp.shofydrop.authentication.service.UserImageService;
 import com.msp.shofydrop.utils.FileUtils;
@@ -17,7 +17,7 @@ import java.io.IOException;
 @Service
 public class UserImageServiceImpl implements UserImageService {
     @Autowired
-    private UserImageRepogitory userImageRepogitory;
+    private UserImageRepo userImageRepo;
 
     @Autowired
     private UserRepository usersRepository;

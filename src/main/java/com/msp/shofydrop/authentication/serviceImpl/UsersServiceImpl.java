@@ -1,8 +1,11 @@
 package com.msp.shofydrop.authentication.serviceImpl;
 
 import com.msp.shofydrop.authentication.entity.EmailVerificationToken;
+import com.msp.shofydrop.authentication.entity.UserDetails;
 import com.msp.shofydrop.authentication.entity.Users;
+import com.msp.shofydrop.authentication.repository.UserDetailsRepo;
 import com.msp.shofydrop.authentication.repository.UserRepository;
+import com.msp.shofydrop.authentication.repository.VerificationTokenRepo;
 import com.msp.shofydrop.authentication.service.UsersService;
 import com.msp.shofydrop.utils.MailUtils;
 import org.slf4j.Logger;
@@ -26,6 +29,12 @@ public class UsersServiceImpl implements UsersService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private VerificationTokenRepo verificationTokenRepo;
+
+    @Autowired
+    private UserDetailsRepo userDetailsRepo;
 
     @Autowired
     private MailUtils mailUtils;
@@ -56,7 +65,7 @@ public class UsersServiceImpl implements UsersService {
     @Transactional
     public Users loginUser(String email, String password) {
         try {
-            Users user = userRepository.findByEmail(email).orElseThrow(() ->
+            Users user = userRepository.findByEmail(email).orElseThrow(()->
                     new ResourceNotFoundException("Email don't match."));
             if(user.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes()))){
                 return user;
@@ -74,7 +83,7 @@ public class UsersServiceImpl implements UsersService {
     @Transactional
     public void sendVerificationEmail(String email) {
         try {
-            Users user = userRepository.findByEmail(email).orElseThrow(() ->
+            Users user = userRepository.findByEmail(email).orElseThrow(()->
                     new ResourceNotFoundException("User doesn't exist with this email: " + email));
 
             String verificationToken = UUID.randomUUID().toString();
@@ -93,7 +102,25 @@ public class UsersServiceImpl implements UsersService {
 
     //Implementation for verifying email with token
     @Override
+    @Transactional
     public void verifyEmailToken(String token) {
+        EmailVerificationToken emailVerificationToken = verificationTokenRepo.findByToken(token).orElseThrow(()->
+                new IllegalStateException("Invalid verification token."));
+        if (emailVerificationToken.getExpiredAt().toInstant().isBefore(Instant.now())){
+            throw new IllegalStateException("Verification token expired.");
+        }
+        Users user = userRepository.getUsers(emailVerificationToken.getUserId()).get(0);
+        if(user == null){
+            throw new ResourceNotFoundException("User doesn't exist with this email: " + emailVerificationToken.getUserId());
+        }
+        UserDetails userDetails = userDetailsRepo.findByUserId(emailVerificationToken.getUserId()).orElseThrow(()->
+                new ResourceNotFoundException("User details not found for user Id: " + emailVerificationToken.getUserId()));
+
+        userDetails.setIsEmailVerified('Y');
+        userDetails.setUpdatedAt(String.valueOf(Timestamp.from(Instant.now())));
+
+        userRepository.saveUser(user);
+        userDetailsRepo.save
 
     }
 }

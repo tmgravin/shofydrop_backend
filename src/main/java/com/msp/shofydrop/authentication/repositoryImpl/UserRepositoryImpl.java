@@ -39,10 +39,9 @@ public class UserRepositoryImpl implements UserRepository {
         List<Users> usersList = defaultProcedureRepo.getWithType("authentication.cfn_get_users_by_email", new Object[][]{
                 {String.class, email,"p_email"}
         }, Users.class);
-
         if (usersList.isEmpty()){
             return Optional.empty();
-        }else {
+        }else{
             return Optional.of(usersList.get(0));
         }
     }
