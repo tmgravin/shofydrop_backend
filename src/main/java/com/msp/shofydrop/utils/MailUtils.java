@@ -1,8 +1,6 @@
 package com.msp.shofydrop.utils;
 
 import com.msp.shofydrop.exception.EmailSendingException;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.MailException;
@@ -11,6 +9,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
@@ -53,7 +53,7 @@ public class MailUtils {
     }
 
     //Mail configuration for user verification token
-    public void emailVerificationEmail(String toEmail, String recipientName, String verificationLink) throws MessagingException, IOException {
+    public void emailVerificationToken(String toEmail, String recipientName, String verificationLink) throws MessagingException, IOException {
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
