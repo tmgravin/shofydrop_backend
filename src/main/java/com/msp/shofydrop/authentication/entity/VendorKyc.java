@@ -7,6 +7,7 @@ import javax.persistence.Id;
 
 @Data
 @Entity
+//authentication.vendor_kyc
 public class VendorKyc {
     @Id
     private Long vendorId;

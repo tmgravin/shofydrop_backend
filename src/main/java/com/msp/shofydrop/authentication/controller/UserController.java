@@ -2,6 +2,7 @@ package com.msp.shofydrop.authentication.controller;
 
 import com.msp.shofydrop.authentication.entity.Users;
 import com.msp.shofydrop.authentication.service.UsersService;
+import com.msp.shofydrop.exception.OptimisticLockingException;
 import com.msp.shofydrop.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,6 +92,10 @@ public class UserController {
         }catch (IllegalArgumentException e){
             log.error("Verification process failed.", e);
             modelAndView.addObject("error", "Verification process failed.");
+            modelAndView.setViewName("error");
+        } catch (OptimisticLockingException e) {
+            log.error("Optimistic locking failure.", e);
+            modelAndView.addObject("error", "Failed to update user details. Please try again.");
             modelAndView.setViewName("error");
         }catch (Exception e){
             log.error("Internal server error.", e);

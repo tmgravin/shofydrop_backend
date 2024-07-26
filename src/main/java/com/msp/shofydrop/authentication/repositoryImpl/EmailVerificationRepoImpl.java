@@ -1,7 +1,7 @@
 package com.msp.shofydrop.authentication.repositoryImpl;
 
 import com.msp.shofydrop.authentication.entity.EmailVerificationToken;
-import com.msp.shofydrop.authentication.repository.VerificationTokenRepo;
+import com.msp.shofydrop.authentication.repository.EmailVerificationRepo;
 import com.msp.shofydrop.database.DefaultProcedureRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class VerificationTokenRepoImpl implements VerificationTokenRepo {
+public class EmailVerificationRepoImpl implements EmailVerificationRepo {
     @Autowired
     private DefaultProcedureRepo defaultProcedureRepo;
 
@@ -28,7 +28,7 @@ public class VerificationTokenRepoImpl implements VerificationTokenRepo {
 
     @Override
     public Optional<EmailVerificationToken> findByToken(String token) {
-        List<EmailVerificationToken> emailVerificationTokenList = defaultProcedureRepo.getWithType("authentication.cfn_get_verification_token", new Object[][]{
+        List<EmailVerificationToken> emailVerificationTokenList = defaultProcedureRepo.getWithType("authentication.cfn_get_verification_by_token", new Object[][]{
                 {String.class, token, "p_token"}
         }, EmailVerificationToken.class);
         if (emailVerificationTokenList.isEmpty()){

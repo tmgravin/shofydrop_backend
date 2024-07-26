@@ -18,4 +18,13 @@ public interface UsersService {
 
     //Service for verifying email with token
     void verifyEmailToken(String token);
+
+    //Service for sending password reset code
+    void forgetPassword(String email);
+
+    //Service for verifying password reset code
+    void verifyPasswordResetCode(int verificationCode);
+
+    //Service for Resetting password
+    void resetPassword(String newPassword, String confirmPassword);
 }

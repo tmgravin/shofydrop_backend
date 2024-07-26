@@ -30,10 +30,10 @@ public class UserDetailsRepoImpl implements UserDetailsRepo {
     @Override
     public String saveUserDetails(UserDetails userDetails) {
         Object userId[] = defaultProcedureRepo.executeWithType("authentication.cfn_add_edit_user_details", new Object[][]{
-                {Long.class, userDetails.getUserId(), "p_user_id"},
                 {String.class, userDetails.getIsEmailVerified(), "p_is_email_verified"},
                 {String.class, userDetails.getIsKycApproved(), "p_is_kyc_approved"},
-                {String.class, userDetails.getIsKycCompleted(), "p_is_kyc_completed"}
+                {String.class, userDetails.getIsKycCompleted(), "p_is_kyc_completed"},
+                {Long.class, userDetails.getUserId(), "p_user_id"}
         });
         return (String) userId[0].toString();
     }
