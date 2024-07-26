@@ -8,20 +8,15 @@ import com.msp.shofydrop.authentication.repository.UserRepository;
 import com.msp.shofydrop.authentication.repository.VerificationTokenRepo;
 import com.msp.shofydrop.authentication.service.UsersService;
 import com.msp.shofydrop.utils.MailUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import javax.mail.MessagingException;
 import javax.transaction.Transactional;
-import java.io.IOException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -41,8 +36,8 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     @Transactional
-    public List<Users> get(Long id) {
-        return userRepository.getUsers(id);
+    public Optional<Users> getAllUsers(Long id) {
+        return userRepository.findById(id);
     }
     //Implementation for user signup
     @Override
@@ -119,10 +114,9 @@ public class UsersServiceImpl implements UsersService {
             if (emailVerificationToken.getExpiredAt().toInstant().isBefore(Instant.now())){
                 throw new IllegalStateException("Verification token expired.");
             }
-            Users user = userRepository.getUsers(emailVerificationToken.getUserId()).get(0);
-            if(user == null){
-                throw new ResourceNotFoundException("User doesn't exist with this email: " + emailVerificationToken.getUserId());
-            }
+            Users user = userRepository.findById(emailVerificationToken.getUserId()).orElseThrow(()->
+                    new ResourceNotFoundException("User doesn't exist Id: " + emailVerificationToken.getUserId()));
+
             UserDetails userDetails = userDetailsRepo.findByUserId(emailVerificationToken.getUserId()).orElseThrow(()->
                     new ResourceNotFoundException("User details not found for user Id: " + emailVerificationToken.getUserId()));
 

@@ -2,7 +2,7 @@ package com.msp.shofydrop.authentication.serviceImpl;
 
 import com.msp.shofydrop.authentication.entity.VendorKyc;
 import com.msp.shofydrop.authentication.repository.UserDetailsRepo;
-import com.msp.shofydrop.authentication.repository.VndorKycRepo;
+import com.msp.shofydrop.authentication.repository.VendorKycRepo;
 import com.msp.shofydrop.authentication.service.VendorKycService;
 import com.msp.shofydrop.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import java.util.List;
 public class VendorKycServiceImpl implements VendorKycService {
 
     @Autowired
-    private VndorKycRepo vndorKycRepo;
+    private VendorKycRepo vendorKycRepo;
 
     @Autowired
     private FileUtils fileUtils;
@@ -25,7 +25,7 @@ public class VendorKycServiceImpl implements VendorKycService {
 
     @Override
     public List<VendorKyc> get(Long id) {
-        return vndorKycRepo.getKyc(id);
+        return vendorKycRepo.getKyc(id);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class VendorKycServiceImpl implements VendorKycService {
 
 
             // Save KYC details to the database
-            return vndorKycRepo.saveKyc(kyc);
+            return vendorKycRepo.saveKyc(kyc);
         } catch (Exception e) {
             throw new Exception("Failed to save KYC: " + e.getMessage(), e);
         }

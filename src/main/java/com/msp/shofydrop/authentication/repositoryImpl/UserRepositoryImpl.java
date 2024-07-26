@@ -15,10 +15,15 @@ public class UserRepositoryImpl implements UserRepository {
     private DefaultProcedureRepo defaultProcedureRepo;
 
     @Override
-    public List<Users> getUsers(Long id) {
-        return defaultProcedureRepo.getWithType("authentication.cfn_get_users", new Object[][]{
+    public Optional<Users> findById(Long id) {
+        List<Users> usersList = defaultProcedureRepo.getWithType("authentication.cfn_get_users", new Object[][]{
                 {Long.class, id, "p_id"},
         }, Users.class);
+        if(usersList.isEmpty()) {
+            return Optional.empty();
+        }else{
+            return Optional.of(usersList.get(0));
+        }
     }
 
     @Override
@@ -36,13 +41,13 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<Users> findByEmail(String email) {
-        List<Users> usersList = defaultProcedureRepo.getWithType("authentication.cfn_get_users_by_email", new Object[][]{
+        List<Users> usersEmail = defaultProcedureRepo.getWithType("authentication.cfn_get_users_by_email", new Object[][]{
                 {String.class, email,"p_email"}
         }, Users.class);
-        if (usersList.isEmpty()){
+        if (usersEmail.isEmpty()){
             return Optional.empty();
         }else{
-            return Optional.of(usersList.get(0));
+            return Optional.of(usersEmail.get(0));
         }
     }
 }

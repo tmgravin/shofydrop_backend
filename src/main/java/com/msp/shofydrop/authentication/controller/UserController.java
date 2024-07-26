@@ -22,10 +22,10 @@ public class UserController {
 
     //Api for get users by id and get all users
     @GetMapping("/")
-    public ResponseEntity<?> getUsers(@RequestParam(name = "id", required = false) Long id) {
+    public ResponseEntity<?> ListAllUsers(@RequestParam(name = "id", required = false) Long id) {
         log.info("Inside getUsers method of UserController (authentication)");
         try {
-            return ResponseEntity.ok().body(userService.get(id));
+            return ResponseEntity.ok().body(userService.getAllUsers(id));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().body(e.getLocalizedMessage());

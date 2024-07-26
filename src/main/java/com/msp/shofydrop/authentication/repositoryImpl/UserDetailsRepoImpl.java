@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserdetailsRepoImpl implements UserDetailsRepo {
+public class UserDetailsRepoImpl implements UserDetailsRepo {
 
     @Autowired
     private DefaultProcedureRepo defaultProcedureRepo;

@@ -1,7 +1,7 @@
 package com.msp.shofydrop.authentication.repositoryImpl;
 
 import com.msp.shofydrop.authentication.entity.VendorKyc;
-import com.msp.shofydrop.authentication.repository.VndorKycRepo;
+import com.msp.shofydrop.authentication.repository.VendorKycRepo;
 import com.msp.shofydrop.database.DefaultProcedureRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class VendorKycRepoImpl implements VndorKycRepo {
+public class VendorKycRepoImpl implements VendorKycRepo {
     @Autowired
     private DefaultProcedureRepo defaultProcedureRepo;
 
