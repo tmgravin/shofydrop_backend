@@ -103,12 +103,18 @@ public class DefaultProcedureRepoImpl implements DefaultProcedureRepo
     @Override
     public<T> List<T> getWithType(String pname, Object[][] params, Class<T> type)
     {
-        return executeProcedureCallForList(defineAndCreateProcedureCall(pname,params, type));
+        List<T> list = executeProcedureCallForList(defineAndCreateProcedureCall(pname,params, type));
+        entityManager.flush();
+        entityManager.clear();
+        return list;
     }
 
 
     @Override
     public Object[] executeWithType(String pname, Object[][] params) {
-        return executeProcedureCallForArray(defineAndCreateProcedureCall(pname,params));
+        Object[] objects = executeProcedureCallForArray(defineAndCreateProcedureCall(pname,params));
+        entityManager.flush();
+        entityManager.clear();
+        return objects;
     }
 }
