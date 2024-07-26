@@ -2,6 +2,7 @@ package com.msp.shofydrop.authentication.controller;
 
 import com.msp.shofydrop.authentication.entity.Users;
 import com.msp.shofydrop.authentication.service.UsersService;
+import com.msp.shofydrop.exception.OptimisticLockingException;
 import com.msp.shofydrop.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +23,10 @@ public class UserController {
 
     //Api for get users by id and get all users
     @GetMapping("/")
-    public ResponseEntity<?> getUsers(@RequestParam(name = "id", required = false) Long id) {
+    public ResponseEntity<?> ListAllUsers(@RequestParam(name = "id", required = false) Long id) {
         log.info("Inside getUsers method of UserController (authentication)");
         try {
-            return ResponseEntity.ok().body(userService.get(id));
+            return ResponseEntity.ok().body(userService.getAllUsers(id));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().body(e.getLocalizedMessage());
@@ -34,13 +35,24 @@ public class UserController {
 
     //Api for user signup
     @PostMapping("/")
-    public ResponseEntity<?> signupUser(@RequestBody Users user) {
+    public ResponseEntity<String> signupUser(@RequestBody Users user) {
         log.info("Inside signupUser method of UserController (authentication)");
         try {
-            return ResponseEntity.ok().body(userService.signupUser(user));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(e.getLocalizedMessage());
+            if (user.getPassword() == null || user.getPassword().isEmpty()) {
+                return ResponseEntity.badRequest().body("Password cannot be null or empty.");
+            }
+            String registerUser = userService.signupUser(user);
+            return ResponseEntity.ok().body("User signup successfully. Please verify your email for login.");
+        }catch (IllegalArgumentException e){
+            log.error("IllegalArgumentException: ", e);
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (ResourceNotFoundException e){
+            log.error("ResourceNotFoundException: ", e);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+        catch (Exception e) {
+            log.error("Exception: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred. Please try again later.");
         }
     }
 
@@ -80,6 +92,10 @@ public class UserController {
         }catch (IllegalArgumentException e){
             log.error("Verification process failed.", e);
             modelAndView.addObject("error", "Verification process failed.");
+            modelAndView.setViewName("error");
+        } catch (OptimisticLockingException e) {
+            log.error("Optimistic locking failure.", e);
+            modelAndView.addObject("error", "Failed to update user details. Please try again.");
             modelAndView.setViewName("error");
         }catch (Exception e){
             log.error("Internal server error.", e);

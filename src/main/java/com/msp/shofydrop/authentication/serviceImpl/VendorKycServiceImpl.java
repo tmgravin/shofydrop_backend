@@ -3,7 +3,7 @@ package com.msp.shofydrop.authentication.serviceImpl;
 import com.msp.shofydrop.authentication.entity.UserDetails;
 import com.msp.shofydrop.authentication.entity.VendorKyc;
 import com.msp.shofydrop.authentication.repository.UserDetailsRepo;
-import com.msp.shofydrop.authentication.repository.VndorKycRepo;
+import com.msp.shofydrop.authentication.repository.VendorKycRepo;
 import com.msp.shofydrop.authentication.service.VendorKycService;
 import com.msp.shofydrop.utils.FileUtils;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ public class VendorKycServiceImpl implements VendorKycService {
     private static final Logger log = LoggerFactory.getLogger(VendorKycServiceImpl.class);
 
     @Autowired
-    private VndorKycRepo vndorKycRepo;
+    private VendorKycRepo vendorKycRepo;
 
     @Autowired
     private FileUtils fileUtils;
@@ -33,7 +33,7 @@ public class VendorKycServiceImpl implements VendorKycService {
     @Override
     public List<VendorKyc> get(Long vendorId) {
         log.info("Inside get method of VendorKycServiceImpl (authentication)");
-        return vndorKycRepo.getKyc(vendorId);
+        return vendorKycRepo.getKyc(vendorId);
     }
 
     @Transactional
@@ -43,7 +43,7 @@ public class VendorKycServiceImpl implements VendorKycService {
         try {
             // Fetch existing KYC details if they exist
             log.info("Fetching existing KYC details for vendorId: {}", kyc.getVendorId());
-            List<VendorKyc> existingKycList = vndorKycRepo.getKyc(kyc.getVendorId());
+            List<VendorKyc> existingKycList = vendorKycRepo.getKyc(kyc.getVendorId());
             VendorKyc existingKyc = (existingKycList == null || existingKycList.isEmpty()) ? null : existingKycList.get(0);
 
             // Delete existing image files if new ones are provided
@@ -76,11 +76,11 @@ public class VendorKycServiceImpl implements VendorKycService {
 
             // Save KYC details to the database
             log.info("Saving KYC details to the database");
-            String result = vndorKycRepo.saveKyc(kyc);
+            String result = vendorKycRepo.saveKyc(kyc);
 
             // Update UserDetails to mark KYC as completed
             log.info("Updating UserDetails to mark KYC as completed for vendorId: {}", kyc.getVendorId());
-            UserDetails userDetails = userDetailsRepo.get(kyc.getVendorId()).get(0);
+            UserDetails userDetails = userDetailsRepo.findByUserId(kyc.getVendorId()).get();
             userDetails.setIsKycCompleted("Y");
             userDetails.setIsKycApproved(userDetails.getIsKycApproved());
             userDetails.setIsEmailVerified(userDetails.getIsEmailVerified());

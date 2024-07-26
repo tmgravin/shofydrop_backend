@@ -1,55 +1,72 @@
 package com.msp.shofydrop.database;
 
+import org.springframework.stereotype.Service;
+
 import org.hibernate.procedure.ProcedureOutputs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
 
-import javax.persistence.*;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.ParameterMode;
+import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
+
 @Service
-public class DefaultProcedureRepoImpl implements DefaultProcedureRepo {
-    @PersistenceContext
+public class DefaultProcedureRepoImpl implements DefaultProcedureRepo
+{
+	@PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
     @Qualifier("entityManagerFactory")
     private EntityManagerFactory entityManagerFactory;
 
-    private <T> StoredProcedureQuery defineAndCreateProcedureCall(String pname, Object[][] params, Class<T> type) {
+    private <T> StoredProcedureQuery defineAndCreateProcedureCall(String pname, Object[][] params, Class<T> type)
+    {
         StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery(pname, type);
 
         storedProcedure.registerStoredProcedureParameter(1, void.class, ParameterMode.REF_CURSOR);
-        for (int i = 0; i < params.length; i++) {
+        for (int i = 0; i < params.length; i++)
+        {
             Object[] param = params[i];
-            storedProcedure.registerStoredProcedureParameter(i + 2, (Class) param[0], ParameterMode.IN);
-            storedProcedure.setParameter(i + 2, param[1]);
+            storedProcedure.registerStoredProcedureParameter(i+2, (Class) param[0], ParameterMode.IN);
+            storedProcedure.setParameter(i+2, param[1]);
         }
         return storedProcedure;
     }
 
-    private StoredProcedureQuery defineAndCreateProcedureCall(String pname, Object[][] params) {
+    private StoredProcedureQuery defineAndCreateProcedureCall(String pname, Object[][] params)
+    {
         StoredProcedureQuery storedProcedure = entityManager.createStoredProcedureQuery(pname);
 
-        for (int i = 0; i < params.length; i++) {
+        for (int i = 0; i < params.length; i++)
+        {
             Object[] param = params[i];
-            storedProcedure.registerStoredProcedureParameter(i + 1, (Class) param[0], ParameterMode.IN);
-            storedProcedure.setParameter(i + 1, param[1]);
+            storedProcedure.registerStoredProcedureParameter(i+1, (Class) param[0], ParameterMode.IN);
+            storedProcedure.setParameter(i+1, param[1]);
         }
         return storedProcedure;
     }
 
-    private <T> List<T> executeProcedureCallForList(StoredProcedureQuery storedProcedure) {
-        try {
+    private<T> List<T> executeProcedureCallForList(StoredProcedureQuery storedProcedure)
+    {
+        try
+        {
             storedProcedure.execute();
             return storedProcedure.getResultList();
-        } catch (Exception e) {
+        }
+        catch(Exception e)
+        {
             e.printStackTrace();
-        } finally {
+        }
+        finally
+        {
             try {
                 storedProcedure.unwrap(ProcedureOutputs.class).release();
-            } catch (Exception e) {
+            }catch (Exception e){
                 e.printStackTrace();
             }
         }
@@ -57,16 +74,25 @@ public class DefaultProcedureRepoImpl implements DefaultProcedureRepo {
         return null;
     }
 
-    private Object[] executeProcedureCallForArray(StoredProcedureQuery storedProcedure) {
-        try {
+    private Object[] executeProcedureCallForArray(StoredProcedureQuery storedProcedure)
+    {
+        try
+        {
             storedProcedure.execute();
             return storedProcedure.getResultList().toArray();
-        } catch (Exception e) {
+        }
+        catch(Exception e)
+        {
             e.printStackTrace();
-        } finally {
-            try {
+        }
+        finally
+        {
+            try
+            {
                 storedProcedure.unwrap(ProcedureOutputs.class).release();
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 e.printStackTrace();
             }
         }
@@ -75,8 +101,9 @@ public class DefaultProcedureRepoImpl implements DefaultProcedureRepo {
     }
 
     @Override
-    public <T> List<T> getWithType(String pname, Object[][] params, Class<T> type) {
-        List<T> list = executeProcedureCallForList(defineAndCreateProcedureCall(pname, params, type));
+    public<T> List<T> getWithType(String pname, Object[][] params, Class<T> type)
+    {
+        List<T> list = executeProcedureCallForList(defineAndCreateProcedureCall(pname,params, type));
         entityManager.flush();
         entityManager.clear();
         return list;
@@ -85,7 +112,7 @@ public class DefaultProcedureRepoImpl implements DefaultProcedureRepo {
 
     @Override
     public Object[] executeWithType(String pname, Object[][] params) {
-        Object[] objects = executeProcedureCallForArray(defineAndCreateProcedureCall(pname, params));
+        Object[] objects = executeProcedureCallForArray(defineAndCreateProcedureCall(pname,params));
         entityManager.flush();
         entityManager.clear();
         return objects;

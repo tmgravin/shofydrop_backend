@@ -2,10 +2,11 @@ package com.msp.shofydrop.authentication.repository;
 
 import com.msp.shofydrop.authentication.entity.UserDetails;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface UserDetailsRepo {
-    List<UserDetails> get(Long userId);
+
+    Optional<UserDetails> findByUserId(Long userId);
 
     String saveUserDetails(UserDetails userDetails);
 }
