@@ -10,11 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class VendorKycServiceImpl implements VendorKycService {
@@ -30,7 +29,7 @@ public class VendorKycServiceImpl implements VendorKycService {
     @Autowired
     private UserDetailsRepo userDetailsRepo;
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public List<VendorKyc> get(Long vendorId) {
         log.info("Inside get method of VendorKycServiceImpl (authentication)");
@@ -81,12 +80,12 @@ public class VendorKycServiceImpl implements VendorKycService {
 
             // Update UserDetails to mark KYC as completed
             log.info("Updating UserDetails to mark KYC as completed for vendorId: {}", kyc.getVendorId());
-            Optional<UserDetails> optionalUserDetails = userDetailsRepo.findByUserId(kyc.getVendorId());
-            if (optionalUserDetails.isPresent()) {
-                UserDetails userDetails = optionalUserDetails.get();
-                userDetails.setIsKycCompleted("Y");
-                userDetailsRepo.saveUserDetails(userDetails);
-            }
+            UserDetails userDetails = userDetailsRepo.get(kyc.getVendorId()).get(0);
+            userDetails.setIsKycCompleted("Y");
+            userDetails.setIsKycApproved(userDetails.getIsKycApproved());
+            userDetails.setIsEmailVerified(userDetails.getIsEmailVerified());
+            userDetailsRepo.saveUserDetails(userDetails);
+
 
             return result;
         } catch (Exception e) {

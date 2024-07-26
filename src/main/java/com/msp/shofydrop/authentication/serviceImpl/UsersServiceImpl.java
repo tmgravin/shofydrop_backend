@@ -120,12 +120,11 @@ public class UsersServiceImpl implements UsersService {
             if (user == null) {
                 throw new ResourceNotFoundException("User doesn't exist with this email: " + emailVerificationToken.getUserId());
             }
-            UserDetails userDetails = userDetailsRepo.findByUserId(emailVerificationToken.getUserId()).orElseThrow(() ->
-                    new ResourceNotFoundException("User details not found for user Id: " + emailVerificationToken.getUserId()));
+            UserDetails userDetails = userDetailsRepo.get(emailVerificationToken.getUserId()).get(0);
 
             userDetails.setIsEmailVerified("Y");
-            user.setUpdatedAt(String.valueOf(Timestamp.from(Instant.now())));
-            userDetails.setUpdatedAt(String.valueOf(Timestamp.from(Instant.now())));
+//            user.setUpdatedAt(String.valueOf(Timestamp.from(Instant.now())));
+//            userDetails.setUpdatedAt(String.valueOf(Timestamp.from(Instant.now())));
 
             userRepo.saveUser(user);
             userDetailsRepo.saveUserDetails(userDetails);

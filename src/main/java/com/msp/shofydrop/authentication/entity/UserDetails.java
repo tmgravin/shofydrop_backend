@@ -13,6 +13,6 @@ public class UserDetails {
     private String isEmailVerified;
     private String isKycApproved;
     private String isKycCompleted;
-    private String createdAt;
+    //    private String createdAt;
     private String updatedAt;
 }
