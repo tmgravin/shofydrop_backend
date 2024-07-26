@@ -46,46 +46,62 @@ public class VendorKycServiceImpl implements VendorKycService {
             List<VendorKyc> existingKycList = vendorKycRepo.getKyc(kyc.getVendorId());
             VendorKyc existingKyc = (existingKycList == null || existingKycList.isEmpty()) ? null : existingKycList.get(0);
 
-            // Delete existing image files if new ones are provided
-            if (existingKyc != null) {
-                if (documentImageFront != null && existingKyc.getDocumentImageFront() != null) {
-                    log.info("Deleting existing front document image: {}", existingKyc.getDocumentImageFront());
-                    fileUtils.deleteFileIfExists(existingKyc.getDocumentImageFront());
-                }
+            // Generate filenames for the new document images
+            String frontFileName = documentImageFront != null ? fileUtils.generateFileName(documentImageFront) : null;
+            String backFileName = documentImageBack != null ? fileUtils.generateFileName(documentImageBack) : null;
 
-                if (documentImageBack != null && existingKyc.getDocumentImageBack() != null) {
-                    log.info("Deleting existing back document image: {}", existingKyc.getDocumentImageBack());
-                    fileUtils.deleteFileIfExists(existingKyc.getDocumentImageBack());
-                }
-            }
-
-            // Save new files and set file paths in the KYC object
-            if (documentImageFront != null) {
-                log.info("Saving new front document image");
-                String frontFileName = fileUtils.generateFileName(documentImageFront);
-                fileUtils.saveFile(documentImageFront, frontFileName);
-                kyc.setDocumentImageFront(frontFileName);
-            }
-
-            if (documentImageBack != null) {
-                log.info("Saving new back document image");
-                String backFileName = fileUtils.generateFileName(documentImageBack);
-                fileUtils.saveFile(documentImageBack, backFileName);
-                kyc.setDocumentImageBack(backFileName);
-            }
+            // Set filenames in the KYC object
+            kyc.setDocumentImageFront(frontFileName);
+            kyc.setDocumentImageBack(backFileName);
 
             // Save KYC details to the database
             log.info("Saving KYC details to the database");
             String result = vendorKycRepo.saveKyc(kyc);
 
-            // Update UserDetails to mark KYC as completed
-            log.info("Updating UserDetails to mark KYC as completed for vendorId: {}", kyc.getVendorId());
-            UserDetails userDetails = userDetailsRepo.findByUserId(kyc.getVendorId()).get();
-            userDetails.setIsKycCompleted("Y");
-            userDetails.setIsKycApproved(userDetails.getIsKycApproved());
-            userDetails.setIsEmailVerified(userDetails.getIsEmailVerified());
-            userDetailsRepo.saveUserDetails(userDetails);
+            // Save new files only if KYC data is successfully saved
+            if (result != null) {
+                if (documentImageFront != null) {
+                    log.info("Saving new front document image");
+                    fileUtils.saveFile(documentImageFront, frontFileName);
+                    fileUtils.cleanupMultipartFile(documentImageFront);
+                }
 
+                if (documentImageBack != null) {
+                    log.info("Saving new back document image");
+                    fileUtils.saveFile(documentImageBack, backFileName);
+                    fileUtils.cleanupMultipartFile(documentImageBack);
+                }
+
+                // Delete existing image files if new ones are provided
+                if (existingKyc != null) {
+                    if (documentImageFront != null && existingKyc.getDocumentImageFront() != null) {
+                        log.info("Deleting existing front document image: {}", existingKyc.getDocumentImageFront());
+                        fileUtils.deleteFileIfExists(existingKyc.getDocumentImageFront());
+                    }
+
+                    if (documentImageBack != null && existingKyc.getDocumentImageBack() != null) {
+                        log.info("Deleting existing back document image: {}", existingKyc.getDocumentImageBack());
+                        fileUtils.deleteFileIfExists(existingKyc.getDocumentImageBack());
+                    }
+                }
+
+                // Update UserDetails to mark KYC as completed
+                log.info("Updating UserDetails to mark KYC as completed for vendorId: {}", kyc.getVendorId());
+                UserDetails userDetails = userDetailsRepo.findByUserId(kyc.getVendorId()).orElse(null);
+
+                if (userDetails != null) {
+                    userDetails.setIsKycCompleted("Y");
+                    userDetails.setIsKycApproved(userDetails.getIsKycApproved());
+                    userDetails.setIsEmailVerified(userDetails.getIsEmailVerified());
+                    userDetailsRepo.saveUserDetails(userDetails);
+                } else {
+                    log.error("UserDetails not found for vendorId: {}", kyc.getVendorId());
+                    return "";
+                }
+            } else {
+                log.error("Failed to save KYC details in the database.");
+                return "";
+            }
 
             return result;
         } catch (Exception e) {

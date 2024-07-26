@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -55,5 +56,20 @@ public class FileUtils {
     //     * Extracts the file extension from the filename.
     private String getFileExtension(String filename) {
         return filename.substring(filename.lastIndexOf(".") + 1); // Extract and return the extension
+    }
+
+    //    Cleanup multipart temp files
+    public void cleanupMultipartFile(MultipartFile multipartFile) {
+        if (multipartFile != null && !multipartFile.isEmpty()) {
+            try {
+                File tempFile = multipartFile.getResource().getFile();
+                if (tempFile.exists()) {
+                    tempFile.delete();
+                    log.info("Deleted temporary file: " + tempFile.getAbsolutePath());
+                }
+            } catch (IOException e) {
+                log.error("Failed to delete temporary file", e);
+            }
+        }
     }
 }
