@@ -34,11 +34,13 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     private MailUtils mailUtils;
 
+    //Implementation for get users by id and get all users
     @Override
     @Transactional
     public Optional<Users> getAllUsers(Long id) {
         return userRepository.findById(id);
     }
+
     //Implementation for user signup
     @Override
     @Transactional
@@ -66,7 +68,7 @@ public class UsersServiceImpl implements UsersService {
                     new ResourceNotFoundException("Email don't match."));
             if(user.getPassword().equals(DigestUtils.md5DigestAsHex(password.getBytes()))){
                 UserDetails userDetails = new UserDetails();
-                if(userDetails.getIsEmailVerified() == 'N'){
+                if(userDetails.getIsEmailVerified() == "N"){
                     throw new IllegalStateException("User is not verified, please verify your email first for login.");
                 }
                 return user;
@@ -120,7 +122,7 @@ public class UsersServiceImpl implements UsersService {
             UserDetails userDetails = userDetailsRepo.findByUserId(emailVerificationToken.getUserId()).orElseThrow(()->
                     new ResourceNotFoundException("User details not found for user Id: " + emailVerificationToken.getUserId()));
 
-            userDetails.setIsEmailVerified('Y');
+            userDetails.setIsEmailVerified("Y");
             user.setUpdatedAt(String.valueOf(Timestamp.from(Instant.now())));
             userDetails.setUpdatedAt(String.valueOf(Timestamp.from(Instant.now())));
 

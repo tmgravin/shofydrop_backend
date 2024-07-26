@@ -11,7 +11,6 @@ public class EmailVerificationToken {
     @Id
     private Long id;
     private String token;
-    private String createdAt;
     private Timestamp expiredAt;
     private Long userId;
 }

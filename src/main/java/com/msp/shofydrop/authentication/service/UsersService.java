@@ -4,6 +4,7 @@ import com.msp.shofydrop.authentication.entity.Users;
 import java.util.Optional;
 
 public interface UsersService {
+    //Service for get users by id and get all users
     Optional<Users> getAllUsers(Long id);
 
     //Service for user signup

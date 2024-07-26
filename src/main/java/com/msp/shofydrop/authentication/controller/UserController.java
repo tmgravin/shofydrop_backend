@@ -34,13 +34,24 @@ public class UserController {
 
     //Api for user signup
     @PostMapping("/")
-    public ResponseEntity<?> signupUser(@RequestBody Users user) {
+    public ResponseEntity<String> signupUser(@RequestBody Users user) {
         log.info("Inside signupUser method of UserController (authentication)");
         try {
-            return ResponseEntity.ok().body(userService.signupUser(user));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(e.getLocalizedMessage());
+            if (user.getPassword() == null || user.getPassword().isEmpty()) {
+                return ResponseEntity.badRequest().body("Password cannot be null or empty.");
+            }
+            String registerUser = userService.signupUser(user);
+            return ResponseEntity.ok().body("User signup successfully. Please verify your email for login.");
+        }catch (IllegalArgumentException e){
+            log.error("IllegalArgumentException: ", e);
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (ResourceNotFoundException e){
+            log.error("ResourceNotFoundException: ", e);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+        catch (Exception e) {
+            log.error("Exception: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred. Please try again later.");
         }
     }
 

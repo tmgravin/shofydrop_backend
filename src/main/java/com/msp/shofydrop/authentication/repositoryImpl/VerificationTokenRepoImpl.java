@@ -18,10 +18,10 @@ public class VerificationTokenRepoImpl implements VerificationTokenRepo {
     @Override
     public String saveToken(EmailVerificationToken token) {
         Object id[] = defaultProcedureRepo.executeWithType("authentication.cfn_add_edit_verification_token", new Object[][]{
-                {Long.class, token.getId(), "v_id"},
-                {String.class, token.getToken(), "p_token"},
                 {Timestamp.class, token.getExpiredAt(), "p_expired_at"},
-                {Long.class, token.getUserId(), "p_user_id"}
+                {Long.class, token.getId(), "p_id"},
+                {Long.class, token.getUserId(), "p_user_id"},
+                {String.class, token.getToken(), "p_token"}
         });
         return (String) id[0].toString();
     }
