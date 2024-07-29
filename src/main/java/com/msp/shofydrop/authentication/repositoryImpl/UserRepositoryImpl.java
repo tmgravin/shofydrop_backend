@@ -27,6 +27,13 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public List<Users> getAllUsers() {
+        return defaultProcedureRepo.getWithType("authentication.cfn_get_users", new Object[][]{
+                {Long.class, null, "p_id"},
+        }, Users.class);
+    }
+
+    @Override
     public String saveUser(Users user) {
         Object id[] = defaultProcedureRepo.executeWithType("authentication.cfn_add_edit_users", new Object[][]{
                 {Long.class, user.getId(), "p_id"},
@@ -49,5 +56,12 @@ public class UserRepositoryImpl implements UserRepository {
         }else{
             return Optional.of(usersEmail.get(0));
         }
+    }
+
+    @Override
+    public void deleteUsers(Long Id) {
+        Object id[] = defaultProcedureRepo.executeWithType("", new Object[][]{
+                {Long.class, Id, "p_id"}
+        });
     }
 }

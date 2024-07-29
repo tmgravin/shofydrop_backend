@@ -1,6 +1,6 @@
 package com.msp.shofydrop.utils;
 
-import com.msp.shofydrop.exception.EmailSendingException;
+import com.msp.shofydrop.exception.EmailRelatedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.MailException;
@@ -42,12 +42,10 @@ public class MailUtils {
             helper.setText(htmlContent, true);
 
             javaMailSender.send(mimeMessage);
-        } catch (MessagingException e) {
-            throw new EmailSendingException("Failed to sent message.", e);
-        } catch (MailException e) {
-            throw new EmailSendingException("Failed to sent email.", e);
-        } catch (IOException e) {
-            throw new EmailSendingException("Failed to load email templates.", e);
+        } catch (EmailRelatedException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Internal server error:" + e.getMessage(), e);
         }
 
     }
@@ -72,12 +70,10 @@ public class MailUtils {
             helper.setText(htmlContent, true);
 
             javaMailSender.send(mimeMessage);
-        } catch (MessagingException e) {
-            throw new EmailSendingException("Failed to sent message.", e);
-        } catch (MailException e) {
-            throw new EmailSendingException("Failed to sent email.", e);
-        } catch (IOException e) {
-            throw new EmailSendingException("Failed to load email templates.", e);
+        } catch (EmailRelatedException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Internal server error:" + e.getMessage(), e);
         }
 
     }

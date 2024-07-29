@@ -1,11 +1,10 @@
 package com.msp.shofydrop.authentication.service;
 
 import com.msp.shofydrop.authentication.entity.Users;
-import java.util.Optional;
 
 public interface UsersService {
     //Service for get users by id and get all users
-    Optional<Users> getAllUsers(Long id);
+    Object getAllUsers(Long id);
 
     //Service for user signup
     String signupUser(Users users);
@@ -27,4 +26,12 @@ public interface UsersService {
 
     //Service for Resetting password
     void resetPassword(String newPassword, String confirmPassword);
+
+    //Service for updating user
+    Users updateUser(Long Id, Users users);
+
+    //Service for deleting user
+    void deleteUser(Long id);
 }
+
+
