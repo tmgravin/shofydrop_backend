@@ -1,6 +1,7 @@
 package com.msp.shofydrop.products.repository.Implementation;
 
 import com.msp.shofydrop.database.DefaultProcedureRepo;
+import com.msp.shofydrop.products.Entity.Image;
 import com.msp.shofydrop.products.Entity.Products;
 import com.msp.shofydrop.products.repository.ProductsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,13 @@ public class ProductsRepoImpl implements ProductsRepo {
     }
 
     @Override
+    public List<Image> getImages(Long id) {
+        return defaultProcedureRepo.getWithType("images.cfn_get_products_image",new Object[][]{
+                {Long.class, id,"p_product_id"},
+        },Image.class);
+    }
+
+    @Override
     public Long saveProduct(Products products) {
         Object id[] = defaultProcedureRepo.executeWithType("products.cfn_add_edit_products",new Object[][] {
                 {BigDecimal.class,products.getDiscountedPrice(),"p_discounted_price"},
@@ -35,7 +43,17 @@ public class ProductsRepoImpl implements ProductsRepo {
                 {String.class,products.getProductName(),"p_name"},
                 {Long.class, products.getVendorId(), "p_vendor_id"},
         });
-        return (Long) id[0];
+        return Long.valueOf(id[0].toString());
+    }
+
+    @Override
+    public String saveImage(Image image) {
+        Object[] id = defaultProcedureRepo.executeWithType("images.cfn_add_edit_products_image", new Object[][]{
+                {Long.class, image.getId(), "p_id"},
+                {Long.class, image.getProductId(), "p_product_id"},
+                {String.class, image.getImages(), "p_images"},
+        });
+        return id[0].toString();
     }
 
     @Override
