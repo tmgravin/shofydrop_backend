@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class OrderItemsRepoImpl implements OrderItemsRepo {
@@ -29,8 +30,25 @@ public class OrderItemsRepoImpl implements OrderItemsRepo {
     }
 
     @Override
-    public List<Order> findByUserId(int userId) {
-        return List.of();
+    public Optional<Object> findOrderItemsByUserId(Long userId) {
+        List<OrderItems> itemsList = defaultProcedureRepo.getWithType("orders.cfn_get_orders_of_user",new Object[][]{
+                {Long.class,userId,"p_user_id"},
+        },OrderItems.class);
+        if (itemsList.isEmpty()){
+            return Optional.empty();
+        }
+        return Optional.of(itemsList.get(0));
+    }
+
+    @Override
+    public Optional<Object> findOrderItemsByVendorId(Long vendorId) {
+        List<OrderItems> itemsList = defaultProcedureRepo.getWithType("orders.cfn_get_orders_of_vendor",new Object[][]{
+                {Long.class, vendorId, "p_vendor_id"},
+        },OrderItems.class);
+        if (itemsList.isEmpty()){
+            return Optional.empty();
+        }
+        return Optional.of(itemsList.get(0));
     }
 
     @Override

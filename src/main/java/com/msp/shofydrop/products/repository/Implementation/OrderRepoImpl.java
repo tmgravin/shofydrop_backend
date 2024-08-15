@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderRepoImpl implements OrderRepo {
@@ -34,15 +34,26 @@ public class OrderRepoImpl implements OrderRepo {
         return Long.valueOf(id[0].toString());
     }
 
-
     @Override
-    public List<Order> findByUserId(Long userId) {
-        return List.of();
+    public Optional<Object> findByUserId(Long userId) {
+        List<Order> orderList = defaultProcedureRepo.getWithType("orders.cfn_get_orders_of_user",new Object[][]{
+                {Long.class, userId,"p_user_id"},
+        },Order.class);
+        if (orderList.isEmpty()){
+            return Optional.empty();
+        }
+        return Optional.of(orderList.get(0));
     }
 
     @Override
-    public List<OrderItems> findByVendorId(Long vendorId) {
-        return List.of();
+    public Optional<Object> findByVendorId(Long vendorId) {
+        List<Order> itemsList = defaultProcedureRepo.getWithType("orders.cfn_get_orders_of_vendor",new Object[][]{
+                {Long.class,vendorId,"p_vendor_id"},
+        },Order.class);
+        if (itemsList.isEmpty()){
+            return Optional.empty();
+        }
+        return Optional.of(itemsList.get(0));
     }
 
     @Override

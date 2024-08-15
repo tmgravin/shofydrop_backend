@@ -34,32 +34,41 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public Optional<Order> findById(Long id) {
+    public Optional<Order> findOrderById(Long id) {
        return null;
     }
 
     @Override
-    @Transactional
-    public List<Order> findByUserId(Long id) {
-        return null;
+    public List<Order> findOrdersWithItemsByUserOrVendorId(Long userId, Long vendorId) {
     }
 
     @Override
     @Transactional
-    public List<Order> findByVendorId(Long id) {
-        return null;
+    public Optional<Object> findOrderByUserId(Long id) {
+            return orderRepo.findByUserId(id);
+    }
+
+    @Override
+    @Transactional
+    public Optional<Object> findOrderByVendorId(Long id) {
+        return orderRepo.findByVendorId(id);
+    }
+
+    @Override
+    @Transactional
+    public Optional<Object> findOrderItemsByUserId(Long userId) {
+        return orderItemsRepo.findOrderItemsByUserId(userId);
+    }
+
+    @Override
+    public Optional<Object> findOrderItemsByVendorId(Long vendorId) {
+        return orderItemsRepo.findOrderItemsByVendorId(vendorId);
     }
 
     @Override
     @Transactional
     public void deleteById(Long id) {
         // Implementation
-    }
-
-    @Override
-    @Transactional
-    public Long saveOrderItem(OrderItems orderItem) {
-        return orderItemsRepo.save(orderItem);
     }
 
     @Override

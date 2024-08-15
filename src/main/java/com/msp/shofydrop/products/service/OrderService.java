@@ -1,8 +1,6 @@
 package com.msp.shofydrop.products.service;
 
-import com.msp.shofydrop.products.Dto.OrderDto;
 import com.msp.shofydrop.products.Entity.Order;
-import com.msp.shofydrop.products.Entity.OrderItems;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,16 +11,19 @@ public interface OrderService {
 
     Long saveOrderWithItems(Order order);
 
-    Optional<Order> findById(Long id);
+    Optional<Order> findOrderById(Long id);
 
-    List<Order> findByUserId(Long id);
+    List<Order> findOrdersWithItemsByUserOrVendorId(Long userId, Long vendorId);
 
-    List<Order> findByVendorId(Long id);
+    Optional<Object> findOrderByUserId(Long id);
+
+    Optional<Object> findOrderByVendorId(Long id);
+
+    Optional<Object> findOrderItemsByUserId(Long userId);
+
+    Optional<Object> findOrderItemsByVendorId(Long vendorId);
 
     void deleteById(Long id);
-
-    // Add these methods
-    Long saveOrderItem(OrderItems orderItem);
 
     void deleteOrderItem(Long orderItemId);
 }
