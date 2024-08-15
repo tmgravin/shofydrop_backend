@@ -1,7 +1,7 @@
 package com.msp.shofydrop.authentication.repositoryImpl;
 
 import com.msp.shofydrop.authentication.entity.Users;
-import com.msp.shofydrop.authentication.repository.UserRepo;
+import com.msp.shofydrop.authentication.repository.UserRepository;
 import com.msp.shofydrop.database.DefaultProcedureRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserRepoImpl implements UserRepo {
+public class UserRepoImpl implements UserRepository {
     @Autowired
     private DefaultProcedureRepo defaultProcedureRepo;
 
@@ -24,6 +24,13 @@ public class UserRepoImpl implements UserRepo {
         } else {
             return Optional.of(usersList.get(0));
         }
+    }
+
+    @Override
+    public List<Users> getAllUsers() {
+        return defaultProcedureRepo.getWithType("authentication.cfn_get_users", new Object[][]{
+                {Long.class, null, "p_id"},
+        }, Users.class);
     }
 
     @Override
@@ -49,5 +56,12 @@ public class UserRepoImpl implements UserRepo {
         } else {
             return Optional.of(usersEmail.get(0));
         }
+    }
+
+    @Override
+    public void deleteUsers(Long Id) {
+        Object id[] = defaultProcedureRepo.executeWithType("", new Object[][]{
+                {Long.class, Id, "p_id"}
+        });
     }
 }

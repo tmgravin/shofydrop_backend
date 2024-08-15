@@ -37,4 +37,11 @@ public class EmailVerificationRepoImpl implements EmailVerificationRepo {
             return Optional.of(emailVerificationTokenList.get(0));
         }
     }
+
+    @Override
+    public List<EmailVerificationToken> findAllTokensByUserId(Long userId) {
+        return defaultProcedureRepo.getWithType("authentication.cfn_get_verification_by_user", new Object[][]{
+                {Long.class, userId, "p_user_id"}
+        }, EmailVerificationToken.class);
+    }
 }

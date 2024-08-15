@@ -3,7 +3,7 @@ package com.msp.shofydrop.authentication.serviceImpl;
 
 import com.msp.shofydrop.authentication.entity.UserImages;
 import com.msp.shofydrop.authentication.repository.UserImageRepo;
-import com.msp.shofydrop.authentication.repository.UserRepo;
+import com.msp.shofydrop.authentication.repository.UserRepository;
 import com.msp.shofydrop.authentication.service.UserImageService;
 import com.msp.shofydrop.utils.FileUtils;
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ public class UserImageServiceImpl implements UserImageService {
     private UserImageRepo userImageRepo;
 
     @Autowired
-    private UserRepo userRepo;
+    private UserRepository userRepo;
 
     @Autowired
     private FileUtils fileUtils;

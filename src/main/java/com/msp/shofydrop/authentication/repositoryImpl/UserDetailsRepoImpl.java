@@ -17,7 +17,7 @@ public class UserDetailsRepoImpl implements UserDetailsRepo {
 
     @Override
     public Optional<UserDetails> findByUserId(Long userId) {
-        List<UserDetails> userDetails = defaultProcedureRepo.getWithType("authentication.cfn_get_user_details", new Object[][]{
+        List<UserDetails> userDetails = defaultProcedureRepo.getWithType("authentication.cfn_get_users_details", new Object[][]{
                 {Long.class, userId, "p_id"},
         }, UserDetails.class);
         if(userDetails.isEmpty()){
