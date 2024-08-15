@@ -2,13 +2,14 @@ package com.msp.shofydrop.products.service;
 
 import com.msp.shofydrop.products.Entity.Products;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
-
+@Service
 public interface ProductsService {
 
     Long addProducts(Products products, List<MultipartFile> images) throws Exception;

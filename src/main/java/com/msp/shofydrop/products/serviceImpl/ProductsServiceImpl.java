@@ -7,7 +7,6 @@ import com.msp.shofydrop.products.repository.ProductsRepo;
 import com.msp.shofydrop.products.service.ProductsService;
 import com.msp.shofydrop.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,8 +15,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class ProductsServiceImpl implements ProductsService {
 

@@ -1,5 +1,5 @@
 package com.msp.shofydrop.authentication.Enumrated;
 
 public enum UserType {
-    ADMIN, USER
+    ADMIN, USER, DELIVERY_BOY, VENDOR, EDITOR
 }
