@@ -18,3 +18,4 @@ if [ -n "$JAR_FILE" ]; then
 else
     echo "No JAR file found in /home/ec2-user/server."
 fi
+sudo java -jar ShofyDrop_Backend-0.0.1-SNAPSHOT.jar
