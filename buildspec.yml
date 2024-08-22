@@ -2,14 +2,24 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      java: corretto19
+    commands:
+      - echo Installing Amazon Corretto 19...
+      - wget https://corretto.aws/downloads/latest/amazon-corretto-19-x64-linux-jdk.tar.gz
+      - tar -xzf amazon-corretto-19-x64-linux-jdk.tar.gz
+      - sudo mv amazon-corretto-19.0.2.7.1-linux-x64 /usr/lib/jvm/java-19-amazon-corretto
+      - echo 'export JAVA_HOME=/usr/lib/jvm/java-19-amazon-corretto' >> ~/.bashrc
+      - echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
+      - source ~/.bashrc
+      - java -version  # Verify Java installation
+
   build:
     commands:
       - mvn clean install
-post_build:
+
+  post_build:
     commands:
       - echo Build completed
+
 artifacts:
   files:
     - target/*.jar
