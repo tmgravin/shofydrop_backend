@@ -19,6 +19,7 @@ if [ -z "$JAVA_PATH" ]; then
 fi
 $JAVA_PATH -version
 
+cd /home/ec2-user/server
 # Find the JAR file in the current directory
 JAR_FILE=$(ls *.jar 2>/dev/null)
 
