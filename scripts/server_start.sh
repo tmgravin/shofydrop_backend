@@ -1,9 +1,17 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# Navigate to the server directory
-cd /home/ec2-user/server/
+# Print the current working directory
+echo "Current working directory: $(pwd)"
 
-# Define the location of the JAR file
+# Print the PATH variable
+echo "Current PATH: $PATH"
+
+# Print Java version
+JAVA_PATH=$(which java)
+echo "Java path: $JAVA_PATH"
+$JAVA_PATH -version
+
+# Find the JAR file in the current directory
 JAR_FILE=$(ls *.jar 2>/dev/null)
 
 # Check if the JAR file exists
@@ -14,6 +22,4 @@ fi
 
 # Run the JAR file
 echo "Starting application from $JAR_FILE"
-java -jar "$JAR_FILE"
-
-
+$JAVA_PATH -jar "$JAR_FILE"
