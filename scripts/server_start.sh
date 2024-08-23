@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
 # Navigate to the server directory
-cd /home/ec2-user/server 
+cd /home/ec2-user/server/
 
-JAR_FILE=ShofyDrop_Backend-0.0.1-SNAPSHOT.jar
+# Define the location of the JAR file
+JAR_FILE=$(ls target/*.jar)
 
-# Step 4: Run the JAR file
-output=$(java -jar "$JAR_FILE")
-status=$?
-
-# Step 5: Output results
-echo "JAR output: $output"
-if [ $status -eq 0 ]; then
-    echo "JAR ran successfully"
-else
-    echo "JAR failed with status $status"
+# Check if the JAR file exists
+if [ -z "$JAR_FILE" ]; then
+  echo "JAR file not found!"
+  exit 1
 fi
+
+# Run the JAR file
+echo "Starting application from $JAR_FILE"
+java -jar "$JAR_FILE"
+
 
