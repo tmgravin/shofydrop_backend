@@ -4,7 +4,7 @@
 cd /home/ec2-user/server/
 
 # Define the location of the JAR file
-JAR_FILE=$(ls .jar)
+JAR_FILE=$(ls *.jar 2>/dev/null)
 
 # Check if the JAR file exists
 if [ -z "$JAR_FILE" ]; then
