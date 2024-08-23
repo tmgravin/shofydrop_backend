@@ -3,7 +3,7 @@
 # Navigate to the server directory
 cd /home/ec2-user/server 
 
-JAR_FILE=$(ls -t *.jar | head -n 1)
+JAR_FILE=ShofyDrop_Backend-0.0.1-SNAPSHOT.jar
 
 # Step 4: Run the JAR file
 output=$(java -jar "$JAR_FILE")
