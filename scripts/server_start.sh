@@ -31,6 +31,6 @@ fi
 
 # Run the JAR file
 echo "Starting application from $JAR_FILE"
-nohup $JAVA_PATH -Dserver.port=80 -jar "$JAR_FILE" > /tmp/java_app.log 2> /tmp/java_app.err < /dev/null &
+nohup $JAVA_PATH -jar "$JAR_FILE" > /tmp/java_app.log 2> /tmp/java_app.err < /dev/null &
 
 
