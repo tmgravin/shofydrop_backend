@@ -11,6 +11,6 @@ echo 'export PATH=$JAVA_HOME/bin:$PATH' | sudo tee -a /etc/profile.d/java.sh > /
 
 # Source the new profile script
 source /etc/profile.d/java.sh
-
+sudo yum install maven -y
 # Verify Java installation
 java -version
