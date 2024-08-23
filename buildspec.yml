@@ -3,17 +3,17 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo "Build Phase: Installing Maven..."
+      - echo "Build Phase:Installing Maven..."
       - sudo yum install maven -y
 
   build:
     commands:
-      - echo "Build Phase: Building the application..."
+      - echo "Build Phase:Building the application..."
       - mvn clean install
 
   post_build:
     commands:
-      - echo "Build Phase: Build completed."
+      - echo "Build Phase:Build completed."
 
 artifacts:
   files:
