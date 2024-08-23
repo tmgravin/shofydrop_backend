@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Set JAVA_HOME and PATH
+export JAVA_HOME=/usr/lib/jvm/java-19-amazon-corretto
+export PATH=$JAVA_HOME/bin:$PATH
+
 # Print the current working directory
 echo "Current working directory: $(pwd)"
 
@@ -9,6 +13,10 @@ echo "Current PATH: $PATH"
 # Print Java version
 JAVA_PATH=$(which java)
 echo "Java path: $JAVA_PATH"
+if [ -z "$JAVA_PATH" ]; then
+  echo "Java is not in the PATH!"
+  exit 1
+fi
 $JAVA_PATH -version
 
 # Find the JAR file in the current directory
