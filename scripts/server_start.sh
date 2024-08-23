@@ -1,21 +1,19 @@
 #!/usr/bin/env bash
 
 # Navigate to the server directory
-cd /home/ec2-user/server || exit
+cd /home/ec2-user/server 
 
-# Find the JAR file in the directory
-JAR_FILE=$(ls *.jar 2>/dev/null)
+JAR_FILE=$(ls -t *.jar | head -n 1)
 
-# Check if a JAR file was found
-if [ -n "$JAR_FILE" ]; then
-    # Ensure the JAR file has the correct permissions
-    sudo chmod +x "$JAR_FILE"
+# Step 4: Run the JAR file
+output=$(java -jar "$JAR_FILE")
+status=$?
 
-    # Run the JAR file on port 80 in the background
-    sudo java -jar -Dserver.port=80 "$JAR_FILE" > /dev/null 2> /dev/null < /dev/null &
-    
-    echo "Application started successfully with $JAR_FILE."
+# Step 5: Output results
+echo "JAR output: $output"
+if [ $status -eq 0 ]; then
+    echo "JAR ran successfully"
 else
-    echo "No JAR file found in /home/ec2-user/server."
+    echo "JAR failed with status $status"
 fi
 
