@@ -16,7 +16,7 @@ hooks:
       timeout: 20
       runas: ec2-user
   BeforeInstall:
-    - location: scripts/server_clear.sh
+    - location: server_clear.sh
       timeout: 300
       runas: ec2-user
     - location: install_java.sh
