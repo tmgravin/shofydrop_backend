@@ -25,7 +25,6 @@ phases:
 
 artifacts:
   files:
-    - src/**/*
     - target/*.jar
     - scripts/*.sh
     - appspec.yml
